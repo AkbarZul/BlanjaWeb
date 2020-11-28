@@ -1,0 +1,59 @@
+.logo-brand h1 {
+    margin-top: -40px;
+    margin-left: 40px;
+    color: rgba(219, 48, 34, 1);
+    font-weight: 1000;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 24px;
+}
+
+#search {
+    border-radius: 23px;
+    padding: 7px 15px;
+    color: gray;
+    width: 405px;
+    height: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 1px solid gray;
+    font-weight: 500px;
+    margin: 10px 0px 0px 80px;
+}
+
+.icon {
+    margin-left: -50px;
+    color: gray;
+}
+
+.filter {
+    background: #FFFFFF;
+    border: 1px solid #8E8E93;
+    border-radius: 12px;
+    margin: 0px 0px 0px 14px;
+}
+
+#shopping {
+    border: 2px solid white;
+    border-radius: 3px;
+    color: grey;
+    margin-left: 120px;
+}
+
+.btn-login {
+    background: #DB3022;
+    border-radius: 25px;
+    border: 1px solid white;
+    width: 100px;
+    height: 36px;
+    margin-left: 30px;
+    color: white;
+}
+
+.btn-signup {
+    background: white;
+    border-radius: 25px;
+    border: 1px solid grey;
+    width: 100px;
+    height: 36px;
+    margin-left: 30px;
+    color: grey;
+}
