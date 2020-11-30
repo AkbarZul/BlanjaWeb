@@ -6,15 +6,15 @@ import axios from 'axios';
 const getUrl = "http://localhost:8000/products";
 
 
-export default class NewData extends Component {
+class NewData extends Component {
     state ={
-        products: []
+        products: [],
     }
 
     getAllProducts = () => {
         axios.get(getUrl).then(({data}) => {
             this.setState({
-                products: data,
+                products: data.data,
             })
         }).catch(err => {
             console.log(err)
@@ -32,7 +32,10 @@ export default class NewData extends Component {
             {products.map(({id, product_name, product_price, category_name, product_brand}) => {
                     return (
                         <Card className="card-style" style={{width: "18rem"}} key={id}>
-                           <Link to="/product">
+                           <Link to={{
+                               pathname:`/product/${id}`,
+                               state: this.state,
+                           }}>
                            <img src={Jas} className="card-img-top" alt="..."/>
                            </Link>
                     <div className="card-body">
@@ -52,3 +55,5 @@ export default class NewData extends Component {
         )
     }
 }
+
+export default NewData

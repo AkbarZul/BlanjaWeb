@@ -2,15 +2,16 @@ import React, { Component } from 'react'
 import {TShirt, Shorts, Jacket, Pants, Shoes} from '../../assets/style'
 
 
+
 export default class Category extends Component {
     render() {
         return (
             <div>
                 <div className="container">
-                    <div className="title-category" style={{'margin' : "30px 0px"}}>
+                    <div className="title-category">
                             <h3>Category</h3>
                             <p className="lead text-muted">What are you currently looking for</p>
-                        <div className="row row-cols-5 d-flex justify-content-around" style={{'padding' : "30px 0px"}}>
+                        <div className="row row-cols-5 d-flex justify-content-around">
                             <div className="col col-md-auto col-12 rounded box brand-category mb-5">
                                 <img src={TShirt} alt="" className="fluid mx-auto d-block"/>
                                 <h3>T-Shirt</h3>

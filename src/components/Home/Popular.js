@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import NewData from './NewData';
 import '../../assets/style/new.css';
 
-export default class New extends Component {
+export default class Popular extends Component {
     render() {
         return (
             <>
                 <section>
-                    <div className="container">
+                    <div className="container mt-5">
                         <div className="title-new">
-                            <h3>New</h3>
-                            <p className="lead text-muted">You've never seen it before</p>
+                            <h3>Popular</h3>
+                            <p className="lead text-muted">Find clothes that are trending recently</p>
                         </div>
                     </div>
                 </section>

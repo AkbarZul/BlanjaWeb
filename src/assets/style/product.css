@@ -1,0 +1,211 @@
+h3>.name {
+    font-size: 28px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    color: black;
+}
+
+.brand {
+    color: grey;
+    font-style: normal;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.tag-price {
+    color: grey;
+    font-style: normal;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.price {
+    font-size: 32px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    color: black;
+    padding-bottom: 15px;
+}
+
+.color {
+    color: black;
+    font-style: normal;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.black {
+    width: 36px;
+    height: 36px;
+
+    background-color: black;
+    border-radius: 50%;
+    border: none;
+}
+
+.red {
+    width: 36px;
+    height: 36px;
+    background-color: rgba(216, 66, 66, 1);
+    border-radius: 50%;
+    border: none;
+
+}
+
+.blue {
+    width: 36px;
+    height: 36px;
+    background-color: rgba(66, 144, 216, 1);
+    border-radius: 50%;
+    border: none;
+
+}
+
+.green {
+    width: 36px;
+    height: 36px;
+    background-color: rgba(66, 216, 108, 1);
+    border-radius: 50%;
+    border: none;
+
+}
+
+.tag-size {
+    font-size: 16px;
+    line-height: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    color: black;
+}
+
+.tag-total {
+    font-size: 16px;
+    line-height: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    color: black;
+}
+
+.minus {
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    border: 1px solid white;
+    padding-top: 5px;
+    background-color: #d4d4d4;
+}
+
+.minus>p {
+    color: white;
+    font-weight: 700;
+}
+
+.plus {
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    border: 1px solid gray;
+    padding-top: 5px;
+    background-color: white;
+}
+
+.minus2 {
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    border: 1px solid white;
+    padding-top: 5px;
+    margin-left: 10px;
+    background-color: #d4d4d4;
+}
+
+.minus2>p {
+    color: white;
+    font-weight: 700;
+}
+
+.chat {
+    width: 160px;
+    height: 48px;
+    background-color: white !important;
+    border: 1px solid black;
+}
+
+.mybag {
+    width: 160px;
+    height: 48px;
+    border: 1px solid black;
+    background-color: white !important;
+}
+
+.buy {
+    width: 343px;
+    height: 48px;
+    border: none;
+    background-color: red !important;
+    color: white !important;
+}
+
+.informasi {
+    font-size: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    color: black;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.tag-condition {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.condition {
+    font-size: 20px;
+    color: red;
+}
+
+.tag-category {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.category-product {
+    font-size: 20px;
+    color: red;
+}
+
+.tag-desc {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.desc {
+    font-size: 14px;
+    color: #9b9b9b;
+}
+
+.five {
+    font-size: 20px;
+    padding-top: 43px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    color: #9b9b9b;
+}
+
+.rate {
+    font-size: 60px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    color: black;
+    margin-bottom: 0px;
+}
+
+.star {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+hr {
+    color: #d4d4d4;
+}
