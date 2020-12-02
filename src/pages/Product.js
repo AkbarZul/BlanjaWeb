@@ -28,17 +28,22 @@ export default  class Product extends Component {
       };
 
     render() {
-        console.log(this.state.product)
+      if(this.state.product[0]) {
+        console.log(this.state.product[0].product_name)
+      }
         return (
             <>
+                {this.state.product[0] && (
+                  <ProductName name={this.state.product[0].product_name} 
+                  brand={this.state.product[0].product_brand} 
+                  desc={this.state.product[0].product_description} 
+                  price={this.state.product[0].product_price}
+                  condition={this.state.product[0].product_condition}
+                  size={this.state.product[0].product_size}
+                  qty={this.state.product[0].product_qty}
+                   />
+                )}
                 
-                <ProductName name={this.state.product.map(product => {return product.product_name})} 
-                brand={this.state.product.map(product => {return product.product_brand})} 
-                desc={this.state.product.map(product => {return product.product_description})} 
-                price={this.state.product.map(product => {return product.product_price})}
-                condition={this.state.product.map(product => {return product.product_condition})}
-                category={this.state.product.map(product => {return product.category_name})} 
-                 />
                
             </>
         )

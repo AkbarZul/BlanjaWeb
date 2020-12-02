@@ -6,7 +6,8 @@ import Rating from '../Rating/Rating'
 import axios from 'axios';
 const getUrl = "http://localhost:8000/products";
 
-class NewData extends Component {
+
+class PopularData extends Component {
     state ={
         products: [],
     }
@@ -14,7 +15,7 @@ class NewData extends Component {
     getAllProducts = () => {
         axios.get(getUrl, {
             params: {
-                sort: 3,
+                sort: 4,
                 sortDesc: 1,
             }
         })
@@ -33,6 +34,7 @@ class NewData extends Component {
     render() {
         const {products} = this.state;
             console.log(this.state.products)
+
         return (
             <>
             {products.map(({id, product_name, product_price, product_brand, product_rating}) => {
@@ -59,4 +61,4 @@ class NewData extends Component {
     }
 }
 
-export default NewData
+export default PopularData

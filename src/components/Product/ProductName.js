@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-// import PropTypes from "prop-types";
-// import { withRouter } from "react-router"
+import { Link } from 'react-router-dom';
 import Navbar from '../Navbar';
 import Newdata from '../Home/NewData';
 import { StarRate } from '../../assets/style';
@@ -10,18 +9,45 @@ import { StarRate } from '../../assets/style';
 import '../../assets/style/product.css'
 
 export default class ProductName extends Component {
+    constructor(props){
+        super(props);
+
+        this.state = {
+            count: 0,
+        }
+    }
+
+    handleClickQty() {
+        this.setState({ count:this.state.count + 1 })
+    }
+    handleClickQtyMin() {
+        this.setState({ count:this.state.count - 1 })
+    }
 
     CreateProduct = async event => {
         event.preventDefault();
+
+        const { name, price, brand, id } = this.props;
+
+        const body = {
+            id: id,
+            product_name: name,
+            product_brand: brand,
+            product_price: price,
+        }
         
-        await axios.post(`http://localhost:8000/transaksi`)
-        .then(res => {
+        await axios.post(`http://localhost:8000/transaksi`, body)
+        .then((res) => {
             console.log(res)
-            console.log(res.data)
+            })
+        .catch((err) => {
+            console.log(err)
         })
     }
     render() {
-        const { name, price, brand, condition, desc, category } = this.props;
+        const qty = this.state.count
+        const { name, price, brand, condition, desc, size} = this.props;
+        // const { body } = this.state;
         return (
             <div>
                 <Navbar/>
@@ -42,7 +68,7 @@ export default class ProductName extends Component {
                     <p className="brand">{ brand }</p>
                     <img src={ StarRate } className="mb-5" alt="..."/>
                         <h3 className="tag-price">Price</h3>
-                        <p className="price">{ price }</p>
+                        <p className="price">Rp. { price }</p>
                     <h3 className="color">Color</h3>
                     <button className="black mr-3"></button>
                     <button className="red mr-3"></button>
@@ -54,31 +80,38 @@ export default class ProductName extends Component {
                     </div>
                 
                 <div className="d-flex">
-                <button className="minus mr-2">
+                    <button className="minus mr-2">
+                        <p>-</p>
+                    </button>
+                        <p className="number mt-2">{size}</p>
+                    <button className="plus ml-2">
+                        <p>+</p>
+                    </button>
+                <button className="minus2 mr-2" onClick={() => {this.handleClickQtyMin()}}>
                     <p>-</p>
                 </button>
-                <p className="number mt-2">28</p>
-                <button className="plus ml-2">
-                    <p>+</p>
-                </button>
-                <button className="minus2 mr-2">
-                    <p>-</p>
-                </button>
-                <p className="number mt-2">1</p>
-                <button className="plus ml-2">
+                    <p className="number mt-2">{qty}</p>
+                <button className="plus ml-2" onClick={() => {this.handleClickQty()}}>
                     <p>+</p>
                 </button>
                 </div>
                 <div className="d-flex">
+                <Link to="/update">
                 <button className="chat mt-3 rounded-pill">
-                    Chat
+                    Update
                 </button>
-                <button className="mybag ml-2 mt-3 rounded-pill">
+                </Link>
+                <button className="mybag ml-2 mt-3 rounded-pill" >
                     Add bag
                 </button>
+                {/* <Link to={{
+                    pathname:"/checkout",
+                    state: this.state,
+                    }}> */}
                 <button className="buy ml-2 mt-3 rounded-pill" onClick={this.CreateProduct}>
                     Buy Now
                 </button>
+                {/* </Link> */}
                 </div>
                 
                 </div>
@@ -86,8 +119,6 @@ export default class ProductName extends Component {
                 <h3 className="informasi">Informasi Produk</h3>
                 <h3 className="tag-condition mt-5">Condition</h3>
                 <p className="condition">{ condition }</p>
-                <h3 className="tag-category mt-4">Category</h3>
-                <p className="category-product">{ category }</p>
                 <h3 className="tag-desc">Description</h3>
                 <p className="desc">{ desc }</p>
                 <p className="informasi">Product review</p>

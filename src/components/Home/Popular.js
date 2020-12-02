@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import NewData from './NewData';
+import PopularData from './PopularData'
 import '../../assets/style/new.css';
 
 export default class Popular extends Component {
@@ -18,7 +18,7 @@ export default class Popular extends Component {
                 <article>
                     <div className="container">
                         <div className="row d-flex flex-row justify-content-center">
-                            <NewData />
+                            <PopularData />
                         </div>
                     </div>
                 </article>

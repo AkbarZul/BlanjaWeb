@@ -17,5 +17,8 @@ import Shoes from '../img/hiclipart-34.png'
 // Image Product
 import Jas from '../img/img-2.png';
 import StarRate from '../img/rating.png';
+import Rate from '../img/Star.png';
+import Min from '../img/Rectangle 21.png';
+import Plus from '../img/Shape.png'
 
-export { Logo, Image1, Image2, Image3, Image4, TShirt, Shorts, Jacket, Pants, Shoes, Jas, StarRate };
+export { Logo, Image1, Image2, Image3, Image4, TShirt, Shorts, Jacket, Pants, Shoes, Jas, StarRate, Rate, Min, Plus };

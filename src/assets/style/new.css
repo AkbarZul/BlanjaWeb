@@ -33,19 +33,6 @@
     font-weight: 700;
 }
 
-span {
-    color: #9B9B9B;
-    font-size: 12px;
-    font-weight: 500;
-}
-
-.star {
-    display: flex;
-}
-
-.star img {
-    margin: 0 1px;
-}
 
 @media (max-width: 992px) {
     .sticky-top {

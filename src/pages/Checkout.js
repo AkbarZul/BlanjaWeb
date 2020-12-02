@@ -7,23 +7,20 @@ import { Jas } from '../assets/style/index';
 import "../assets/style/mybag.css"
 import "../assets/style/checkout.css"
 
-class CheckOut2 extends Component {
-
-    constructor(){
-        super();
-        this.state={
-            qty: 1
-        }
+class Checkout extends Component {
+    state = {
+        product: []
     }
 
-
     render() {
+        const { name, price, brand } = this.props;
+        console.log(name,price,brand)
         return (
             <div>
                 <Navbar/>
 
                 <div className="container">
-                    <h1 style={{fontSize: '34px', fontWeight:'700'}}>CheckOut</h1>
+                    <h1 style={{fontSize: '34px', fontWeight:'700'}}>Checkout</h1>
                     <p className="mt-3 ttl-addrs">Shipping Address</p>
                     <div className="d-flex ">
                         <div className="left">
@@ -45,20 +42,12 @@ class CheckOut2 extends Component {
                                         <img style={{height: '70px'}} src={Jas} alt="" />
                                     </div>
                                     <div className="ml-3">
-                                        <p className="name-prodct">Men's formal suit - Black</p>
-                                        <p className="brand-product text-muted">Zalora Cloth</p>
+                                    <p className="name-prodct">{name}</p>
+                                        <p className="brand-product text-muted">{brand}</p>
                                     </div>
-                                    <div className="d-flex justify-content-between ml-5 mt-3" style={{height:'36px', width:'150px'}}>
-                                        <Link className="text-decoration-none" onClick={() => this.setState({ qty: this.state.qty - 1 })}>
-                                            <div className="btn-c" style={{backgroundColor:'#D4D4D4'}}>-</div>
-                                        </Link>
-                                            <p>{this.state.qty}</p>
-                                        <Link className="text-decoration-none" onClick={() => this.setState({ qty: this.state.qty + 1 })}>
-                                            <div className="btn-c" style={{backgroundColor:'#FFFFFF', border:"solid 1px"}}>+</div>
-                                        </Link>
-                                    </div>
+                                    
                                 </div>
-                                <p className="prc">Rp.200000</p>
+                                <p className="prc">Rp.{price}</p>
                             </div>
                         </div>
                         <div className="right">
@@ -66,7 +55,7 @@ class CheckOut2 extends Component {
                                 <p className="smry-title">Shopping summary</p>
                                 <div className="ttl-price">
                                     <p className="text-price text-muted">Total price</p>
-                                    <p className="pay">Rp.200.000</p>
+                                    <p className="pay">Rp.{price}</p>
                                 </div>
                                 <Link className="text-decoration-none">
                                 <div className="btn-buy">
@@ -83,4 +72,4 @@ class CheckOut2 extends Component {
 }
 
 
-export default CheckOut2;
+export default Checkout;

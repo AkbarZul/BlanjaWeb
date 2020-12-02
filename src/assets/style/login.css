@@ -1,0 +1,174 @@
+.home-page {
+    margin: 100px;
+}
+
+#logo {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.tag-logo {
+    text-align: center;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.button-primary {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.tag-form {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.logo-text {
+    color: rgba(219, 48, 34, 1);
+    font-size: 28px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    margin-top: 8px;
+    margin-left: 5px;
+}
+
+.customer-seller .customer {
+    border: 1px solid grey;
+    box-sizing: border-box;
+    border-radius: 5px 0px 0px 5px;
+    width: 100px;
+    height: 40px;
+    background-color: white;
+    color: grey;
+}
+
+.customer-seller .seller {
+    background-color: rgba(219, 48, 34, 1);
+    border: 1px solid grey;
+    border-radius: 0px 5px 5px 0px;
+    color: white;
+    margin-left: -5px;
+    width: 100px;
+    height: 40px;
+}
+
+#email {
+    border: 1px solid #9b9b9b;
+    box-sizing: border-box;
+    border-radius: 5px;
+    width: 380px;
+    height: 48px;
+    padding: 13px;
+    margin-top: 20px;
+}
+
+#password {
+    border: 1px solid #9b9b9b;
+    box-sizing: border-box;
+    border-radius: 5px;
+    width: 380px;
+    height: 48px;
+    margin-top: 20px;
+    padding: 13px;
+}
+
+#password-confirmation {
+    border: 1px solid #9b9b9b;
+    box-sizing: border-box;
+    border-radius: 5px;
+    width: 380px;
+    height: 48px;
+    margin-top: 20px;
+    padding: 13px;
+}
+
+#name {
+    border: 1px solid #9b9b9b;
+    box-sizing: border-box;
+    border-radius: 5px;
+    width: 380px;
+    height: 48px;
+    margin-top: 20px;
+    padding: 13px;
+}
+
+#phone-number {
+    border: 1px solid #9b9b9b;
+    box-sizing: border-box;
+    border-radius: 5px;
+    width: 380px;
+    height: 48px;
+    margin-top: 20px;
+    padding: 13px;
+}
+
+#store-name {
+    border: 1px solid #9b9b9b;
+    box-sizing: border-box;
+    border-radius: 5px;
+    width: 380px;
+    height: 48px;
+    margin-top: 20px;
+    padding: 13px;
+}
+
+.tag-h4 {
+    font-weight: 1000;
+    font-size: 18px;
+    line-height: 18px;
+    text-align: center;
+    margin-top: 25px;
+}
+
+.tag-h5 {
+    font-size: 12px;
+    text-align: center;
+    color: #F01F0E;
+    margin-top: 17px;
+}
+
+.forgot-password {
+    margin-left: 270px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.forgot-password a {
+    text-decoration: none;
+    color: #DB3022;
+    font-size: 15px;
+}
+
+.btn-primary {
+    border-radius: 25px;
+    width: 380px;
+    height: 48px;
+    border: 2px solid grey;
+    color: white;
+    font-size: 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-decoration: none;
+}
+
+.text-register {
+    margin-top: 25px;
+    color: #222222;
+    font-size: 15px;
+    line-height: 14px;
+}
+
+.text-register a {
+    color: #DB3022;
+    text-decoration: none;
+}
+
+.button-primary a {
+    text-decoration: none;
+    color: white;
+}

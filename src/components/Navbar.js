@@ -19,10 +19,12 @@ import '../assets/style/style.css';
                 <div className="shadow p-3 mb-5 bg-white rounded">
                     <nav className="navbar navbar-expand-lg navbar-light bg-white">
                         <div className="container">
+                        <Link to="/inputProduct">
                             <div className="logo-brand">
-                                <img src={ Logo } alt="logo-shop"/>
-                                <h1>Blanja</h1>
+                                    <img src={ Logo } alt="logo-shop"/>
+                                    <h1>Blanja</h1>
                             </div>
+                        </Link>
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded={!isNavCollapsed ? true : false} aria-label="Toggle navigation" onClick={handleNavCollapse}>
                             <span className="navbar-toggler-icon"></span>
                         </button>
@@ -38,9 +40,11 @@ import '../assets/style/style.css';
                                     <button variant="link" className="btn my-2 my-sm-2 my-md-2 far fa-shopping-cart" id="shopping" type="submit"></button>
                                     </Link>
                                 </div>
-                                <div className="login">
-                                    <button type="submit" className="btn-login btn my-2 my-sm-2">Login</button>
-                                </div>
+                                <Link to="/login">
+                                    <div className="login">
+                                        <button type="submit" className="btn-login btn my-2 my-sm-2">Login</button>
+                                    </div>
+                                </Link>
                                 <div className="signup">
                                     <button type="submit" className="btn-signup btn my-2 my-sm-2">Sign Up</button>
                                 </div>
