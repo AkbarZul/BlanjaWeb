@@ -14,13 +14,13 @@ class NewData extends Component {
     getAllProducts = () => {
         axios.get(getUrl, {
             params: {
-                sort: 3,
-                sortDesc: 1,
+                sort: "sort-terbaru",
+                sortDesc: "sort-desc",
             }
         })
         .then(({data}) => {
             this.setState({
-                products: data.data,
+                products: data.data.products,
             })
         }).catch(err => {
             console.log(err)

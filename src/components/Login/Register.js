@@ -27,7 +27,7 @@ export default class register extends Component {
                             </button>
                         </div>
                     </div>
-                    <form action="">
+                    <form action="" className="tag-form">
                         <input type="text"  name="name" id="name" placeholder="Name"/>
                         <br/>
                         <input type="email" name="email" id="email" placeholder="Email"/>

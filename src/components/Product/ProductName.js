@@ -36,7 +36,7 @@ export default class ProductName extends Component {
             product_price: price,
         }
         
-        await axios.post(`http://localhost:8000/transaksi`, body)
+        await axios.post(`http://localhost:8000/history`, body)
         .then((res) => {
             console.log(res)
             })

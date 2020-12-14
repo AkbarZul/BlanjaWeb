@@ -38,7 +38,7 @@ class PostProduct extends Component {
                     <form className="col-lg-6" onSubmit={this.handlerSubmit}>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Name product</Form.Label>
-                        <Form.Control  type="text" name="product_name" placeholder="Name product" onChange={this.handlerChange} />
+                        <Form.Control  type="text" name="product_name" placeholder="Name Product" onChange={this.handlerChange} />
                     </Form.Group>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Category</Form.Label>

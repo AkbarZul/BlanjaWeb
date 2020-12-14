@@ -8,10 +8,7 @@ import "../assets/style/mybag.css"
 import "../assets/style/checkout.css"
 
 class Checkout extends Component {
-    state = {
-        product: []
-    }
-
+    
     render() {
         const { name, price, brand } = this.props;
         console.log(name,price,brand)
@@ -42,12 +39,12 @@ class Checkout extends Component {
                                         <img style={{height: '70px'}} src={Jas} alt="" />
                                     </div>
                                     <div className="ml-3">
-                                    <p className="name-prodct">{name}</p>
-                                        <p className="brand-product text-muted">{brand}</p>
+                                    <p className="name-prodct">Men's Black and White</p>
+                                        <p className="brand-product text-muted">Zalora Cloth</p>
                                     </div>
                                     
                                 </div>
-                                <p className="prc">Rp.{price}</p>
+                                <p className="prc">$ 40.00</p>
                             </div>
                         </div>
                         <div className="right">
@@ -55,7 +52,7 @@ class Checkout extends Component {
                                 <p className="smry-title">Shopping summary</p>
                                 <div className="ttl-price">
                                     <p className="text-price text-muted">Total price</p>
-                                    <p className="pay">Rp.{price}</p>
+                                    <p className="pay">Rp.$ 200.00</p>
                                 </div>
                                 <Link className="text-decoration-none">
                                 <div className="btn-buy">

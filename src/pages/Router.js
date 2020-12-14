@@ -23,6 +23,7 @@ export default function Router() {
         <Route path="/mybag" component={Mybag} />
         <Route path="/checkout" component={Checkout} />
         <Route path="/category" component={SortCategory} />
+        <Route path="/search" component={SortCategory} />
         <Route path="/inputProduct" component={PostProduct} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />

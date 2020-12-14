@@ -3,6 +3,8 @@ import { Modal } from 'react-bootstrap';
 import { Logo } from '../assets/style';
 import { Link } from 'react-router-dom';
 import '../assets/style/style.css';
+import SearchBar from './SearchBar/SearchBar'
+// import Img from './ImgWithContainer/'
 
 
 // class Navbar extends Component {
@@ -14,6 +16,13 @@ import '../assets/style/style.css';
 
         const handleClose = () => setShow(false);
         const handleShow = () => setShow(true);
+
+        const inputRef = React.useRef();
+        const onKeyPressHandler = (event) => {
+            if (event.key === "Enter") {
+                window.location.href = `http://localhost:3000/search?name=${inputRef.current.value}`
+            }
+        }
         return (
             <div>
                 <div className="shadow p-3 mb-5 bg-white rounded">
@@ -29,10 +38,7 @@ import '../assets/style/style.css';
                             <span className="navbar-toggler-icon"></span>
                         </button>
                         <div class={`${isNavCollapsed ? 'collapse' : ''} navbar-collapse`} id="navbarSupportedContent">
-                            <div className="form-input">
-                                <input type="text" name="" id="search" placeholder="Search"/>
-                                <button className="btn my-2 my-sm-2 far fa-search icon" type="submit"></button>
-                            </div>
+                        <SearchBar refProp={inputRef} onKeyPress={onKeyPressHandler} />
                             <button className="btn my-2 my-sm-0 fal fa-filter filter" variant="link" onClick={handleShow}></button>
                             <div className="navbar-nav ml-auto"></div>
                                 <div className="shopping">

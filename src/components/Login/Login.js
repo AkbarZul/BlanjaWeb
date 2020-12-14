@@ -27,7 +27,7 @@ export default class Login extends Component {
                             </button>
                         </div>
                     </div>
-                    <form action="">
+                    <form action="" className="tag-form">
                         <input type="email" name="email" id="email" placeholder="Email"/>
                         <br/>
                         <input type="password" name="password" id="password" placeholder="Password"/>

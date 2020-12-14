@@ -17,7 +17,7 @@ export default class KonfirmasiPassword extends Component {
                     </div>
                     <h4 className="tag-h4">Reset Password</h4>
                     <h5 className="tag-h5">You need to change your password to active your account</h5>
-                    <form action="">
+                    <form action="" className="tag-form">
                         <input type="password" name="password" id="password" placeholder="Password"/>
                         <br/>
                         <input type="password" name="password" id="password-confirmation" placeholder="Confirmation New Password"/>

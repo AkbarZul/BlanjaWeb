@@ -20,7 +20,7 @@ class Updateproduct extends Component {
     handlerSubmit = async (event) => {
         event.preventDefault()
         await axios.patch(getUrl, this.state)
-        alert('product has been updated')
+        alert('Product has been Updated!!')
         this.props.history.push('/')
     }
     render() {
@@ -31,8 +31,8 @@ class Updateproduct extends Component {
                 <h2>Update product baru</h2>
                 <form className="col-lg-6" onSubmit={this.handlerSubmit}>
                 <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Name product</Form.Label>
-                    <Form.Control  type="text" name="id" placeholder="Name product" onChange={this.handlerChange} />
+                    <Form.Label>ID Product</Form.Label>
+                    <Form.Control  type="text" name="id" placeholder="ID Product" onChange={this.handlerChange} />
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Price</Form.Label>
