@@ -2,7 +2,7 @@ import Axios from "axios";
 // import { toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const API = `http://localhost:8000`;
+const API = `http://localhost:2005`;
 
 export const authLogin = (email, password) => {
   const URI = `${API}/auth/login`;

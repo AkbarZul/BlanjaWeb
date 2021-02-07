@@ -7,7 +7,7 @@ import Checkout from "./Checkout";
 import SortCategory from "./SortCategory";
 import PostProduct from "./PostProduct";
 import Update from "./Update";
-import MyProfile from './MyProfile'
+import MyProfile from "./MyProfile";
 
 // Login Page
 // import Login from "../components/Login/Login";
