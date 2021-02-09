@@ -2,7 +2,7 @@ import Axios from "axios";
 // import { toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const API = `http://localhost:2005`;
+export const API = process.env.REACT_APP_URL;
 
 export const authLogin = (email, password) => {
   const URI = `${API}/auth/login`;
@@ -12,4 +12,8 @@ export const authLogin = (email, password) => {
 export const authRegister = (data) => {
   const URI = `${API}/auth/register`;
   return Axios.post(URI, data);
+};
+
+export const getProductId = (id) => {
+  return Axios.get(`${API}/products/${id}`);
 };

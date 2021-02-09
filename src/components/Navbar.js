@@ -1,18 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import { Logo } from "../assets/style";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBell, faEnvelope, faUser } from "@fortawesome/free-solid-svg-icons";
+import { useSelector, useDispatch } from "react-redux";
+import { authLogOutCreator } from "../redux/actions/auth";
+import "./Navbar/style";
 import "../assets/style/style.css";
 import SearchBar from "./SearchBar/SearchBar";
+import axios from "axios";
+import { API } from "../utility/Auth";
 // import Img from './ImgWithContainer/'
 
 // class Navbar extends Component {
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
+  const isLogin = useSelector((state) => state.auth.data.user_id);
+  console.log("ISLOGIN", isLogin);
+  const token = useSelector((state) => state.auth.data.token);
 
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -22,6 +33,25 @@ const Navbar = () => {
       window.location.href = `http://localhost:3000/search?name=${inputRef.current.value}`;
     }
   };
+
+  const handleLogout = () => {
+    axios
+      .delete(`${API}/auth/logout`, {
+        headers: {
+          "x-access-token": "Bearer " + token,
+        },
+      })
+      .then(({ data }) => {
+        dispatch(authLogOutCreator());
+        history.push("/login");
+        console.log("done", data);
+        // return <Redirect to={{ pathname: "/login" }} />
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+  };
+
   return (
     <div>
       <div className="shadow p-3 mb-5 bg-white rounded">
@@ -54,7 +84,7 @@ const Navbar = () => {
                 className="btn my-2 my-sm-0 fal fa-filter filter"
                 variant="link"
                 onClick={handleShow}
-              ></button>
+              />
               <div className="navbar-nav ml-auto"></div>
               <div className="shopping">
                 <Link to={"/mybag"}>
@@ -66,7 +96,56 @@ const Navbar = () => {
                   ></button>
                 </Link>
               </div>
-              <Link to="/login">
+              {isLogin === undefined ? (
+                <>
+                  <Link to="/login">
+                    <div className="login">
+                      <button
+                        type="submit"
+                        className="btn-login btn my-2 my-sm-2"
+                      >
+                        Login
+                      </button>
+                    </div>
+                  </Link>
+                  <Link to="/login">
+                    <div className="signup">
+                      <button
+                        type="submit"
+                        className="btn-signup btn my-2 my-sm-2"
+                      >
+                        Sign Up
+                      </button>
+                    </div>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <div className="login">
+                    <button
+                      type="submit"
+                      className="btn-login btn my-2 my-sm-2"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                  </div>
+                  <div className="signup">
+                    <FontAwesomeIcon
+                      style={{ margin: "0 20px", color: "#eaeaea" }}
+                      icon={faBell}
+                    />
+                    <FontAwesomeIcon
+                      style={{ margin: "0 20px", color: "#eaeaea" }}
+                      icon={faEnvelope}
+                    />
+                    <div className="dp-profil-nav">
+                      <img className="img-profil-nav" alt="" />
+                    </div>
+                  </div>
+                </>
+              )}
+              {/* <Link to="/login">
                 <div className="login">
                   <button type="submit" className="btn-login btn my-2 my-sm-2">
                     Login
@@ -77,7 +156,7 @@ const Navbar = () => {
                 <button type="submit" className="btn-signup btn my-2 my-sm-2">
                   Sign Up
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </nav>

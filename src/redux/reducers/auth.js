@@ -23,7 +23,7 @@ const auth = (state = initialState, { type, payload }) => {
         ...state,
         isRejected: true,
         isPending: false,
-        // msgInvalid: payload.response.data.message.msg,
+        msgInvalid: payload.response.data.message.msg,
       };
     case actionAuth.authLogin + "_FULFILLED":
       if (payload.data.success === false) {
@@ -66,13 +66,13 @@ const auth = (state = initialState, { type, payload }) => {
       };
     case actionAuth.authLogOut:
       return {
-        ...state,
         data: [],
         isLogin: false,
         msgInvalid: "",
         isPending: false,
         isFulfilled: false,
         isRejected: false,
+        status: {},
       };
     default:
       return state;

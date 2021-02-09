@@ -11,7 +11,6 @@ const Auth = () => {
   const changeToLogin = () => setCompLogin("login");
   const changeToReset = () => setCompLogin("reset");
   const isLogin = useSelector((state) => state.auth.isLogin);
-  console.log("KONTOL", isLogin);
   if (isLogin === true) return <Redirect to="/" />;
 
   return (

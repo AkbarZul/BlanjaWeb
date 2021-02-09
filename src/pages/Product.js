@@ -1,51 +1,60 @@
-import React, { Component } from 'react'
-import axios  from 'axios'
-import ProductName from '../components/Product/ProductName';
-const getUrl = "http://localhost:8000/product/";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import ProductName from "../components/Product/ProductName";
+import { useSelector } from "react-redux";
 
+const getUrl = process.env.REACT_APP_URL;
 
-export default  class Product extends Component {
-    state ={
-        product: [],
-    }
+const Product = (props) => {
+  const [product, setProduct] = useState({});
+  const [img, setImg] = useState([]);
+  const [qty, setQty] = useState(0);
+  const [sizes, setSizes] = useState([]);
 
-    getSingleProduct = () => {
-        const { match } = this.props;
-        axios
-          .get(getUrl + match.params.id)
-          .then(({data}) => {
-            this.setState({
-                product: data.data,
-            })
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      };
-    
-      componentDidMount = () => {
-        this.getSingleProduct();
-      };
+  const getProduct = async () => {
+    await axios
+      .get(`${getUrl}/products/` + props.match.params.id)
+      .then(({ data }) => {
+        const productId = data.data;
+        const image = data.data.product_photo;
+        const images = JSON.parse(image);
+        const jumlah = data.data.product_qty / data.data.product_qty;
+        const size = data.data.sizes.map((item) => {
+          return item.size;
+        });
+        setSizes(size);
+        setProduct(productId);
+        setImg(images);
+        setQty(jumlah);
+        console.log("PRODUCT", productId);
+        console.log("IMAGE", images);
+        console.log("sizes", size.length);
+      })
+      .catch((err) => {
+        console.log("ERROR", err);
+      });
+  };
 
-    render() {
-      if(this.state.product[0]) {
-        console.log(this.state.product[0].product_name)
-      }
-        return (
-            <>
-                {this.state.product[0] && (
-                  <ProductName name={this.state.product[0].product_name} 
-                  brand={this.state.product[0].product_brand} 
-                  desc={this.state.product[0].product_description} 
-                  price={this.state.product[0].product_price}
-                  condition={this.state.product[0].product_condition}
-                  size={this.state.product[0].product_size}
-                  qty={this.state.product[0].product_qty}
-                   />
-                )}
-                
-               
-            </>
-        )
-    }
-}
+  useEffect(() => {
+    getProduct(props.match.params.id);
+  }, [props.match.params.id]);
+
+  return (
+    <>
+      <ProductName
+        name={product.product_name}
+        brand={product.category_name}
+        desc={product.product_desc}
+        price={product.product_price}
+        condition={product.conditions}
+        size={sizes}
+        color={product.colors}
+        qty={qty}
+        photo={img}
+        rating={product.rating}
+      />
+    </>
+  );
+};
+
+export default Product;

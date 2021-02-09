@@ -17,7 +17,7 @@ export default class Popular extends Component {
 
                 <article>
                     <div className="container">
-                        <div className="row d-flex flex-row justify-content-center">
+                        <div className="row d-flex flex-row justify-content-arround">
                             <PopularData />
                         </div>
                     </div>

@@ -20,7 +20,7 @@ export default function Router() {
   return (
     <BrowserRouter>
       <Route path="/" exact component={Home} />
-      <Route path="/product/:id" component={Product} />
+      <Route path="/products/:id" component={Product} />
       <Route path="/mybag" component={Mybag} />
       <Route path="/checkout" component={Checkout} />
       <Route path="/category" component={SortCategory} />

@@ -1,28 +1,28 @@
-import React, { Component } from 'react';
-import NewData from './NewData';
-import '../../assets/style/new.css';
+import React, { Component } from "react";
+import NewData from "./NewData";
+import "../../assets/style/new.css";
 
 export default class New extends Component {
-    render() {
-        return (
-            <>
-                <section>
-                    <div className="container">
-                        <div className="title-new">
-                            <h3>New</h3>
-                            <p className="lead text-muted">You've never seen it before</p>
-                        </div>
-                    </div>
-                </section>
+  render() {
+    return (
+      <>
+        <section>
+          <div className="container">
+            <div className="title-new">
+              <h3>New</h3>
+              <p className="lead text-muted">You've never seen it before</p>
+            </div>
+          </div>
+        </section>
 
-                <article>
-                    <div className="container">
-                        <div className="row d-flex flex-row justify-content-center">
-                            <NewData />
-                        </div>
-                    </div>
-                </article>
-            </>
-        )
-    }
+        <article>
+          <div className="container">
+            <div className="row d-flex flex-row justify-content-arround">
+              <NewData />
+            </div>
+          </div>
+        </article>
+      </>
+    );
+  }
 }
