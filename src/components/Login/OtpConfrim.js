@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import { Logo } from "../../assets/style/index";
 import { Formik } from "formik";
-import * as yup from "yup";
-import Axios from "axios";
+import * as yup from 'yup';
+import Axios from 'axios'
 import { Redirect } from "react-router-dom";
 // import { Link } from "react-router-dom";
 import "../../assets/style/login.css";
 
-const KonfirmasiPassword = ({ changeToRegister }) => {
-  const [isConfrim, setIsConfrim] = useState(false);
+const OtpConfrim = ({ changeToRegister }) => {
+    const [isConfrim, setIsConfrim] = useState(false);
 
-  const sendOtp = (email, password) => {
-    const api = `http://localhost:8007/auth/reset`;
-    Axios.patch(api, { email: email, password: password })
+  const sendOtp = (email, otp) => {
+    const api = `http://localhost:8007/auth/findOTP`;
+    Axios.post(api, { email: email, otp: otp })
       .then((data) => {
-        setIsConfrim(true);
-        console.log("reset password done", data);
+          setIsConfrim(true)
+          console.log("OTP done", data)
         //   redirect.push("/login")
       })
       .catch((err) => console.log(err));
@@ -23,42 +23,33 @@ const KonfirmasiPassword = ({ changeToRegister }) => {
 
   const reviewSchema = yup.object({
     email: yup.string().required().email(),
-    password: yup
-      .string()
-      .required()
-      .matches(
-        /^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{8,}$/,
-        "password must be include lowerCase, upperCase, numbers and minimum 8 characters"
-      ),
+    otp: yup.string().required(),
   });
 
-  if (isConfrim === true) {
-    return <Redirect to="/login" />;
+  if(isConfrim === true) {
+      return <Redirect to="/confrim" />
   }
 
   return (
     <div className="d-flex justify-content-center align-items-center container-auth">
       <form>
         <div className="content">
-          <div id="logo" style={{ justifyContent: "center" }}>
-            <div className="logo-shop">
-              <img src={Logo} alt="logo-shop" />
-            </div>
-            <div className="logo-text">
-              <p className="tag-logo">Blanja</p>
-            </div>
+        <div id="logo" style={{justifyContent: 'center'}}>
+          <div className="logo-shop">
+            <img src={Logo} alt="logo-shop" />
           </div>
+          <div className="logo-text">
+            <p className="tag-logo">Blanja</p>
+          </div>
+        </div>
           <div className="col-md-12 text-center mt-3">
-            <h4 className="tag-h4">Reset Password</h4>
-            <h5 className="tag-h5">
-              You need to change your password to active your account
-            </h5>
+            <p className="font-weight-bold">Input your OTP</p>
           </div>
           <Formik
-            initialValues={{ email: "", password: "" }}
+            initialValues={{ email: "", otp: "" }}
             validationSchema={reviewSchema}
             onSubmit={(values, { resetForm }) => {
-              sendOtp(values.email, values.password);
+              sendOtp(values.email, values.otp);
               resetForm({ values: "" });
             }}
           >
@@ -81,22 +72,22 @@ const KonfirmasiPassword = ({ changeToRegister }) => {
                   </p>
                 </div>
                 <div className="col-md-12 d-flex justify-content-center align-items-center mt-3">
-                  <input
-                    type="password"
-                    className="input-text"
-                    placeholder="Password"
-                    name="password"
-                    onChange={props.handleChange}
-                    onBlur={props.handleBlur}
-                    value={props.values.password}
-                  />
-                  <br />
-                </div>
-                <div className="col-md-12 d-flex justify-content-center align-items-center">
-                  <p className="text-red">
-                    {props.touched.password && props.errors.password}
-                  </p>
-                </div>
+                <input
+                  type="text"
+                  className="input-text"
+                  placeholder="OTP"
+                  name="otp"
+                  onChange={props.handleChange}
+                  onBlur={props.handleBlur}
+                  value={props.values.otp}
+                />
+                <br />
+              </div>
+              <div className="col-md-12 d-flex justify-content-center align-items-center">
+                <p className="text-red">
+                  {props.touched.otp && props.errors.otp}
+                </p>
+              </div>
                 <div className="col-md-12 d-flex justify-content-center align-items-center mt-5">
                   <button
                     type="button"
@@ -124,7 +115,7 @@ const KonfirmasiPassword = ({ changeToRegister }) => {
     </div>
   );
 };
-export default KonfirmasiPassword;
+export default OtpConfrim;
 
 // export default class ResetPassword extends Component {
 //     render() {

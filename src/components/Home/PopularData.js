@@ -38,7 +38,7 @@ const PopularData = () => {
           rating,
         }) => {
           return (
-            <Card className="card-style" style={{ width: "18rem" }} key={id}>
+            <Card className="card-style" style={{ width: "18rem", marginRight: '12px' }} key={id}>
               <Link
                 to={{
                   pathname: `/products/${id}`,
@@ -49,6 +49,7 @@ const PopularData = () => {
                   src={JSON.parse(product_photo).shift()}
                   className="card-img-top"
                   alt="..."
+                  style={{height: '15rem'}}
                 />
               </Link>
               <div className="card-body">
