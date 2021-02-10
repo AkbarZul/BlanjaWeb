@@ -41,6 +41,7 @@ const Category = () => {
                           // search: "keyword=created_at DESC",
                           category,
                         }}
+                        style={{ textDecoration: 'none' }}
                       >
                         <img
                           src={category_photo}
