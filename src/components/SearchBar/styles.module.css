@@ -21,7 +21,7 @@
   width: 400px;
   height: 40px;
   font-weight: 600;
-  margin-left: 110px;
+  /* margin-left: 110px; */
   border-radius: 20px;
   border: 2px solid grey;
   /* margin-top: 10px; */
@@ -31,7 +31,7 @@
   padding: 22px;
   min-width: 50px;
   text-align: center;
-  margin-left: 450px;
+  margin-left: 350px;
   color: gray;
   position: absolute;
   margin-top: -55px;
