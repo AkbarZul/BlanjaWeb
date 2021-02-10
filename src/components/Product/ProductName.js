@@ -226,8 +226,8 @@ const ProductName = (props) => {
           </div>
         </div>
         <h3 className="informasi">Informasi Produk</h3>
-        <h3 className="tag-condition mt-5">Condition</h3>
-        <p className="condition">{condition}</p>
+        {/* <h3 className="tag-condition mt-5">Condition</h3>
+        <p className="condition">{condition}</p> */}
         <h3 className="tag-desc">Description</h3>
         <p className="desc">{desc}</p>
         <p className="informasi">Product review</p>

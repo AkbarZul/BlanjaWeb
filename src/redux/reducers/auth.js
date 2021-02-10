@@ -64,12 +64,15 @@ const auth = (state = initialState, { type, payload }) => {
         isPending: false,
       };
     case actionAuth.authRegister + "_FULFILLED":
+      console.log("regis", payload.data.data);
       return {
         ...state,
         data: payload.data.data,
         msgInvalid: "",
-        isLogin: true,
+        isLogin: false,
         isFulfilled: true,
+        // isPending: false,
+        // isRejected: false,
       };
     case actionAuth.authLogOut:
       return {

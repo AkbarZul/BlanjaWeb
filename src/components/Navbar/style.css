@@ -4,11 +4,11 @@
     font-size: "24px";
     margin-left: "10px";
   }
-  .container-nav {
+  /* .container-nav {
     display: inline-flex;
     flex-flow: column;
-  }
-  nav {
+  } */
+  /* nav {
     width: 83%;
     height: 100px;
     top: 0;
@@ -16,7 +16,7 @@
     position: fixed;
     z-index: 99;
     background-color: #fff;
-  }
+  } */
   .textNavbar {
     color: #db3022;
     font-size: 24px;
@@ -34,7 +34,7 @@
     height: 25px;
     width: 25px;
     overflow: hidden;
-    margin: 0 20px;
+    /* margin: 0 20px; */
   }
   .img-profil-nav{
     display: block;
@@ -42,7 +42,7 @@
       height: 25px;
       background: #E6E7ED;
       border-radius: 50%;
-      background-image: url(../../Assets/img/ava/ava.png);
+      background-image: url(../../assets/img/ava.png);
       background-size: 90%;
       background-position:55% 40%;
       background-repeat:no-repeat;
