@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import { Logo } from "../assets/style";
 import { Link } from "react-router-dom";
@@ -24,6 +24,13 @@ const Navbar = () => {
   const [show, setShow] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [isLogout, setIsLogout] = useState(false);
+  const [listCategory, setListCategory] = useState("");
+  const [listSize, setListSize] = useState("");
+  const [listColor, setListColor] = useState("");
+  const [category, setCategory] = useState("");
+  const [size, setSize] = useState("");
+  const [color, setColor] = useState("");
+  const [getFilter, setGetFilter] = useState([])
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -40,6 +47,58 @@ const Navbar = () => {
     if (event.key === "Enter") {
       window.location.href = `http://localhost:3000/search?keyword=${inputRef.current.value}`;
     }
+  };
+
+  const handleFilter = () => {
+    axios
+      .get(
+        `${process.env.REACT_APP_URL}/products/filter?category=${category}&size=${size}&color=${color}`
+      )
+      .then((res) => {
+        const filter = res.data.data;
+        setGetFilter(filter)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getCategories = () => {
+    axios
+      .get(`${process.env.REACT_APP_URL}/categories`)
+      .then((res) => {
+        const getCategory = res.data.data;
+        setListCategory(getCategory);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getSizes = () => {
+    axios
+      .get(`${process.env.REACT_APP_URL}/sizes`)
+      .then((res) => {
+        const getSize = res.data.data;
+        console.log("kolor size", getSize);
+        setListSize(getSize);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getColors = () => {
+    axios
+      .get(`${process.env.REACT_APP_URL}/colors`)
+      .then((res) => {
+        const getColor = res.data.data;
+        console.log("kolor", getColor);
+        setListColor(getColor);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleLogout = () => {
@@ -59,6 +118,12 @@ const Navbar = () => {
       });
   };
 
+  useEffect(() => {
+    getColors();
+    getCategories();
+    getSizes();
+  }, []);
+
   if (isLogout === true) {
     return <Redirect to="/login" />;
   }
@@ -68,7 +133,7 @@ const Navbar = () => {
         <nav className="navbar navbar-expand-lg navbar-light bg-white">
           <div className="container">
             <div className="col-sm-2 col-lg-2 gap">
-              <Link to="/">
+              <Link to="/" style={{ textDecoration: "none" }}>
                 <div className="logo-brand">
                   <img src={Logo} alt="logo-shop" />
                   <h1>Blanja</h1>
@@ -201,12 +266,20 @@ const Navbar = () => {
         </Modal.Header>
         <Modal.Body>
           <div className="d-flex">
-            <button type="submit" className="color-1 mr-3"></button>
-            <button type="submit" className="color-2 mr-3"></button>
-            <button type="submit" className="color-3 mr-3"></button>
-            <button type="submit" className="color-4 mr-3 "></button>
-            <button type="submit" className="color-5 mr-3 "></button>
-            <button type="submit" className="color-6 mr-3 "></button>
+            {listColor &&
+              listColor.map(({ id, color_name, color_hexa }) => {
+                return (
+                  <button
+                    type="submit"
+                    className="mr-3"
+                    style={{width: "36px",
+                      height: "36px",
+                      borderRadius: "50%",
+                      border: "none", backgroundColor: color_hexa }}
+                      onClick={() => setColor(color_name)}
+                  ></button>
+                );
+              })}
           </div>
         </Modal.Body>
 
@@ -215,22 +288,16 @@ const Navbar = () => {
         </Modal.Header>
 
         <Modal.Body>
-          <div className="d-flex">
-            <button type="submit" className="size mr-3">
-              XS
-            </button>
-            <button type="submit" className="size mr-3">
-              S
-            </button>
-            <button type="submit" className="size mr-3">
-              M
-            </button>
-            <button type="submit" className="size mr-3">
-              L
-            </button>
-            <button type="submit" className="size mr-3">
-              XL
-            </button>
+          <div className="col-12 ">
+            {listSize &&
+              listSize.map(({ size }) => {
+                return (
+                  <button type="submit" className="size mr-3" onCLick={() => setSize(size)}>
+                    {size}
+                  </button>
+                );
+              })}
+            
           </div>
         </Modal.Body>
 
@@ -240,14 +307,16 @@ const Navbar = () => {
 
         <Modal.Body>
           <div className="d-flex">
-            <button className="category mr-3">All</button>
-            <button className="category mr-3">Women</button>
-            <button className="category mr-3">Men</button>
+            <button className="category mr-3" onClick={(category) => setCategory(category)}>All</button>
+            {listCategory && listCategory.map(({id, category_name}) => {
+              return (
+
+                <button className="category mr-3" on={() => setCategory(category_name)}>{category_name}</button>
+              )
+            })}
+ 
           </div>
-          <div className="d-flex">
-            <button className="category mr-3 mt-2">Boys</button>
-            <button className="category mr-3 mt-2">Girls</button>
-          </div>
+          
         </Modal.Body>
 
         <Modal.Footer>
@@ -255,7 +324,7 @@ const Navbar = () => {
             <button className="discard mr-3" onClick={handleClose}>
               Discard
             </button>
-            <button className="discard mr-4" onClick={handleClose}>
+            <button className="discard mr-4" onClick={handleFilter, handleClose}>
               Apply
             </button>
           </div>
