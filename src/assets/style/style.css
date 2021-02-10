@@ -35,7 +35,7 @@
   border: 2px solid white;
   border-radius: 3px;
   color: grey;
-  margin-left: 80px;
+  /* margin-left: 80px; */
 }
 
 .login > .btn-login {
@@ -44,7 +44,7 @@
   border: 1px solid white;
   width: 100px;
   height: 36px;
-  margin-left: 30px;
+  /* margin-left: 30px; */
   color: white;
 }
 

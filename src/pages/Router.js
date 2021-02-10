@@ -25,7 +25,7 @@ export default function Router() {
       <Route path="/products/:id" component={Product} />
       <Route path="/mybag" component={Mybag} />
       <Route path="/checkout" component={Checkout} />
-      <Route path="/category" component={SortCategory} />
+      <Route path="/category/:id_categories" component={SortCategory} />
       <Route path="/search" component={SortCategory} />
       <Route path="/inputProduct" component={PostProduct} />
       <Route path="/login" component={Auth} />
