@@ -4,21 +4,24 @@ import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { authRegisterCreator } from "../../redux/actions/auth";
 import { Logo } from "../../assets/style/index";
+import { useHistory } from "react-router-dom";
 import "../../assets/style/login.css";
 
 const Register = ({ changeToLogin }) => {
   const dispatch = useDispatch();
-  useSelector((state) => state.auth);
-
-  const [role, setRole] = useState(2);
+  // const auth = useSelector(state => state.auth)
+  
+  const history = useHistory();
+  const [role, setRole] = useState(1);
 
   let reviewSchema = "";
-  if (role === 1) {
+  if (role === 2) {
     reviewSchema = yup.object({
       username: yup.string().required(),
+      full_name: yup.string().required(),
       email: yup.string().required().email(),
-      phone_number: yup.number().required(),
-      store_name: yup.string().required(),
+      // phone_number: yup.number().required(),
+      // store_name: yup.string().required(),
       password: yup
         .string()
         .required()
@@ -30,6 +33,7 @@ const Register = ({ changeToLogin }) => {
   } else {
     reviewSchema = yup.object({
       username: yup.string().required(),
+      full_name: yup.string().required(),
       email: yup.string().required().email(),
       password: yup
         .string()
@@ -42,14 +46,14 @@ const Register = ({ changeToLogin }) => {
   }
 
   let styleBtnCustomer = "btn-custommer";
-  if (role === 2) {
+  if (role === 1) {
     styleBtnCustomer = "btn-custommer-active";
   } else {
     styleBtnCustomer = "btn-custommer";
   }
 
   let styleBtnSeller = "btn-seller";
-  if (role === 1) {
+  if (role === 2) {
     styleBtnSeller = "btn-seller-active";
   } else {
     styleBtnSeller = "btn-seller";
@@ -70,14 +74,14 @@ const Register = ({ changeToLogin }) => {
           <button
             type="button"
             className={styleBtnCustomer}
-            onClick={() => setRole(2)}
+            onClick={() => setRole(1)}
           >
             Customer
           </button>
           <button
             type="button"
             className={styleBtnSeller}
-            onClick={() => setRole(1)}
+            onClick={() => setRole(2)}
           >
             Seller
           </button>
@@ -87,62 +91,109 @@ const Register = ({ changeToLogin }) => {
             username: "",
             email: "",
             password: "",
-            phone_number: "",
-            store_name: "",
+            full_name: "",
+            // phone_number: "",
+            // store_name: "",
           }}
           validationSchema={reviewSchema}
           onSubmit={(values, { resetForm }) => {
-            if (role === 1) {
+            if (role === 2) {
               const data = {
                 ...values,
-                roles_id: role,
+                level_id: role,
               };
-              console.log(data)
+              console.log(data);
               dispatch(authRegisterCreator(data));
               resetForm({ values: "" });
+              // history.push({changeToLogin})
+              onclick={changeToLogin}
             } else {
               const data = {
                 username: values.username,
                 email: values.email,
                 password: values.password,
-                roles_id: role,
+                full_name: values.full_name,
+                level_id: role,
               };
               console.log(data);
               dispatch(authRegisterCreator(data));
               resetForm({ values: "" });
+              // history.push({changeToLogin})
+              // changeToLogin()
+              onclick={changeToLogin}
             }
           }}
         >
           {(props) => (
             <>
-              <form action="" className="tag-form" onSubmit={props.handleSubmit}>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  placeholder="Name"
-                  onChange={props.handleChange}
-                  onBlur={props.handleBlur}
-                  // value={props.values.username}
-                />
-                <p className="text-red">
-                  {props.touched.username && props.errors.username}
-                </p>
-                <br />
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  placeholder="Email"
-                  onChange={props.handleChange}
-                  onBlur={props.handleBlur}
-                  value={props.values.email}
-                />
-                <p className="text-red">
-                  {props.touched.email && props.errors.email}
-                </p>
-                <br />
-                {role === 1 ?
+              <form
+                action=""
+                className="tag-form"
+                onSubmit={props.handleSubmit}
+              >
+                <div className="col-md-12 d-flex justify-content-center align-items-center mt-3">
+                  <input
+                    type="text"
+                    className="input-text username"
+                    placeholder="Name"
+                    name="username"
+                    onChange={props.handleChange}
+                    onBlur={props.handleBlur}
+                    value={props.values.username}
+                  />
+                </div>
+                <div className="col-md-12 d-flex justify-content-center align-items-center">
+                  <p className="text-red">
+                    {props.touched.username && props.errors.username}
+                  </p>
+                </div>
+
+                <div className="col-md-12 d-flex justify-content-center align-items-center mt-3">
+                  {role === 2 ? (
+                    <input
+                      type="text"
+                      className="input-text username"
+                      placeholder="Store Name"
+                      name="full_name"
+                      onChange={props.handleChange}
+                      onBlur={props.handleBlur}
+                      value={props.values.full_name}
+                    />
+                  ) : (
+                    <input
+                      type="text"
+                      className="input-text username"
+                      placeholder="Fullname"
+                      name="full_name"
+                      onChange={props.handleChange}
+                      onBlur={props.handleBlur}
+                      value={props.values.full_name}
+                    />
+                  )}
+                </div>
+                <div className="col-md-12 d-flex justify-content-center align-items-center">
+                  <p className="text-red">
+                    {props.touched.full_name && props.errors.full_name}
+                  </p>
+                </div>
+
+                <div className="col-md-12 d-flex justify-content-center align-items-center mt-2">
+                  <input
+                    type="text"
+                    className="input-text"
+                    placeholder="Email"
+                    name="email"
+                    onChange={props.handleChange}
+                    onBlur={props.handleBlur}
+                    value={props.values.email}
+                  />
+                </div>
+                <div className="col-md-12 d-flex justify-content-center align-items-center">
+                  <p className="text-red">
+                    {props.touched.email && props.errors.email}
+                  </p>
+                </div>
+                {/* {role === 2 ?
                   <>
                     <input
                       type="text"
@@ -171,20 +222,25 @@ const Register = ({ changeToLogin }) => {
                     </p>
                     <br />
                   </>
-                 : null}
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="Password"
-                  onChange={props.handleChange}
-                  onBlur={props.handleBlur}
-                  value={props.values.password}
-                />
-                <p className="text-red">
-                  {props.touched.password && props.errors.password}
-                </p>
-                <button
+                 : null} */}
+                <div className="col-md-12 d-flex justify-content-center align-items-center mt-2">
+                  <input
+                    type="password"
+                    className="input-text"
+                    placeholder="Password"
+                    name="password"
+                    onChange={props.handleChange}
+                    onBlur={props.handleBlur}
+                    value={props.values.password}
+                  />{" "}
+                  <br />
+                </div>
+                <div className="col-md-12 d-flex justify-content-center align-items-center">
+                  <p className="text-red">
+                    {props.touched.password && props.errors.password}
+                  </p>
+                </div>
+                {/* <button
                   type="button"
                   className="btn-primary"
                   
@@ -194,21 +250,23 @@ const Register = ({ changeToLogin }) => {
                   }}
                 >
                   Register
-                </button>
+                </button> */}
               </form>
-              {/* <div className="button-primary">
+              <div className="col-md-12 d-flex justify-content-center align-items-center mt-3">
                 <button
                   type="button"
-                  className="btn-primary"
-                  onClick={props.handleSubmit}
-                  style={{
-                    backgroundColor: "rgba(219, 48, 34, 1)",
-                    border: "2px solid rgba(219, 48, 34, 1)",
+                  className="btn-submit"
+                  // onClick={props.handleSubmit}
+                  // onClick={changeToLogin}
+                  // onClick={() => { props.handleSubmit && changeToLogin}}
+                  onClick={() => {
+                    props.handleSubmit();
+                    changeToLogin();
                   }}
                 >
                   Register
                 </button>
-              </div> */}
+              </div>
             </>
           )}
         </Formik>

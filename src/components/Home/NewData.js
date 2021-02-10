@@ -38,10 +38,7 @@ const NewData = () => {
           rating,
         }) => {
           return (
-            <Card className="card-style" style={{ width: "18rem" }} key={id}>
-              <div className="d-flex flex-column">
-
-                <div className="">
+            <Card className="card-style" style={{ width: "18rem", marginRight: "12px" }} key={id}>
               <Link
                 to={{
                   pathname: `/products/${id}`,
@@ -53,17 +50,17 @@ const NewData = () => {
                   src={JSON.parse(product_photo).shift()}
                   className="card-img-top img-fluid"
                   alt="..."
-                  
+                  style={{height: '15rem'}}
                 />
               </Link>
-                </div>
+                
               <div className="card-body" style={{bottom: 0}}>
                 <h5 className="card-title">{product_name}</h5>
                 <p className="card-text">Rp. {product_price}</p>
                 <p className="card-text2">{category_name}</p>
                 <Rating product_rating={rating} />
               </div>
-              </div>
+              
             </Card>
           );
         }

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Navbar from "../Navbar";
 import Newdata from "../Home/NewData";
 import { StarRate } from "../../assets/style";
 import "../../assets/style/product.css";
 import Rating from "../Rating/Rating";
 import { API } from "../../utility/Auth";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart } from "../../redux/actions/product";
 
 const ProductName = (props) => {
   const {
@@ -20,6 +22,8 @@ const ProductName = (props) => {
     qty,
     color,
     rating,
+    id,
+    seller_id,
   } = props;
   const [jumlah, setJumlah] = useState(1);
   const [sizes, setSizes] = useState(size[0]);
@@ -27,11 +31,39 @@ const ProductName = (props) => {
   console.log("color", warna);
   console.log("jumlah", jumlah);
   console.log("sizes", sizes);
+  console.log("ID", id);
+  console.log("ID_SELLER", seller_id);
 
   useEffect(() => {
     setSizes();
     setWarna();
   }, []);
+
+  const history = useHistory();
+
+  const { carts: stateCarts } = useSelector((state) => state.product);
+  const dispatch = useDispatch();
+
+  const kirim = () => {
+    const sendData = {
+      brand: brand,
+      id: id,
+      photo: photo[0],
+      name: name,
+      price: Number(price),
+      qty: jumlah,
+      seller_id: seller_id,
+      selected: true,
+    };
+    dispatch(addToCart(sendData));
+    history.push("/mybag");
+  };
+
+  const index = stateCarts.findIndex((item) => {
+    return item.id === id;
+  });
+
+  console.log("INDEX", index);
 
   return (
     <div>
@@ -154,15 +186,39 @@ const ProductName = (props) => {
             </div>
             <div className="d-flex">
               <button className="chat mt-3 rounded-pill">Chat</button>
-              <button className="mybag ml-2 mt-3 rounded-pill">Add bag</button>
+              {index >= 0 ? (
+                <button
+                  className="ml-2 mt-3 rounded-pill"
+                  style={{ backgroundColor: "#222222", color: "white" }}
+                >
+                  item already in bag
+                </button>
+              ) : (
+                <button
+                  className="mybag ml-2 mt-3 rounded-pill"
+                  onClick={() => {
+                    dispatch(
+                      addToCart({
+                        brand: brand,
+                        id: id,
+                        photo: photo[0],
+                        name: name,
+                        price: Number(price),
+                        qty: jumlah,
+                        seller_id: seller_id,
+                        selected: false,
+                      })
+                    );
+                  }}
+                >
+                  Add bag
+                </button>
+              )}
               {/* <Link to={{
                     pathname:"/checkout",
                     state: this.state,
                     }}> */}
-              <button
-                className="buy ml-2 mt-3 rounded-pill"
-                // onClick={this.CreateProduct}
-              >
+              <button className="buy ml-2 mt-3 rounded-pill" onClick={kirim}>
                 Buy Now
               </button>
               {/* </Link> */}
@@ -170,8 +226,8 @@ const ProductName = (props) => {
           </div>
         </div>
         <h3 className="informasi">Informasi Produk</h3>
-        <h3 className="tag-condition mt-5">Condition</h3>
-        <p className="condition">{condition}</p>
+        {/* <h3 className="tag-condition mt-5">Condition</h3>
+        <p className="condition">{condition}</p> */}
         <h3 className="tag-desc">Description</h3>
         <p className="desc">{desc}</p>
         <p className="informasi">Product review</p>

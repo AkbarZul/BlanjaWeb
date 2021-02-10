@@ -1,5 +1,6 @@
-import { authLogin, authRegister } from "../../utility/Auth";
+import { authLogin, authRegister, addAddressCustomer } from "../../utility/Auth";
 import actionAuth from "./actionAuth";
+import { createAsyncAction } from "redux-promise-middleware-actions";
 
 export const authLoginCreator = (email, password) => {
   return {
@@ -20,3 +21,11 @@ export const authLogOutCreator = () => {
     type: actionAuth.authLogOut,
   };
 };
+
+export const addAddressCustomerCreator = createAsyncAction(
+  "ADDADDRESS",
+  async (id_address, body) => {
+    const res = await addAddressCustomer(id_address, body);
+    return res.data;
+  }
+);

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Login from "../components/Auth/Login/Login";
 import Register from "../components/Login/Register";
-import ResetPassword from "../components/Login/KonfirmasiPassword";
+import ResetPassword from "../components/Login/ResetPassword";
 import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -11,6 +11,7 @@ const Auth = () => {
   const changeToLogin = () => setCompLogin("login");
   const changeToReset = () => setCompLogin("reset");
   const isLogin = useSelector((state) => state.auth.isLogin);
+  console.log("token", isLogin);
   if (isLogin === true) return <Redirect to="/" />;
 
   return (
