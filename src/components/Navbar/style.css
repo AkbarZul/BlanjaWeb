@@ -34,7 +34,7 @@
     height: 25px;
     width: 25px;
     overflow: hidden;
-    margin: 0 20px;
+    /* margin: 0 20px; */
   }
   .img-profil-nav{
     display: block;
