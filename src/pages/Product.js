@@ -26,9 +26,9 @@ const Product = (props) => {
         setProduct(productId);
         setImg(images);
         setQty(jumlah);
-        console.log("PRODUCT", productId);
-        console.log("IMAGE", images);
-        console.log("sizes", size.length);
+        // console.log("PRODUCT", productId);
+        // console.log("IMAGE", images);
+        // console.log("sizes", size.length);
       })
       .catch((err) => {
         console.log("ERROR", err);
@@ -52,6 +52,8 @@ const Product = (props) => {
         qty={qty}
         photo={img}
         rating={product.rating}
+        id={product.id}
+        seller_id={product.user_id}
       />
     </>
   );

@@ -24,13 +24,14 @@ const Navbar = () => {
   const token = useSelector((state) => state.auth.data.token);
 
   const [show, setShow] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const inputRef = React.useRef();
   const onKeyPressHandler = (event) => {
     if (event.key === "Enter") {
-      window.location.href = `http://localhost:3000/search?name=${inputRef.current.value}`;
+      window.location.href = `http://localhost:3000/search?keyword=${inputRef.current.value}`;
     }
   };
 
@@ -125,7 +126,8 @@ const Navbar = () => {
                     <button
                       type="submit"
                       className="btn-login btn my-2 my-sm-2"
-                      onClick={handleLogout}
+                      // onClick={handleLogout}
+                      onClick={() => setModalShow(true)}
                     >
                       Logout
                     </button>
@@ -230,6 +232,41 @@ const Navbar = () => {
             </button>
           </div>
         </Modal.Footer>
+      </Modal>
+      {/* -------------------------- MODAL LOGOUT ---------------------------- */}
+      <Modal
+        size="sm"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      >
+        <Modal.Header closeButton style={{ border: "none" }}>
+          <Modal.Title id="contained-modal-title-vcenter"></Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <h6 style={{ fontSize: "15px", marginBottom: "15px" }}>
+              Are you sure to log out?
+            </h6>
+            <div className="login" style={{ alignSelf: "flex-end" }}>
+              <button
+                onClick={handleLogout}
+                style={{ alignSelf: "flex-end", marginTop: "20px" }}
+                className="btn-login"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        </Modal.Body>
       </Modal>
     </div>
   );

@@ -1,59 +1,104 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import { Jas } from "../assets/style/index";
-
+import ModalChooseAddress from "../components/Modal/ModalAddress/ModalChooseAddress";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { API } from "../utility/Auth";
 import "../assets/style/mybag.css";
 import "../assets/style/checkout.css";
 
-class Checkout extends Component {
-  render() {
-    const { name, price, brand } = this.props;
-    console.log(name, price, brand);
-    return (
-      <div>
-        <Navbar />
+const Checkout = () => {
+  const [showChooseAddress, setShowChooseAddress] = useState(false);
+  const [address, setAddress] = useState([]);
 
-        <div className="container">
-          <h1 style={{ fontSize: "34px", fontWeight: "700" }}>Checkout</h1>
-          <p className="mt-3 ttl-addrs">Shipping Address</p>
+  const checkout = useSelector((state) => state.product.checkout);
+  const stateCarts = useSelector((state) => state.product.carts);
+  const token = useSelector((state) => state.auth.data.token);
+  console.log("CHECKOUT", checkout);
+
+  const getAddressUser = async () => {
+    await axios
+      .get(`${API}/address`, {
+        headers: {
+          "x-access-token": "Bearer " + token,
+        },
+      })
+      .then((res) => {
+        const address = res.data.data[0];
+        setAddress(address);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getAddressUser();
+  }, []);
+
+  return (
+    <div>
+      <Navbar />
+      <div className="container">
+        <h1 style={{ fontSize: "34px", fontWeight: "700" }}>Checkout</h1>
+        <p className="mt-3 ttl-addrs">Shipping Address</p>
+        {stateCarts.filter((item) => item.selected === true).length ? (
           <div className="d-flex ">
             <div className="left">
               <div className="col address">
-                <p>Andreas Jane</p>
+                <p>{address.fullname}</p>
                 <p>
-                  Perumahan Sapphire Mediterania, Wiradadi, Kec. Sokaraja,
-                  Kabupaten Banyumas, Jawa Tengah, 53181 [Tokopedia Note: blok c
-                  16] Sokaraja, Kab. Banyumas, 53181
+                  {`${address.address}, Kota ${address.city}, Provinsi ${address.region}, Kodepos: ${address.zip_code}, ${address.country}`}
                 </p>
-                <Link className="text-decoration-none">
-                  <div className="btn-choose-address">
-                    <p className="addres-btn">Choose another address</p>
-                  </div>
-                </Link>
+                <button
+                  className="btn-choose-address"
+                  onClick={() => setShowChooseAddress(true)}
+                >
+                  <p className="addres-btn">Choose another address</p>
+                </button>
               </div>
-              <div className="col prodct justify-content-between">
-                <div className="selectAll">
-                  <div className="mt-3">
-                    <input type="checkbox" className="cek" />
-                  </div>
-                  <div className="img-chart">
-                    <img style={{ height: "70px" }} src={Jas} alt="" />
-                  </div>
-                  <div className="ml-3">
-                    <p className="name-prodct">Men's Black and White</p>
-                    <p className="brand-product text-muted">Zalora Cloth</p>
-                  </div>
-                </div>
-                <p className="prc">$ 40.00</p>
-              </div>
+              {stateCarts
+                .filter((item) => item.selected === true)
+                .map((item) => {
+                  return (
+                    <div
+                      className="col prodct justify-content-between"
+                      key={item.id}
+                    >
+                      <div className="selectAll">
+                        <div className="img-chart">
+                          <img
+                            style={{ height: "70px" }}
+                            src={item.photo}
+                            alt=""
+                          />
+                        </div>
+                        <div className="ml-3">
+                          <p className="name-prodct">{item.name}</p>
+                          <p className="brand-product text-muted">
+                            {item.brand}
+                          </p>
+                        </div>
+                      </div>
+                      <p className="prc">{`Rp. ${(
+                        item.price * item.qty
+                      ).toLocaleString("id-ID")}`}</p>
+                    </div>
+                  );
+                })}
             </div>
             <div className="right">
               <div className="shop-sumry">
                 <p className="smry-title">Shopping summary</p>
                 <div className="ttl-price">
                   <p className="text-price text-muted">Total price</p>
-                  <p className="pay">Rp.$ 200.00</p>
+                  <p className="pay">{`Rp${stateCarts
+                    .filter((item) => item.selected === true)
+                    .reduce((total, item) => {
+                      return total + item.price * item.qty;
+                    }, 0)
+                    .toLocaleString("id-ID")}`}</p>
                 </div>
                 <Link className="text-decoration-none">
                   <div className="btn-buy">
@@ -63,10 +108,25 @@ class Checkout extends Component {
               </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <h1
+          // className={classname(
+          //   text.headline,
+          //   colors.grayText,
+          //   "text-empty-cart"
+          // )}
+          >
+            (Checkout item is empty)
+          </h1>
+        )}
       </div>
-    );
-  }
-}
+      <ModalChooseAddress
+        show={showChooseAddress}
+        onHide={() => setShowChooseAddress(false)}
+        // showAddAddress={() => setShowAddAddress(true)}
+      />
+    </div>
+  );
+};
 
 export default Checkout;

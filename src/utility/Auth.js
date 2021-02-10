@@ -14,6 +14,6 @@ export const authRegister = (data) => {
   return Axios.post(URI, data);
 };
 
-export const getProductId = (id) => {
-  return Axios.get(`${API}/products/${id}`);
+export const addAddressCustomer = (data) => {
+  return Axios.get(`${API}/address`, data);
 };

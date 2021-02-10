@@ -13,7 +13,7 @@ import MyProfile from "./MyProfile";
 // import Login from "../components/Login/Login";
 // import Register from "../components/Login/Register";
 // import KonfirmasiPassword from "../components/Login/KonfirmasiPassword";
-import ResetPassword from "../components/Login/ResetPassword";
+// import ResetPassword from "../components/Login/ResetPassword";
 import Auth from "./Auth";
 
 export default function Router() {
@@ -29,7 +29,7 @@ export default function Router() {
       <Route path="/login" component={Auth} />
       {/* <Route path="/register" component={Auth} />
       <Route path="/konfirmasi" component={Auth} /> */}
-      <Route path="/reset-password" component={ResetPassword} />
+      {/* <Route path="/reset-password" component={ResetPassword} /> */}
       <Route path="/update" component={Update} />
       <Route path="/my-profile" component={MyProfile} />
     </BrowserRouter>

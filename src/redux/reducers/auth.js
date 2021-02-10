@@ -1,4 +1,5 @@
 import actionAuth from "../actions/actionAuth";
+import { addAddressCustomerCreator } from "../actions/auth";
 
 const initialState = {
   data: [],
@@ -8,6 +9,12 @@ const initialState = {
   isPending: false,
   isFulfilled: false,
   isRejected: false,
+
+  statusAddAddress: null,
+  errorAddAddress: undefined,
+  isAddAddressPending: false,
+  isAddAddressFulFilled: false,
+  isAddAddressRejected: false,
 };
 
 const auth = (state = initialState, { type, payload }) => {
@@ -74,6 +81,41 @@ const auth = (state = initialState, { type, payload }) => {
         isRejected: false,
         status: {},
       };
+      case String(addAddressCustomerCreator.pending):
+        return {
+          ...state,
+          isAddAddressPending: true,
+        };
+      case String(addAddressCustomerCreator.fulfilled): {
+        let status;
+        let err;
+        if (payload.status === 200) {
+          status = 200;
+          err = undefined;
+        } else {
+          status = 500;
+          err = payload.error;
+        }
+        console.log('REDUCERS ADDRESS: ', payload.status)
+        return {
+          ...state,
+          data: { ...state.data, ...payload.data },
+          statusAddAddress: status,
+          errorAddAddress: undefined,
+          isAddAddressPending: false,
+          isAddAddressFulFilled: true,
+          isAddAddressRejected: false,
+        };
+      }
+      case String(addAddressCustomerCreator.rejected):
+        return {
+          ...state,
+          statusAddAddress: 500,
+          errorAddAddress: payload,
+          isAddAddressRejected: true,
+          isAddAddressPending: false,
+          isAddAddressFulFilled: false,
+        };
     default:
       return state;
   }

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Jas } from "../../assets/style";
 import Rating from "../Rating/Rating";
 import axios from "axios";
-const getUrl = "http://localhost:8000/search";
+const getUrl = "http://localhost:2005/search";
 
 class ProductCategory extends Component {
   state = {
@@ -52,7 +52,7 @@ class ProductCategory extends Component {
                   >
                     <Link
                       to={{
-                        pathname: `/product/${id}`,
+                        pathname: `/products/${id}`,
                         state: this.state,
                       }}
                     >
