@@ -10,10 +10,12 @@ import Update from "./Update";
 import MyProfile from "./MyProfile";
 
 // Login Page
-// import Login from "../components/Login/Login";
-// import Register from "../components/Login/Register";
+// import Login from "../components/";
+import Register from "../components/Login/Register";
 // import KonfirmasiPassword from "../components/Login/KonfirmasiPassword";
 import ResetPassword from "../components/Login/ResetPassword";
+import OtpConfrim from "../components/Login/OtpConfrim";
+import KonfirmasiPassword from "../components/Login/KonfirmasiPassword";
 import Auth from "./Auth";
 
 export default function Router() {
@@ -27,9 +29,13 @@ export default function Router() {
       <Route path="/search" component={SortCategory} />
       <Route path="/inputProduct" component={PostProduct} />
       <Route path="/login" component={Auth} />
+      <Route path="/otp" component={OtpConfrim} />
+      <Route path="/confrim" component={KonfirmasiPassword} />
+      <Route path="/register" component={Register} />
+
       {/* <Route path="/register" component={Auth} />
       <Route path="/konfirmasi" component={Auth} /> */}
-      <Route path="/reset-password" component={ResetPassword} />
+      {/* <Route path="/reset" component={ResetPassword} /> */}
       <Route path="/update" component={Update} />
       <Route path="/my-profile" component={MyProfile} />
     </BrowserRouter>

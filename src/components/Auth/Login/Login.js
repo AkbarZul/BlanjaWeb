@@ -4,13 +4,13 @@ import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { authLoginCreator } from "../../../redux/actions/auth";
 import { Logo } from "../../../assets/style/index";
-import "./login.css";
+import "./login2.css";
 
-const Login = ({ changeToRegister }) => {
+const Login = ({ changeToRegister, changeToReset }) => {
   const dispatch = useDispatch();
   const msgInvalid = useSelector((state) => state.auth.msgInvalid);
 
-  console.log("pesan : ", msgInvalid);
+  console.log("test anjim", msgInvalid);
 
   const [role, setRole] = useState(1);
 
@@ -31,13 +31,21 @@ const Login = ({ changeToRegister }) => {
   const reviewSchema = yup.object({
     email: yup.string().required().email(),
     password: yup.string().required(),
+    
   });
+
+  
 
   return (
     <div className="d-flex justify-content-center align-items-center container-auth">
-      <div className="row content">
-        <div className="col-md-12 d-flex justify-content-center align-items-center">
-          <img src={Logo} alt="logo" width="120" height="50" />
+      <div className="content">
+        <div id="logo" style={{justifyContent: 'center'}}>
+          <div className="logo-shop">
+            <img src={Logo} alt="logo-shop" />
+          </div>
+          <div className="logo-text">
+            <p className="tag-logo">Blanja</p>
+          </div>
         </div>
         <div className="col-md-12 text-center mt-3">
           <p className="font-weight-bold">Please login with your account</p>
@@ -63,7 +71,7 @@ const Login = ({ changeToRegister }) => {
             <p className="text-red">Wrong email or password</p>
           </div>
         ) : null}
-        
+
         <Formik
           initialValues={{ email: "", password: "" }}
           validationSchema={reviewSchema}
@@ -109,7 +117,7 @@ const Login = ({ changeToRegister }) => {
                 </p>
               </div>
               <div className="col-md-12 d-flex justify-content-center align-items-center mt-2">
-                <p className="text-forgot-password">Forgot password?</p>
+                <p className="text-forgot-password" onClick={changeToReset}>Forgot password?</p>
               </div>
               <div className="col-md-12 d-flex justify-content-center align-items-center mt-3">
                 <button

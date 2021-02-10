@@ -57,7 +57,7 @@ const Navbar = () => {
       <div className="shadow p-3 mb-5 bg-white rounded">
         <nav className="navbar navbar-expand-lg navbar-light bg-white">
           <div className="container">
-            <Link to="/inputProduct">
+            <Link to="/">
               <div className="logo-brand">
                 <img src={Logo} alt="logo-shop" />
                 <h1>Blanja</h1>
@@ -108,7 +108,7 @@ const Navbar = () => {
                       </button>
                     </div>
                   </Link>
-                  <Link to="/login">
+                  <Link to="/register">
                     <div className="signup">
                       <button
                         type="submit"
