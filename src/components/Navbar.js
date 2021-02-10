@@ -29,14 +29,13 @@ const Navbar = () => {
 
   const inputRef = React.useRef();
   const onKeyPressHandler = (event) => {
-    axios.get(`${process.env.REACT_APP_URL}/search?keyword=${inputRef.current.value}`)
-    .then((res) => {
+    axios
+      .get(
+        `${process.env.REACT_APP_URL}/search?keyword=${inputRef.current.value}`
+      )
+      .then((res) => {})
+      .catch((err) => {});
 
-    })
-    .catch((err) => {
-
-    })
-    
     if (event.key === "Enter") {
       window.location.href = `${process.env.REACT_APP_URL}/search?keyword=${inputRef.current.value}`;
     }
@@ -60,7 +59,7 @@ const Navbar = () => {
   };
 
   if (isLogout === true) {
-    return <Redirect to="/login"/>
+    return <Redirect to="/login" />;
   }
   return (
     <>
@@ -154,9 +153,11 @@ const Navbar = () => {
                         style={{ color: "#d4d4d4" }}
                         icon={faEnvelope}
                       />
-                      <div className="dp-profil-nav">
-                        <img className="img-profil-nav" alt="" />
-                      </div>
+                      <Link to="/profile">
+                        <div className="dp-profil-nav">
+                          <img className="img-profil-nav" alt="" />
+                        </div>
+                      </Link>
                       {/* </div> */}
                       {/* <Link to="/login"> */}
                       <div className="login">
@@ -264,7 +265,6 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
 
 // import React, { useState, useEffect } from "react";
 // import { Modal } from "react-bootstrap";

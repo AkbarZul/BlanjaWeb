@@ -13,7 +13,7 @@ import MyProfile from "./MyProfile";
 // import Login from "../components/";
 import Register from "../components/Login/Register";
 // import KonfirmasiPassword from "../components/Login/KonfirmasiPassword";
-import ResetPassword from "../components/Login/ResetPassword";
+// import ResetPassword from "../components/Login/ResetPassword";
 import OtpConfrim from "../components/Login/OtpConfrim";
 import KonfirmasiPassword from "../components/Login/KonfirmasiPassword";
 import Auth from "./Auth";
@@ -37,7 +37,7 @@ export default function Router() {
       <Route path="/konfirmasi" component={Auth} /> */}
       {/* <Route path="/reset" component={ResetPassword} /> */}
       <Route path="/update" component={Update} />
-      <Route path="/my-profile" component={MyProfile} />
+      <Route path="/profile" component={MyProfile} />
     </BrowserRouter>
   );
 }
