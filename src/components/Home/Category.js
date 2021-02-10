@@ -1,9 +1,28 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { TShirt, Shorts, Jacket, Pants, Shoes } from "../../assets/style";
 import { Link } from "react-router-dom";
+import axios from "axios";
 // import '../../assets/style/category.css'
 
 const Category = () => {
+  const [category, setCategory] = useState([]);
+
+  const getAllCategory = () => {
+    axios
+      .get(`${process.env.REACT_APP_URL}/categories/?keyword=created_at DESC`)
+      .then((res) => {
+        const categories = res.data.data;
+        setCategory(categories);
+        console.log("testing cat", categories);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getAllCategory();
+  }, []);
   return (
     <div>
       <div className="container">
@@ -11,11 +30,36 @@ const Category = () => {
           <h3>Category</h3>
           <p className="lead text-muted">What are you currently looking for</p>
           <div className="row row-cols-5 d-flex justify-content-around">
-            <div className="col col-md-auto col-12 rounded box brand-category mb-5">
+            {category.map(
+              ({ id_categories, category_name, category_photo }) => {
+                return (
+                  <>
+                    <div className="col col-md-auto col-12 rounded box brand-category-2 mb-5">
+                      <Link
+                        to={{
+                          pathname: `/category/${id_categories}`,
+                          // search: "keyword=created_at DESC",
+                          category,
+                        }}
+                      >
+                        <img
+                          src={category_photo}
+                          alt=""
+                          className="fluid mx-auto d-block"
+                        />
+                        <h3>{category_name}</h3>
+                      </Link>
+                    </div>
+                  </>
+                );
+              }
+            )}
+            {/* <div className="col col-md-auto col-12 rounded box brand-category mb-5">
               <Link
                 to={{
-                  pathname: "/category",
-                  search: "name=t-shirt",
+                  pathname: "/category/13",
+                  search: "keyword=created_at DESC",
+                  state: { shoes: shoes },
                 }}
               >
                 <img src={TShirt} alt="" className="fluid mx-auto d-block" />
@@ -68,7 +112,7 @@ const Category = () => {
                 <img src={Shoes} alt="" className="fluid mx-auto d-block" />
                 <h3>Shoes</h3>
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
