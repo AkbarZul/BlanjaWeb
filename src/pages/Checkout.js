@@ -1,21 +1,58 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import Loader from "../assets/image/loader.gif";
 import ModalChooseAddress from "../components/Modal/ModalAddress/ModalChooseAddress";
-import { useSelector } from "react-redux";
+import ModalSelectPayment from "../components/Modal/ModalAddress/ModalSelectPayment";
+import ModalAddAddress from "../components/Modal/ModalAddress/ModalAddAddress";
+import { Bounce, toast } from "react-toastify";
+import { useSelector, useDispatch } from "react-redux";
+import { clearCart, clearCheckout } from "../redux/actions/product";
 import axios from "axios";
 import { API } from "../utility/Auth";
+import "react-toastify/dist/ReactToastify.css";
 import "../assets/style/mybag.css";
 import "../assets/style/checkout.css";
 
+toast.configure();
 const Checkout = () => {
   const [showChooseAddress, setShowChooseAddress] = useState(false);
+  const [showAddAddress, setShowAddAddress] = useState(false);
+  const [showPayment, setShowPayment] = useState(false);
   const [address, setAddress] = useState([]);
 
+  const dispatch = useDispatch();
   const checkout = useSelector((state) => state.product.checkout);
   const stateCarts = useSelector((state) => state.product.carts);
   const token = useSelector((state) => state.auth.data.token);
   console.log("CHECKOUT", checkout);
+
+  const transaction = () => {
+    axios
+      .post(`${API}/orders`, checkout, {
+        headers: {
+          "x-access-token": "Bearer " + token,
+        },
+      })
+      .then((res) => {
+        console.log("success", res);
+      })
+      .catch((err) => {
+        console.log("ERROR", err.response);
+      });
+    dispatch(clearCart());
+    dispatch(clearCheckout());
+    toast.success("Yeah! kamu berhasil belanja", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      transition: Bounce,
+    });
+    setShowPayment(false);
+  };
 
   const getAddressUser = async () => {
     await axios
@@ -25,7 +62,7 @@ const Checkout = () => {
         },
       })
       .then((res) => {
-        const address = res.data.data[0];
+        const address = res.data.data;
         setAddress(address);
       })
       .catch((err) => {
@@ -47,10 +84,14 @@ const Checkout = () => {
           <div className="d-flex ">
             <div className="left">
               <div className="col address">
-                <p>{address.fullname}</p>
-                <p>
-                  {`${address.address}, Kota ${address.city}, Provinsi ${address.region}, Kodepos: ${address.zip_code}, ${address.country}`}
-                </p>
+                {address.length ? (
+                  <>
+                    <p>{address.fullname}</p>
+                    <p>
+                      {`${address.address}, Kota ${address.city}, Provinsi ${address.region}, Kodepos: ${address.zip_code}, ${address.country}`}
+                    </p>
+                  </>
+                ) : null}
                 <button
                   className="btn-choose-address"
                   onClick={() => setShowChooseAddress(true)}
@@ -100,11 +141,14 @@ const Checkout = () => {
                     }, 0)
                     .toLocaleString("id-ID")}`}</p>
                 </div>
-                <Link className="text-decoration-none">
-                  <div className="btn-buy">
+                <div className="text-decoration-none">
+                  <button
+                    className="btn-buy"
+                    onClick={() => setShowPayment(true)}
+                  >
                     <p className="text-buy">Select payment</p>
-                  </div>
-                </Link>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -123,7 +167,19 @@ const Checkout = () => {
       <ModalChooseAddress
         show={showChooseAddress}
         onHide={() => setShowChooseAddress(false)}
-        // showAddAddress={() => setShowAddAddress(true)}
+        showAddAddress={() => setShowAddAddress(true)}
+      />
+      <ModalSelectPayment
+        show={showPayment}
+        onHide={() => setShowPayment(false)}
+        showAddAddress={() => setShowAddAddress(true)}
+        cart={stateCarts.filter((item) => item.selected === true)}
+        onSubmit={() => transaction()}
+        // handleSelectPayment={(evt) => handleSelectPayment(evt)}
+      />
+      <ModalAddAddress
+        show={showAddAddress}
+        onHide={() => setShowAddAddress(false)}
       />
     </div>
   );

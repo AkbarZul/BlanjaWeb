@@ -1,20 +1,21 @@
 import React, { useState } from "react";
 import { Logo } from "../../assets/style/index";
 import { Formik } from "formik";
-import * as yup from 'yup';
-import Axios from 'axios'
+import * as yup from "yup";
+import Axios from "axios";
 import { Redirect } from "react-router-dom";
 import "../../assets/style/login.css";
+import { API } from "../../utility/Auth";
 
 const ResetPassword = ({ changeToRegister }) => {
-    const [isreset, setIsReset] = useState(false)
+  const [isreset, setIsReset] = useState(false);
 
   const sendEmail = (email) => {
-    const api = `http://localhost:8007/auth/forgot`;
+    const api = `${API}/auth/forgot`;
     Axios.post(api, { email: email })
       .then((data) => {
-          setIsReset(true)
-          console.log("forgot done", data)
+        setIsReset(true);
+        console.log("forgot done", data);
         //   redirect.push("/login")
       })
       .catch((err) => console.log(err));
@@ -25,20 +26,20 @@ const ResetPassword = ({ changeToRegister }) => {
   });
 
   if (isreset === true) {
-    return <Redirect to="/otp"/>
+    return <Redirect to="/otp" />;
   }
   return (
     <div className="d-flex justify-content-center align-items-center container-auth">
       <form>
         <div className="content">
-        <div id="logo" style={{justifyContent: 'center'}}>
-          <div className="logo-shop">
-            <img src={Logo} alt="logo-shop" />
+          <div id="logo" style={{ justifyContent: "center" }}>
+            <div className="logo-shop">
+              <img src={Logo} alt="logo-shop" />
+            </div>
+            <div className="logo-text">
+              <p className="tag-logo">Blanja</p>
+            </div>
           </div>
-          <div className="logo-text">
-            <p className="tag-logo">Blanja</p>
-          </div>
-        </div>
           <div className="col-md-12 text-center mt-3">
             <p className="font-weight-bold">Reset password</p>
           </div>
@@ -48,7 +49,7 @@ const ResetPassword = ({ changeToRegister }) => {
             onSubmit={(values, { resetForm }) => {
               sendEmail(values.email);
               resetForm({ values: "" });
-            //   Redirect.push("/otp")
+              //   Redirect.push("/otp")
             }}
           >
             {(props) => (

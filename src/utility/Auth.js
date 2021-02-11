@@ -15,5 +15,5 @@ export const authRegister = (data) => {
 };
 
 export const addAddressCustomer = (data) => {
-  return Axios.get(`${API}/address`, data);
+  return Axios.patch(`${API}/address`, data);
 };
