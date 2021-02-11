@@ -29,7 +29,7 @@ const Category = () => {
         <div className="title-category">
           <h3>Category</h3>
           <p className="lead text-muted">What are you currently looking for</p>
-          <div className="row row-cols-5 d-flex justify-content-around">
+          <div className="row d-flex justify-content-lg-around justify-content-md-start" >
             {category.map(
               ({
                 id_categories,

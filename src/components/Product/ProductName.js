@@ -70,8 +70,8 @@ const ProductName = (props) => {
       <Navbar />
       <div className="container">
         <div className="row">
-          <div className="col-5">
-            <img className="img-fluid rounded" src={photo[0]} alt="" />
+          <div className="col-12 col-md-5 col-lg-5">
+            <img className="img-fluid rounded" src={photo[0]} style={{height: '25rem'}} alt="" />
             <div className="d-flex">
               <img
                 className="img-fluid rounded mt-2"
@@ -93,7 +93,7 @@ const ProductName = (props) => {
               />
             </div>
           </div>
-          <div className="col-7">
+          <div className="col-12 col-md-7 col-l-7">
             <h3 className="name">{name}</h3>
             <p className="brand">{brand}</p>
             <Rating product_rating={rating} />
@@ -184,43 +184,49 @@ const ProductName = (props) => {
                 <p>+</p>
               </button>
             </div>
-            <div className="d-flex">
-              <button className="chat mt-3 rounded-pill">Chat</button>
-              {index >= 0 ? (
-                <button
-                  className="ml-2 mt-3 rounded-pill"
-                  style={{ backgroundColor: "#222222", color: "white" }}
-                >
-                  item already in bag
-                </button>
-              ) : (
-                <button
-                  className="mybag ml-2 mt-3 rounded-pill"
-                  onClick={() => {
-                    dispatch(
-                      addToCart({
-                        brand: brand,
-                        id: id,
-                        photo: photo[0],
-                        name: name,
-                        price: Number(price),
-                        qty: jumlah,
-                        seller_id: seller_id,
-                        selected: false,
-                      })
-                    );
-                  }}
-                >
-                  Add bag
-                </button>
-              )}
+            <div className="row">
+              <div className="col-12 col-sm-3 mt-2">
+                <button className="chat rounded-pill">Chat</button>
+              </div>
+              <div className="col-12 col-sm-3 mt-2">
+                {index >= 0 ? (
+                  <button
+                    className="rounded-pill"
+                    style={{ backgroundColor: "#222222", color: "white", fontSize: "10px", width: "100%", height: "48px", paddingLeft: "5px", paddingRight: "5px" }}
+                  >
+                    Item already in bag
+                  </button>
+                ) : (
+                  <button
+                    className="mybag rounded-pill"
+                    onClick={() => {
+                      dispatch(
+                        addToCart({
+                          brand: brand,
+                          id: id,
+                          photo: photo[0],
+                          name: name,
+                          price: Number(price),
+                          qty: jumlah,
+                          seller_id: seller_id,
+                          selected: false,
+                        })
+                      );
+                    }}
+                  >
+                    Add bag
+                  </button>
+                )}
+              </div>
               {/* <Link to={{
                     pathname:"/checkout",
                     state: this.state,
                     }}> */}
-              <button className="buy ml-2 mt-3 rounded-pill" onClick={kirim}>
-                Buy Now
-              </button>
+              <div className="col-12 col-sm-6  mt-2">
+                <button className="buy rounded-pill" onClick={kirim}>
+                  Buy Now
+                </button>
+              </div>
               {/* </Link> */}
             </div>
           </div>

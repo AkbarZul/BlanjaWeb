@@ -8,6 +8,7 @@ import SortCategory from "./SortCategory";
 import AddProduct from "../components/MyProfile/AddProduct";
 import Update from "./Update";
 import MyProfile from "./MyProfile";
+import Filter from "./Filter";
 import GetProduct from "../components/MyProfile/GetProduct";
 
 // Login Page
@@ -28,6 +29,8 @@ export default function Router() {
       <Route path="/checkout" component={Checkout} />
       <Route path="/category/:id_categories" component={SortCategory} />
       <Route path="/search" component={SortCategory} />
+      <Route path="/filter" component={Filter} />
+
       <Route path="/inputProduct" component={AddProduct} />
       <Route path="/login" component={Auth} />
       <Route path="/otp" component={OtpConfrim} />

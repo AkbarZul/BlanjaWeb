@@ -25,44 +25,52 @@ const Navbar = ({ changeToLogin, changeToRegister }) => {
   const [modalShow, setModalShow] = useState(false);
   const [isLogout, setIsLogout] = useState(false);
   const [listCategory, setListCategory] = useState("");
+
   const [listSize, setListSize] = useState("");
   const [listColor, setListColor] = useState("");
   const [category, setCategory] = useState("");
   const [size, setSize] = useState("");
   const [color, setColor] = useState("");
-  const [getFilter, setGetFilter] = useState([])
 
+
+  console.log("color", color);
+  console.log("category", category);
+  console.log("size", size);
+  
+  
+  
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  
   const inputRef = React.useRef();
   const onKeyPressHandler = (event) => {
     axios
-      .get(
-        `${process.env.REACT_APP_URL}/search?keyword=${inputRef.current.value}`
+    .get(
+      `${process.env.REACT_APP_URL}/search?keyword=${inputRef.current.value}`
       )
       .then((res) => {})
       .catch((err) => {});
-
-    if (event.key === "Enter") {
-      window.location.href = `http://localhost:3000/search?keyword=${inputRef.current.value}`;
-    }
-  };
-
-  const handleFilter = () => {
-    axios
-      .get(
-        `${process.env.REACT_APP_URL}/products/filter?category=${category}&size=${size}&color=${color}`
-      )
-      .then((res) => {
-        const filter = res.data.data;
-        setGetFilter(filter)
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
+      
+      if (event.key === "Enter") {
+        window.location.href = `http://localhost:3000/search?keyword=${inputRef.current.value}`;
+      }
+    };
+    
+    // const handleFilter = () => {
+    //   axios
+    //   .get(
+    //     `${process.env.REACT_APP_URL}/products/filter?category=${category}&size=${size}&color=${color}`
+    //     )
+    //   .then((res) => {
+    //     const filter = res.data.data;
+    //     setGetFilter(filter)
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    // };
+    
+    // console.log("filter", getFilter);
   const getCategories = () => {
     axios
       .get(`${process.env.REACT_APP_URL}/categories`)
@@ -122,6 +130,7 @@ const Navbar = ({ changeToLogin, changeToRegister }) => {
     getColors();
     getCategories();
     getSizes();
+    // handleFilter();
   }, []);
 
   if (isLogout === true) {
@@ -264,7 +273,7 @@ const Navbar = ({ changeToLogin, changeToRegister }) => {
                       height: "36px",
                       borderRadius: "50%",
                       border: "none", backgroundColor: color_hexa }}
-                      onClick={() => setColor(color_name)}
+                      onClick={() => setColor(id)}
                   ></button>
                 );
               })}
@@ -278,9 +287,9 @@ const Navbar = ({ changeToLogin, changeToRegister }) => {
         <Modal.Body>
           <div className="col-12 ">
             {listSize &&
-              listSize.map(({ size }) => {
+              listSize.map(({ id,size }) => {
                 return (
-                  <button type="submit" className="size mr-3" onCLick={() => setSize(size)}>
+                  <button type="submit" className="size mr-3" onClick={() => setSize(id)}>
                     {size}
                   </button>
                 );
@@ -295,11 +304,11 @@ const Navbar = ({ changeToLogin, changeToRegister }) => {
 
         <Modal.Body>
           <div className="d-flex">
-            <button className="category mr-3" onClick={(category) => setCategory(category)}>All</button>
-            {listCategory && listCategory.map(({id, category_name}) => {
+            <button className="category mr-3">All</button>
+            {listCategory && listCategory.map(({id_categories, category_name}) => {
               return (
 
-                <button className="category mr-3" on={() => setCategory(category_name)}>{category_name}</button>
+                <button className="category mr-3" onClick={() => setCategory(id_categories)}>{category_name}</button>
               )
             })}
  
@@ -312,9 +321,14 @@ const Navbar = ({ changeToLogin, changeToRegister }) => {
             <button className="discard mr-3" onClick={handleClose}>
               Discard
             </button>
-            <button className="discard mr-4" onClick={handleFilter, handleClose}>
+            <Link to={{
+              pathname: "/filter",
+              state: category, color, size}}>
+
+            <button className="discard mr-4">
               Apply
             </button>
+            </Link>
           </div>
         </Modal.Footer>
       </Modal>
