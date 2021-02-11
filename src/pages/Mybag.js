@@ -108,8 +108,8 @@ const Mybag2 = () => {
       <div className="container">
         <h1 style={{ fontSize: "34px", fontWeight: "700" }}>My Bag</h1>
         {stateCarts.length ? (
-          <div className="d-flex ">
-            <div className="left">
+          <div className="row">
+            <div className="col-12 col-md-8 left">
               <div className="col chart justify-content-between">
                 <div className="selectAll">
                   <div className="mt-3">
@@ -135,12 +135,9 @@ const Mybag2 = () => {
               </div>
               {stateCarts.map((item) => {
                 return (
-                  <div
-                    className="col prodct justify-content-between"
-                    key={item.id}
-                  >
-                    <div className="selectAll">
-                      <div className="mt-3">
+                  <div className="row prodct" style={{marginRight: 0, marginLeft: 0}} key={item.id}>
+                    <div className="col-12 col-sm-5 align-items-center side">
+                      <div className="d-flex flex-row align-items-center">
                         <input
                           type="checkbox"
                           className="cek"
@@ -149,42 +146,61 @@ const Mybag2 = () => {
                           id={item.id}
                           checked={item.selected}
                         />
+                        <div className="d-flex flex-row">
+                          <div className="img-chart">
+                            <img
+                              style={{ height: "70px" }}
+                              src={item.photo}
+                              alt=""
+                            />
+                          </div>
+                          <div className="ml-3">
+                            <p className="name-prodct">{item.name}</p>
+                            <p className="brand-product text-muted">
+                              {item.brand}
+                            </p>
+                          </div>
+                        </div>
                       </div>
-                      <div className="img-chart">
-                        <img
-                          style={{ height: "70px" }}
-                          src={item.photo}
-                          alt=""
-                        />
-                      </div>
-                      <div className="ml-3">
-                        <p className="name-prodct">{item.name}</p>
-                        <p className="brand-product text-muted">{item.brand}</p>
-                      </div>
+                    </div>
+                    <div className="col-6 col-sm-3 align-items-center side">
                       <div
-                        className="d-flex justify-content-between ml-5 mt-3"
-                        style={{ height: "36px", width: "150px" }}
+                        className="d-flex justify-content-start align-items-center"
+                        style={{ }}
                       >
                         {item.qty === 1 ? (
                           <button
                             className="btn-c"
-                            style={{ backgroundColor: "#D4D4D4" }}
+                            style={{
+                              backgroundColor: "#D4D4D4",
+                              borderRadius: "50px",
+                              paddingLeft: "8px",
+                              paddingRight: "8px",
+                            }}
                           >
                             -
                           </button>
                         ) : (
                           <button
                             className="btn-c"
-                            style={{ backgroundColor: "#D4D4D4" }}
+                            style={{
+                              backgroundColor: "#D4D4D4",
+                              borderRadius: "50px",
+                              paddingLeft: "8px",
+                              paddingRight: "8px",
+                            }}
                             onClick={() => dispatch(decreaseQuantity(item.id))}
                           >
                             -
                           </button>
                         )}
-                        <p>{item.qty}</p>
+                        <p style={{ marginLeft: "10px", marginBottom: 0, marginRight: "10px"}}>{item.qty}</p>
                         <button
                           className="btn-c"
                           style={{
+                            borderRadius: "50px",
+                            paddingLeft: "8px",
+                            paddingRight: "8px",
                             backgroundColor: "#FFFFFF",
                             border: "solid 1px",
                           }}
@@ -194,14 +210,18 @@ const Mybag2 = () => {
                         </button>
                       </div>
                     </div>
-                    <p className="prc">
-                      {`Rp. ${(item.price * item.qty).toLocaleString("id-ID")}`}
-                    </p>
+                    <div className="col-6 col-sm-4 align-items-center side">
+                      <p className="prc">
+                        {`Rp. ${(item.price * item.qty).toLocaleString(
+                          "id-ID"
+                        )}`}
+                      </p>
+                    </div>
                   </div>
                 );
               })}
             </div>
-            <div className="right">
+            <div className="col-12 col-md-4 right">
               <div className="shop-sumry">
                 <p className="smry-title">Shopping summary</p>
                 <div className="ttl-price">

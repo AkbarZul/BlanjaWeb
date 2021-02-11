@@ -29,12 +29,12 @@ const Category = () => {
         <div className="title-category">
           <h3>Category</h3>
           <p className="lead text-muted">What are you currently looking for</p>
-          <div className="row row-cols-5 d-flex justify-content-around">
+          <div className="row d-flex justify-content-lg-around justify-content-md-start" >
             {category.map(
               ({ id_categories, category_name, category_photo }) => {
                 return (
                   <>
-                    <div className="col col-md-auto col-12 rounded box brand-category-2 mb-5">
+                    <div className="col-md-auto rounded box brand-category-2 align-items-center mb-5" style={{margin: 5}}>
                       <Link
                         to={{
                           pathname: `/category/${id_categories}`,
