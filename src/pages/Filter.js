@@ -15,12 +15,14 @@ const Filter = (props) => {
     color,
     size, 
     category
-  } = props;
+  } = props.location;
   console.log("getFilter", getFilter);
 
   console.log("colorfil", color);
   console.log("categoryfil", category);
   console.log("sizefil", size);
+
+  console.log("test props", props);
   const handleFilter = () => {
     axios
     .get(
@@ -28,6 +30,7 @@ const Filter = (props) => {
       )
     .then((res) => {
       const filter = res.data.data;
+      console.log("ashduasdh", filter);
       setGetFilter(filter)
 
     })
@@ -37,8 +40,8 @@ const Filter = (props) => {
   };
 
   useEffect(() => {
-    handleFilter(props.match.params.color, props.match.params.size, props.match.params.category);
-  }, [props.match.params.color, props.match.params.size, props.match.params.category]);
+    handleFilter();
+  }, []);
 
   return (
     <>
@@ -76,7 +79,7 @@ const Filter = (props) => {
                     <h5 className="card-title">{product_name}</h5>
                     <p className="card-text">{product_price}</p>
                     <p className="card-text2">{category_name}</p>
-                    <Rating product_rating={rating} />
+                    {/* <Rating product_rating={rating} /> */}
                   </div>
                 </Card>
               );
