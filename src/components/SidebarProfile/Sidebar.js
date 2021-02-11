@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Card, Accordion, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ModalChooseAddress from "../Modal/ModalAddress/ModalChooseAddress";
+import axios from "axios";
+import { API } from "../../utility/Auth";
 import {
   faPen,
   faAngleDown,
@@ -14,10 +17,32 @@ import "./style.css";
 // useselector = state.auth.data
 
 const Sidebar = () => {
+  const [showChooseAddress, setShowChooseAddress] = useState(false);
+  const [address, setAddress] = useState([]);
   const full_name = useSelector((state) => state.auth.data.full_name);
-  console.log("ini fullname", full_name);
+//   console.log("ini fullname", full_name);
   const level = useSelector((state) => state.auth.data.level);
-  console.log("ini level", level);
+//   console.log("ini level", level);
+  const token = useSelector((state) => state.auth.data.token);
+  const getAddressUser = async () => {
+    await axios
+      .get(`${API}/address`, {
+        headers: {
+          "x-access-token": "Bearer " + token,
+        },
+      })
+      .then((res) => {
+        const address = res.data.data[0];
+        setAddress(address);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getAddressUser();
+  }, []);
 
   return (
     <>
@@ -67,7 +92,7 @@ const Sidebar = () => {
                       </Accordion.Toggle>
                     </Card.Header>
                     <Accordion.Collapse eventKey="0">
-                      <Link to="/my-profile-store">
+                      <Link to="/profile">
                         <Card.Body className="list-side">
                           Store Profile
                         </Card.Body>
@@ -99,45 +124,15 @@ const Sidebar = () => {
                       </Accordion.Toggle>
                     </Card.Header>
                     <Accordion.Collapse eventKey="1">
-                      <Link to="/my-product">
+                      <Link to="/myproduct">
                         <Card.Body className="list-side">My Products</Card.Body>
                       </Link>
                     </Accordion.Collapse>
                     <Accordion.Collapse eventKey="1">
-                      <Link to="/selling-product">
+                      <Link to="/inputProduct">
                         <Card.Body className="list-side">
                           Selling Products
                         </Card.Body>
-                      </Link>
-                    </Accordion.Collapse>
-                  </Card>
-                  <Card style={{ border: "none" }}>
-                    <Card.Header style={{ backgroundColor: "white" }}>
-                      <Accordion.Toggle
-                        as={Button}
-                        variant="link"
-                        eventKey="2"
-                        className="d-flex justify-content-between"
-                      >
-                        <div
-                          className="icon mr-4"
-                          style={{
-                            backgroundColor: "#F3456F",
-                            marginLeft: "5px",
-                          }}
-                        >
-                          <FontAwesomeIcon
-                            icon={faHome}
-                            style={{ color: "white" }}
-                          />
-                        </div>
-                        <p className="mr-4 mt-1">Order</p>
-                        <FontAwesomeIcon className="mt-2" icon={faAngleDown} />
-                      </Accordion.Toggle>
-                    </Card.Header>
-                    <Accordion.Collapse eventKey="2">
-                      <Link to="/my-order">
-                        <Card.Body className="list-side">My Order</Card.Body>
                       </Link>
                     </Accordion.Collapse>
                   </Card>
@@ -176,6 +171,7 @@ const Sidebar = () => {
                         variant="link"
                         eventKey="1"
                         className="d-flex justify-content-between"
+                        onClick={() => setShowChooseAddress(true)}
                       >
                         <div
                           className="icon mr-4"
@@ -230,6 +226,11 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
+      <ModalChooseAddress
+        show={showChooseAddress}
+        onHide={() => setShowChooseAddress(false)}
+        // showAddAddress={() => setShowAddAddress(true)}
+      />
     </>
   );
 };

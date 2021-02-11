@@ -23,3 +23,27 @@ h3 {
   font-size: 14px;
   /* color: #9b9b9b; */
 }
+
+.save{
+  width: 100px;
+  height: 36px;
+  background-color: #ff0000 !important;
+  color: #ffffff !important;
+  border-radius: 10px;
+}
+
+.editProd{
+  width: 70px;
+  height: 36px;
+  background-color: #00ff00 !important;
+  color: #ffffff !important;
+  border-radius: 10px;
+}
+
+.deleteProd{
+  width: 70px;
+  height: 36px;
+  background-color: #ff0000 !important;
+  color: #ffffff !important;
+  border-radius: 10px;
+}
