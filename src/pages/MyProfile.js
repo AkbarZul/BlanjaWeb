@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Navbar from '../components/Navbar'
-import myProfile from '../components/MyProfile/MyProfile'
+// import myProfile from '../components/MyProfile/MyProfile'
+import MyProfile2 from "../components/MyProfile/MyProfile";
 
 
 export default class MyProfile extends Component {
@@ -8,7 +9,8 @@ export default class MyProfile extends Component {
         return (
             <>
                 <Navbar />
-                <myProfile />
+                {/* <myProfile /> */}
+                <MyProfile2 />
             </>
         )
     }
