@@ -17,7 +17,7 @@ export default class New extends Component {
 
         <article>
           <div className="container">
-            <div className="row d-flex flex-row justify-content-arround">
+            <div className="row d-flex flex-row justify-content-start">
               <NewData />
             </div>
           </div>

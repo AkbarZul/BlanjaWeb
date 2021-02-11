@@ -25,8 +25,8 @@ const Filter = (props) => {
   console.log("test props", props);
   const handleFilter = () => {
     axios
-    .get(
-      `${process.env.REACT_APP_URL}/products/filter?category=${category}&size=${size}&color=${color}`
+      .get(
+        `${process.env.REACT_APP_URL}/products/filter?category=${category}&size=${size}&color=${color}`
       )
     .then((res) => {
       const filter = res.data.data;
@@ -47,45 +47,50 @@ const Filter = (props) => {
     <>
       <Navbar />
       <div className="container">
-        <div className="row d-flex flex-row justify-content-center">
-          {getFilter && getFilter.map(
-            ({
-              id,
-              id_categories,
-              product_name,
-              product_photo,
-              category_name,
-              product_price,
-              rating,
-            }) => {
-              return (
-                <Card
-                  className="card-style"
-                  style={{ width: "18rem" }}
-                  key={id_categories}
-                >
-                  <Link
-                    to={{
-                      pathname: `/products/${id}`,
-                    }}
-                  >
-                    <img
-                      src={JSON.parse(product_photo).shift()}
-                      className="card-img-top"
-                      alt="..."
-                    />
-                  </Link>
-                  <div className="card-body">
-                    <h5 className="card-title">{product_name}</h5>
-                    <p className="card-text">{product_price}</p>
-                    <p className="card-text2">{category_name}</p>
-                    {/* <Rating product_rating={rating} /> */}
-                  </div>
-                </Card>
-              );
-            }
-          )}
-        </div>
+      {getFilter.length === 0 ? (
+        <h1>Item Not Found</h1>
+      ) : (
+          <div className="row d-flex flex-row justify-content-start">
+            {getFilter &&
+              getFilter.map(
+                ({
+                  id,
+                  id_categories,
+                  product_name,
+                  product_photo,
+                  category_name,
+                  product_price,
+                  rating,
+                }) => {
+                  return (
+                    <Card
+                      className="card-style"
+                      style={{ width: "18rem" }}
+                      key={id_categories}
+                    >
+                      <Link
+                        to={{
+                          pathname: `/products/${id}`,
+                        }}
+                      >
+                        <img
+                          src={JSON.parse(product_photo).shift()}
+                          className="card-img-top"
+                          alt="..."
+                        />
+                      </Link>
+                      <div className="card-body">
+                        <h5 className="card-title">{product_name}</h5>
+                        <p className="card-text">{product_price}</p>
+                        <p className="card-text2">{category_name}</p>
+                        {/* <Rating product_rating={rating} /> */}
+                      </div>
+                    </Card>
+                  );
+                }
+              )}
+          </div>
+      )}
       </div>
     </>
   );
