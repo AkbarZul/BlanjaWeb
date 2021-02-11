@@ -86,7 +86,7 @@ const Mybag2 = () => {
     const sendData = {
       transaction_code: invoice,
       seller_id: stateCarts[0].seller_id,
-      id_address: address[0].id_address,
+      id_address: "",
       item: productId,
     };
     dispatch(addToCheckout({ sendData }));

@@ -31,10 +31,18 @@ const Category = () => {
           <p className="lead text-muted">What are you currently looking for</p>
           <div className="row d-flex justify-content-lg-around justify-content-md-start" >
             {category.map(
-              ({ id_categories, category_name, category_photo }) => {
+              ({
+                id_categories,
+                category_name,
+                category_photo,
+                color_hexa,
+              }) => {
                 return (
                   <>
-                    <div className="col-md-auto rounded box brand-category-2 align-items-center mb-5" style={{margin: 5}}>
+                    <div
+                      className="col col-md-auto col-12 rounded box brand-category-2 mb-5"
+                      style={{ backgroundColor: color_hexa }}
+                    >
                       <Link
                         to={{
                           pathname: `/category/${id_categories}`,

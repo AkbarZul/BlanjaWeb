@@ -5,10 +5,11 @@ import Product from "./Product";
 import Mybag from "./Mybag";
 import Checkout from "./Checkout";
 import SortCategory from "./SortCategory";
-import PostProduct from "./PostProduct";
+import AddProduct from "../components/MyProfile/AddProduct";
 import Update from "./Update";
 import MyProfile from "./MyProfile";
 import Filter from "./Filter";
+import GetProduct from "../components/MyProfile/GetProduct";
 
 // Login Page
 // import Login from "../components/";
@@ -30,11 +31,12 @@ export default function Router() {
       <Route path="/search" component={SortCategory} />
       <Route path="/filter" component={Filter} />
 
-      <Route path="/inputProduct" component={PostProduct} />
+      <Route path="/inputProduct" component={AddProduct} />
       <Route path="/login" component={Auth} />
       <Route path="/otp" component={OtpConfrim} />
       <Route path="/confrim" component={KonfirmasiPassword} />
       <Route path="/register" component={Register} />
+      <Route path="/myproduct" component={GetProduct} />
 
       {/* <Route path="/register" component={Auth} />
       <Route path="/konfirmasi" component={Auth} /> */}

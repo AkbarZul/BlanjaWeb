@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 import { Logo } from "../../assets/style/index";
 import { Formik } from "formik";
-import * as yup from 'yup';
-import Axios from 'axios'
+import * as yup from "yup";
+import Axios from "axios";
 import { Redirect } from "react-router-dom";
 // import { Link } from "react-router-dom";
+import { API } from "../../utility/Auth";
 import "../../assets/style/login.css";
 
 const OtpConfrim = ({ changeToRegister }) => {
-    const [isConfrim, setIsConfrim] = useState(false);
+  const [isConfrim, setIsConfrim] = useState(false);
 
   const sendOtp = (email, otp) => {
-    const api = `http://localhost:8007/auth/findOTP`;
+    const api = `${API}/auth/findOTP`;
     Axios.post(api, { email: email, otp: otp })
       .then((data) => {
-          setIsConfrim(true)
-          console.log("OTP done", data)
+        setIsConfrim(true);
+        console.log("OTP done", data);
         //   redirect.push("/login")
       })
       .catch((err) => console.log(err));
@@ -26,22 +27,22 @@ const OtpConfrim = ({ changeToRegister }) => {
     otp: yup.string().required(),
   });
 
-  if(isConfrim === true) {
-      return <Redirect to="/confrim" />
+  if (isConfrim === true) {
+    return <Redirect to="/confrim" />;
   }
 
   return (
     <div className="d-flex justify-content-center align-items-center container-auth">
       <form>
         <div className="content">
-        <div id="logo" style={{justifyContent: 'center'}}>
-          <div className="logo-shop">
-            <img src={Logo} alt="logo-shop" />
+          <div id="logo" style={{ justifyContent: "center" }}>
+            <div className="logo-shop">
+              <img src={Logo} alt="logo-shop" />
+            </div>
+            <div className="logo-text">
+              <p className="tag-logo">Blanja</p>
+            </div>
           </div>
-          <div className="logo-text">
-            <p className="tag-logo">Blanja</p>
-          </div>
-        </div>
           <div className="col-md-12 text-center mt-3">
             <p className="font-weight-bold">Input your OTP</p>
           </div>
@@ -72,22 +73,22 @@ const OtpConfrim = ({ changeToRegister }) => {
                   </p>
                 </div>
                 <div className="col-md-12 d-flex justify-content-center align-items-center mt-3">
-                <input
-                  type="text"
-                  className="input-text"
-                  placeholder="OTP"
-                  name="otp"
-                  onChange={props.handleChange}
-                  onBlur={props.handleBlur}
-                  value={props.values.otp}
-                />
-                <br />
-              </div>
-              <div className="col-md-12 d-flex justify-content-center align-items-center">
-                <p className="text-red">
-                  {props.touched.otp && props.errors.otp}
-                </p>
-              </div>
+                  <input
+                    type="text"
+                    className="input-text"
+                    placeholder="OTP"
+                    name="otp"
+                    onChange={props.handleChange}
+                    onBlur={props.handleBlur}
+                    value={props.values.otp}
+                  />
+                  <br />
+                </div>
+                <div className="col-md-12 d-flex justify-content-center align-items-center">
+                  <p className="text-red">
+                    {props.touched.otp && props.errors.otp}
+                  </p>
+                </div>
                 <div className="col-md-12 d-flex justify-content-center align-items-center mt-5">
                   <button
                     type="button"

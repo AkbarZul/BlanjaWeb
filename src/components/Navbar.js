@@ -15,7 +15,7 @@ import axios from "axios";
 // import Img from './ImgWithContainer/'
 
 // class Navbar extends Component {
-const Navbar = () => {
+const Navbar = ({ changeToLogin, changeToRegister }) => {
   const dispatch = useDispatch();
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
@@ -250,18 +250,6 @@ const Navbar = () => {
                 )}
               </div>
             </div>
-            {/* <Link to="/login">
-                <div className="login">
-                  <button type="submit" className="btn-login btn my-2 my-sm-2">
-                    Login
-                  </button>
-                </div>
-              </Link>
-              <div className="signup">
-                <button type="submit" className="btn-signup btn my-2 my-sm-2">
-                  Sign Up
-                </button>
-              </div> */}
           </div>
         </nav>
       </div>
