@@ -5,13 +5,14 @@ import * as yup from "yup";
 import Axios from "axios";
 import { Redirect } from "react-router-dom";
 // import { Link } from "react-router-dom";
+import { API } from "../../utility/Auth";
 import "../../assets/style/login.css";
 
 const KonfirmasiPassword = ({ changeToRegister }) => {
   const [isConfrim, setIsConfrim] = useState(false);
 
   const sendOtp = (email, password) => {
-    const api = `http://localhost:8007/auth/reset`;
+    const api = `${API}/auth/reset`;
     Axios.patch(api, { email: email, password: password })
       .then((data) => {
         setIsConfrim(true);

@@ -31,7 +31,7 @@ export default function Router() {
       <Route path="/login" component={Auth} />
       <Route path="/otp" component={OtpConfrim} />
       <Route path="/confrim" component={KonfirmasiPassword} />
-      <Route path="/register" component={Register} />
+      {/* <Route path="/register" component={Register} /> */}
 
       {/* <Route path="/register" component={Auth} />
       <Route path="/konfirmasi" component={Auth} /> */}

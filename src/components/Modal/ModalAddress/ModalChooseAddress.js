@@ -68,8 +68,7 @@ const ModalChooseAddress = (props) => {
                       {fullname}
                     </p>
                     <p className="text-addres mb-4">{`${address}, ${city}, ${region}, ${zip_code}, ${country}`}</p>
-                    <a
-                      href="#"
+                    <button
                       className={classname(
                         colors.primaryText,
                         text.text,
@@ -77,7 +76,7 @@ const ModalChooseAddress = (props) => {
                       )}
                     >
                       Change address
-                    </a>
+                    </button>
                   </div>
                 );
               }
