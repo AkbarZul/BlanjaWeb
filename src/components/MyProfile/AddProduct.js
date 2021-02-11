@@ -58,8 +58,11 @@ const AddProduct = () => {
     }
   };
 
-  const restructureIsSelected = (data) => {
-    const temp = data.map((data) => {
+  console.log("ini warna", addOrRemoveColorSelected);
+  console.log("ini size", addOrRemoveSelected);
+
+  const restructureIsSelected = async (data) => {
+    const temp = await data.map((data) => {
       data["is_selected"] = false;
       return data;
     });
@@ -289,24 +292,17 @@ const AddProduct = () => {
                     <label>Colors </label>
                     <br></br>
                     <select
-                      id="cat_updt"
+                      // id="cat_updt"
                       className="form-control col-6"
                       // onChange={this.optCatcher}
-                      // value={color}
-                      // onChange={(id) =>
-                      //   addOrRemoveColorSelected(id.target.value)
-                      // }
-                      // options={color.map(({ id, color_name }) => {
-                      //   return { id: id, label: color_name };
-                      // })}
+                      onClick={addOrRemoveColorSelected(color.id)}
+                      multiple
                     >
                       {color &&
                         color.map(({ id, color_name }) => {
                           return (
                             <>
-                              <options value={id}>
-                                {color_name}
-                              </options>
+                              <options value={id}>{color_name}</options>
                             </>
                           );
                         })}
@@ -317,14 +313,11 @@ const AddProduct = () => {
                     <label>Size </label>
                     <br></br>
                     <select
-                      id="cat_updt"
+                      // id="cat_updt"
                       className="form-control col-6"
                       multiple
                       // onChange={this.optCatcher}
-                      // value={form.sizes}
-                      // onChange={(e) => {
-                      //   setForm({ ...form, sizes: e.target.value });
-                      // }}
+                      onClick={addOrRemoveSelected(size.id)}
                     >
                       {size &&
                         size.map(({ id, size }) => {
@@ -341,7 +334,7 @@ const AddProduct = () => {
                     <label>Conditions Product </label>
                     <br></br>
                     <select
-                      id="cat_updt"
+                      // id="cat_updt"
                       className="form-control col-6"
                       // onChange={this.optCatcher}
                       // value={form.condition_id}

@@ -4,47 +4,51 @@ import { Link } from "react-router-dom";
 // import { Jas } from "../../assets/style";
 import Rating from "../components/Rating/Rating";
 import Navbar from "../components/Navbar";
+import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
+// const getUrl = "http://19/search";
 
-const Filter = (props) => {
-  const [getFilter, setGetFilter] = useState([]);
-  const { color, size, category } = props.location;
-  console.log("getFilter", getFilter);
 
-  console.log("colorfil", color);
-  console.log("categoryfil", category);
-  console.log("sizefil", size);
+const Search = (props) => {
+  const [getSearch, setGetSearch] = useState([]);
+  //   let { searchKey } = useHistory();
+  const { searchKey } = props.location;
+  console.log("searchhhh", props.location);
 
-  console.log("test props", props);
-  const handleFilter = () => {
+  const getEmpty = () => {
+    return <p>SOrry, pala kau ngga ada?</p>;
+  };
+  const searching = () => {
     axios
-      .get(
-        `${process.env.REACT_APP_URL}/products/filter?category=${category}&size=${size}&color=${color}`
-      )
+      .get(`${process.env.REACT_APP_URL}/search?keyword=${searchKey}`)
       .then((res) => {
-        const filter = res.data.data;
-        console.log("ashduasdh", filter);
-        setGetFilter(filter);
+        // if (res.data.status === 404) {
+        //   getEmpty();
+        // }
+        const result = res.data.data;
+        console.log("tes res", res);
+        setGetSearch(result);
       })
       .catch((err) => {
-        console.log(err);
+        
+        console.log("ini catch", err);
       });
   };
 
   useEffect(() => {
-    handleFilter();
-  }, []);
+    searching(searchKey);
+  }, [searchKey]);
 
   return (
     <>
       <Navbar />
       <div className="container">
-        {getFilter.length === 0 ? (
-          <h1>Item Not Found</h1>
+        {!searchKey ? (
+          <p>SOrry, pala kau ngga ada?</p>
         ) : (
-          <div className="row d-flex flex-row justify-content-start">
-            {getFilter &&
-              getFilter.map(
+          <div className="row d-flex flex-row justify-content-center">
+            {getSearch &&
+              getSearch.map(
                 ({
                   id,
                   id_categories,
@@ -88,4 +92,4 @@ const Filter = (props) => {
   );
 };
 
-export default Filter;
+export default Search;
