@@ -323,7 +323,7 @@ const Navbar = ({ changeToLogin, changeToRegister }) => {
             </button>
             <Link to={{
               pathname: "/filter",
-              state: category, color, size}}>
+              category, color, size}}>
 
             <button className="discard mr-4">
               Apply

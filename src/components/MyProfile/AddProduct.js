@@ -19,12 +19,12 @@ const AddProduct = () => {
   //   const api = `http://localhost:8007/products`;
   const shouldCheckedOnStyle = (id) => {
     const result = size.find((s) => s.id == id && s.is_selected);
-    // return result ? styles.selectedItem : styles.notSelectedItem;
+    return result;
   };
 
   const shouldColorCheckedOnStyle = (id) => {
     const result = color.find((c) => c.id == id && c.is_selected);
-    // return result ? styles.selectedItem : styles.notSelectedItem;
+    return result;
   };
 
   const addOrRemoveSelected = (id) => {
@@ -57,8 +57,11 @@ const AddProduct = () => {
     }
   };
 
-  const restructureIsSelected = (data) => {
-    const temp = data.map((data) => {
+  console.log("ini warna", addOrRemoveColorSelected);
+  console.log("ini size", addOrRemoveSelected);
+
+  const restructureIsSelected = async (data) => {
+    const temp = await data.map((data) => {
       data["is_selected"] = false;
       return data;
     });
@@ -167,7 +170,7 @@ const AddProduct = () => {
       });
   };
 
-  const colorOpe = [...color];
+  // const colorOpe = [...color];
 
   const handleSubmit = async () => {
     const data = new FormData();
@@ -252,7 +255,9 @@ const AddProduct = () => {
                         categories.map(({ id_categories, category_name }) => {
                           return (
                             <>
-                              <option value={id_categories}>{category_name}</option>
+                              <option value={id_categories}>
+                                {category_name}
+                              </option>
                             </>
                           );
                         })}
@@ -263,9 +268,11 @@ const AddProduct = () => {
                     <label>Colors </label>
                     <br></br>
                     <select
-                      id="cat_updt"
+                      // id="cat_updt"
                       className="form-control col-6"
                       // onChange={this.optCatcher}
+                      onClick={addOrRemoveColorSelected(color.id)}
+                      multiple
                     >
                       {color &&
                         color.map(({ id, color_name }) => {
@@ -282,9 +289,11 @@ const AddProduct = () => {
                     <label>Size </label>
                     <br></br>
                     <select
-                      id="cat_updt"
+                      // id="cat_updt"
                       className="form-control col-6"
                       // onChange={this.optCatcher}
+                      onClick={addOrRemoveSelected(size.id)}
+                      multiple
                     >
                       {size &&
                         size.map(({ id, size }) => {
@@ -301,7 +310,7 @@ const AddProduct = () => {
                     <label>Conditions Product </label>
                     <br></br>
                     <select
-                      id="cat_updt"
+                      // id="cat_updt"
                       className="form-control col-6"
                       // onChange={this.optCatcher}
                     >
@@ -334,7 +343,6 @@ const AddProduct = () => {
                         })}
                     </select>
                   </div>
-
                 </div>
               </div>
             </Jumbotron>
