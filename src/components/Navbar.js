@@ -15,7 +15,7 @@ import axios from "axios";
 // import Img from './ImgWithContainer/'
 
 // class Navbar extends Component {
-const Navbar = ({ changeToLogin, changeToRegister }) => {
+const Navbar = ({ changeToLogin, changeToRegister, props}) => {
   const dispatch = useDispatch();
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
@@ -43,18 +43,12 @@ const Navbar = ({ changeToLogin, changeToRegister }) => {
   const handleShow = () => setShow(true);
   
   const inputRef = React.useRef();
-  const onKeyPressHandler = (event) => {
-    axios
-    .get(
-      `${process.env.REACT_APP_URL}/search?keyword=${inputRef.current.value}`
-      )
-      .then((res) => {})
-      .catch((err) => {});
-      
-      if (event.key === "Enter") {
-        window.location.href = `http://localhost:3000/search?keyword=${inputRef.current.value}`;
-      }
-    };
+
+  // const onKeyPressHandler = (event) => {      
+  //     if (event.key === "Enter") {
+  //       window.location.href = `http://localhost:8007/search?keyword=${inputRef.current.value}`;
+  //     }
+  //   };
     
     // const handleFilter = () => {
     //   axios
@@ -150,7 +144,7 @@ const Navbar = ({ changeToLogin, changeToRegister }) => {
               </Link>
             </div>
             <button
-              className="navbar-toggler  float-right"
+              className="navbar-toggler float-right"
               type="button"
               data-toggle="collapse"
               data-target="#navbarSupportedContent"
@@ -162,15 +156,15 @@ const Navbar = ({ changeToLogin, changeToRegister }) => {
               <span className="navbar-toggler-icon"></span>
             </button>
             <div
-              className="col-sm-10 col-lg-10 d-flex flex-row gap"
+              className="col-12 col-sm-10 col-lg-10 d-flex flex-row gap"
               class={`${isNavCollapsed ? "collapse" : ""} navbar-collapse`}
-              id="navbarSupportedContent"
-            >
+              id="navbarSupportedContent">
               <div className="col-sm-12 col-lg-7 gap">
                 <div className="d-flex flex-row align-items-center">
                   <SearchBar
-                    refProp={inputRef}
-                    onKeyPress={onKeyPressHandler}
+                    // refProp={inputRef}
+                    // onKeyPress={onKeyPressHandler}
+                    props={props}
                   />
                   <button
                     className="btn my-2 my-sm-0 fal fa-filter filter"

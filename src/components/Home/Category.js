@@ -40,8 +40,8 @@ const Category = () => {
                 return (
                   <>
                     <div
-                      className="col col-md-auto col-12 rounded box brand-category-2 mb-5"
-                      style={{ backgroundColor: color_hexa }}
+                      className="col-md-auto rounded box justify-content-center brand-category-2 mb-5"
+                      style={{ backgroundColor: color_hexa, margin: "5px" }}
                     >
                       <Link
                         to={{
