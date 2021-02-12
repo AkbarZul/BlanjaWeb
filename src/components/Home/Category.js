@@ -29,7 +29,7 @@ const Category = () => {
         <div className="title-category">
           <h3>Category</h3>
           <p className="lead text-muted">What are you currently looking for</p>
-          <div className="row d-flex justify-content-lg-start" style={{marginLeft: "15px"}}>
+          <div className="row d-flex justify-content-lg-start" style={{marginLeft: "15px"}} >
             {category.map(
               ({
                 id_categories,
@@ -41,7 +41,8 @@ const Category = () => {
                   <>
                     <div
                       className="col-md-auto rounded box justify-content-center brand-category-2 mb-5"
-                      style={{ backgroundColor: "black", margin: "5px" }}
+                      style={{ backgroundColor: color_hexa, margin: "5px" }}
+                      key={id_categories}
                     >
                       <Link
                         to={{

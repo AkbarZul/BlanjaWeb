@@ -8,29 +8,7 @@ import { axios } from "axios";
 
 const SearchBar = (props) => {
   const [searchKey, setSearchKey] = useState("");
-  //   const [getSearch, setGetSearch] = useState([]);
-
   console.log("get search", searchKey);
-  //   const searching = () => {
-  //     axios
-  //       .get(`${process.env.REACT_APP_URL}/search?keyword=${searchKey}`)
-  //       .then((res) => {
-  //         const result = res.data.data;
-  //         setGetSearch(result);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   };
-  //   const key = () => {
-  //     setSearchKey(searchKey);
-  //   };
-  // const handleKeyDown = (event) => {
-  //     if (event.key === 'Enter') {
-  //       console.log('do validate')
-  // 	return searchKey;
-  //     }
-  //   }
   console.log("tesprop", props);
 
   const history = useHistory();

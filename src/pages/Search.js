@@ -4,33 +4,29 @@ import { Link } from "react-router-dom";
 // import { Jas } from "../../assets/style";
 import Rating from "../components/Rating/Rating";
 import Navbar from "../components/Navbar";
+import ImgNotFound from "../assets/image/no-product-found.png";
 import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 // const getUrl = "http://19/search";
 
-
 const Search = (props) => {
   const [getSearch, setGetSearch] = useState([]);
+  const [isNotFound, setIsNotFound] = useState(false);
   //   let { searchKey } = useHistory();
   const { searchKey } = props.location;
   console.log("searchhhh", props.location);
 
-  const getEmpty = () => {
-    return <p>SOrry, pala kau ngga ada?</p>;
-  };
   const searching = () => {
     axios
       .get(`${process.env.REACT_APP_URL}/search?keyword=${searchKey}`)
       .then((res) => {
-        // if (res.data.status === 404) {
-        //   getEmpty();
-        // }
         const result = res.data.data;
-        console.log("tes res", res);
+        console.log("tes res", res.data.status);
         setGetSearch(result);
+        setIsNotFound(false);
       })
       .catch((err) => {
-        
+        setIsNotFound(true);
         console.log("ini catch", err);
       });
   };
@@ -43,8 +39,19 @@ const Search = (props) => {
     <>
       <Navbar />
       <div className="container">
-        {!searchKey ? (
-          <p>SOrry, pala kau ngga ada?</p>
+        {isNotFound === true ? (
+          <div
+          className="d-flex justify-content-center align-items-center mt-10"
+          style={{ width: "100%", height: "100%" }}
+        >
+          <div>
+            <img src={ImgNotFound} style={{height: "15rem"}} />
+          </div>
+          <div>
+            <h1>Oops, your product not found!</h1>
+            <p>Try another keyword or check product recommendation.</p>
+          </div>
+        </div>
         ) : (
           <div className="row d-flex flex-row justify-content-center">
             {getSearch &&
@@ -62,7 +69,7 @@ const Search = (props) => {
                     <Card
                       className="card-style"
                       style={{ width: "18rem" }}
-                      key={id_categories}
+                      key={id}
                     >
                       <Link
                         to={{
@@ -73,6 +80,7 @@ const Search = (props) => {
                           src={JSON.parse(product_photo).shift()}
                           className="card-img-top"
                           alt="..."
+                          style={{ height: "15rem" }}
                         />
                       </Link>
                       <div className="card-body">
