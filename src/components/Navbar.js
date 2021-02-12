@@ -286,15 +286,13 @@ const Navbar = ({ changeToLogin, changeToRegister, props }) => {
             <button className="discard mr-3" onClick={handleClose}>
               Discard
             </button>
-            <Link
-              to={{
-                pathname: "/filter",
-                category,
-                color,
-                size,
-              }}
-            >
-              <button className="discard mr-4">Apply</button>
+            <Link to={{
+              pathname: "/filter",
+              category, color, size}}>
+
+            <button className="discard mr-4" onClick={handleClose}>
+              Apply
+            </button>
             </Link>
           </div>
         </Modal.Footer>

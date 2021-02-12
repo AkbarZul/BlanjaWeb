@@ -10,7 +10,7 @@ const NewData = () => {
   const [products, setProducts] = useState([]);
   const getProducts = () => {
     axios
-      .get(`${getUrl}/products?limit=80&keyword=created_at DESC`)
+      .get(`${getUrl}/products?limit=15&keyword=created_at DESC`)
       .then((res) => {
         const newProduct = res.data.data.products;
         console.log("products", newProduct);
