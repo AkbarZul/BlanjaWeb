@@ -6,6 +6,7 @@ import Sidebar from "../SidebarProfile/Sidebar";
 import Navbar from "../Navbar";
 import "./add.css";
 import { API } from "../../utility/Auth";
+import Select from "react-select";
 
 const AddProduct = () => {
   useEffect(() => {
@@ -125,6 +126,7 @@ const AddProduct = () => {
       .then((res) => {
         const size = res.data.data;
         setSize(restructureIsSelected(size));
+        console.log("SIZE", size);
       })
       .catch((err) => {
         console.log(err);
@@ -224,7 +226,13 @@ const AddProduct = () => {
                     <Form.Label className="font-p-title">
                       Name of goods
                     </Form.Label>
-                    <Form.Control placeholder="" />
+                    <Form.Control
+                      placeholder="Product Name"
+                      // value={form.product_name}
+                      // onChange={(e) => {
+                      //   setForm({ ...form, product_name: e.target.value });
+                      // }}
+                    />
                   </Form.Group>
                 </div>
               </div>
@@ -237,11 +245,23 @@ const AddProduct = () => {
                 <div className="col-md-8">
                   <Form.Group controlId="formGridAddress1">
                     <Form.Label className="font-p-title">Unit Price</Form.Label>
-                    <Form.Control placeholder="" />
+                    <Form.Control
+                      placeholder="Price"
+                      // value={form.product_price}
+                      // onChange={(e) => {
+                      //   setForm({ ...form, product_price: e.target.value });
+                      // }}
+                    />
                   </Form.Group>
                   <Form.Group controlId="formGridAddress1">
                     <Form.Label className="font-p-title">Stock</Form.Label>
-                    <Form.Control placeholder="" />
+                    <Form.Control
+                      placeholder="Stock Product"
+                      // value={form.product_qty}
+                      // onChange={(e) => {
+                      //   setForm({ ...form, product_qty: e.target.value });
+                      // }}
+                    />
                   </Form.Group>
                   <div className="form-group">
                     <label>Category </label>
@@ -250,6 +270,10 @@ const AddProduct = () => {
                       id="cat_updt"
                       className="form-control col-6"
                       // onChange={this.optCatcher}
+                      // value={form.category_id}
+                      // onChange={(e) => {
+                      //   setForm({ ...form, category_id: e.target.value });
+                      // }}
                     >
                       {categories &&
                         categories.map(({ id_categories, category_name }) => {
@@ -278,7 +302,7 @@ const AddProduct = () => {
                         color.map(({ id, color_name }) => {
                           return (
                             <>
-                              <option value={id}>{color_name}</option>
+                              <options value={id}>{color_name}</options>
                             </>
                           );
                         })}
@@ -291,9 +315,9 @@ const AddProduct = () => {
                     <select
                       // id="cat_updt"
                       className="form-control col-6"
+                      multiple
                       // onChange={this.optCatcher}
                       onClick={addOrRemoveSelected(size.id)}
-                      multiple
                     >
                       {size &&
                         size.map(({ id, size }) => {
@@ -313,6 +337,10 @@ const AddProduct = () => {
                       // id="cat_updt"
                       className="form-control col-6"
                       // onChange={this.optCatcher}
+                      // value={form.condition_id}
+                      // onChange={(e) => {
+                      //   setForm({ ...form, condition_id: e.target.value });
+                      // }}
                     >
                       {condition &&
                         condition.map(({ id, conditions }) => {
@@ -332,6 +360,10 @@ const AddProduct = () => {
                       id="cat_updt"
                       className="form-control col-6"
                       // onChange={this.optCatcher}
+                      // value={form.status_product_id}
+                      // onChange={(e) => {
+                      //   setForm({ ...form, status_product_id: e.target.value });
+                      // }}
                     >
                       {status &&
                         status.map(({ id, name }) => {
@@ -369,7 +401,9 @@ const AddProduct = () => {
               </div>
             </Jumbotron>
             <div className="container-btn d-flex justify-content-end mb-5">
-              <div className="btn-login-nav">Jual</div>
+              <button className="btn-login-nav" onClick={handleSubmit}>
+                Jual
+              </button>
             </div>
           </Form>
         </div>
