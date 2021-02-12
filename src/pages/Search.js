@@ -43,10 +43,10 @@ const Search = (props) => {
     <>
       <Navbar />
       <div className="container">
-        {!searchKey ? (
-          <p>SOrry, pala kau ngga ada?</p>
+        {getSearch.length === 0 ? (
+          <h1>Product Not Found</h1>
         ) : (
-          <div className="row d-flex flex-row justify-content-center">
+          <div className="row d-flex flex-row justify-content-start">
             {getSearch &&
               getSearch.map(
                 ({
@@ -73,6 +73,7 @@ const Search = (props) => {
                           src={JSON.parse(product_photo).shift()}
                           className="card-img-top"
                           alt="..."
+                          style={{height: '15rem'}}
                         />
                       </Link>
                       <div className="card-body">
