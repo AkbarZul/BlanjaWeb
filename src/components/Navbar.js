@@ -12,10 +12,8 @@ import "./Navbar/style.css";
 import SearchBar from "./SearchBar/SearchBar";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
-// import Img from './ImgWithContainer/'
 
-// class Navbar extends Component {
-const Navbar = ({ changeToLogin, changeToRegister, props}) => {
+const Navbar = ({ changeToLogin, changeToRegister, props }) => {
   const dispatch = useDispatch();
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
@@ -32,39 +30,14 @@ const Navbar = ({ changeToLogin, changeToRegister, props}) => {
   const [size, setSize] = useState("");
   const [color, setColor] = useState("");
 
-
   console.log("color", color);
   console.log("category", category);
   console.log("size", size);
-  
-  
-  
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  
-  const inputRef = React.useRef();
 
-  // const onKeyPressHandler = (event) => {      
-  //     if (event.key === "Enter") {
-  //       window.location.href = `http://localhost:8007/search?keyword=${inputRef.current.value}`;
-  //     }
-  //   };
-    
-    // const handleFilter = () => {
-    //   axios
-    //   .get(
-    //     `${process.env.REACT_APP_URL}/products/filter?category=${category}&size=${size}&color=${color}`
-    //     )
-    //   .then((res) => {
-    //     const filter = res.data.data;
-    //     setGetFilter(filter)
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-    // };
-    
-    // console.log("filter", getFilter);
+  const inputRef = React.useRef();
   const getCategories = () => {
     axios
       .get(`${process.env.REACT_APP_URL}/categories`)
@@ -124,7 +97,6 @@ const Navbar = ({ changeToLogin, changeToRegister, props}) => {
     getColors();
     getCategories();
     getSizes();
-    // handleFilter();
   }, []);
 
   if (isLogout === true) {
@@ -158,20 +130,16 @@ const Navbar = ({ changeToLogin, changeToRegister, props}) => {
             <div
               className="col-12 col-sm-10 col-lg-10 d-flex flex-row gap"
               class={`${isNavCollapsed ? "collapse" : ""} navbar-collapse`}
-              id="navbarSupportedContent">
+              id="navbarSupportedContent"
+            >
               <div className="col-sm-12 col-lg-7 gap">
                 <div className="d-flex flex-row align-items-center">
-                  <SearchBar
-                    // refProp={inputRef}
-                    // onKeyPress={onKeyPressHandler}
-                    props={props}
-                  />
+                  <SearchBar props={props} />
                   <button
                     className="btn my-2 my-sm-0 fal fa-filter filter"
                     variant="link"
                     onClick={handleShow}
                   ></button>
-                  {/* <div className="navbar-nav ml-auto"></div> */}
                   <div className="shopping">
                     <Link to={"/mybag"}>
                       <button
@@ -210,10 +178,7 @@ const Navbar = ({ changeToLogin, changeToRegister, props}) => {
                   </>
                 ) : (
                   <>
-                    {/* <Link to="/login"> */}
-                    {/* </Link> */}
                     <div className="align-items-center d-flex justify-content-around">
-                      {/* <div className="d-flex flex-row" justi> */}
                       <FontAwesomeIcon
                         style={{ color: "#d4d4d4" }}
                         icon={faBell}
@@ -227,8 +192,6 @@ const Navbar = ({ changeToLogin, changeToRegister, props}) => {
                           <img className="img-profil-nav" alt="" />
                         </div>
                       </Link>
-                      {/* </div> */}
-                      {/* <Link to="/login"> */}
                       <div className="login">
                         <button
                           type="submit"
@@ -238,7 +201,6 @@ const Navbar = ({ changeToLogin, changeToRegister, props}) => {
                           Logout
                         </button>
                       </div>
-                      {/* </Link> */}
                     </div>
                   </>
                 )}
@@ -263,11 +225,14 @@ const Navbar = ({ changeToLogin, changeToRegister, props}) => {
                   <button
                     type="submit"
                     className="mr-3"
-                    style={{width: "36px",
+                    style={{
+                      width: "36px",
                       height: "36px",
                       borderRadius: "50%",
-                      border: "none", backgroundColor: color_hexa }}
-                      onClick={() => setColor(id)}
+                      border: "none",
+                      backgroundColor: color_hexa,
+                    }}
+                    onClick={() => setColor(id)}
                   ></button>
                 );
               })}
@@ -281,14 +246,17 @@ const Navbar = ({ changeToLogin, changeToRegister, props}) => {
         <Modal.Body>
           <div className="col-12 ">
             {listSize &&
-              listSize.map(({ id,size }) => {
+              listSize.map(({ id, size }) => {
                 return (
-                  <button type="submit" className="size mr-3" onClick={() => setSize(id)}>
+                  <button
+                    type="submit"
+                    className="size mr-3"
+                    onClick={() => setSize(id)}
+                  >
                     {size}
                   </button>
                 );
               })}
-            
           </div>
         </Modal.Body>
 
@@ -299,15 +267,18 @@ const Navbar = ({ changeToLogin, changeToRegister, props}) => {
         <Modal.Body>
           <div className="d-flex">
             <button className="category mr-3">All</button>
-            {listCategory && listCategory.map(({id_categories, category_name}) => {
-              return (
-
-                <button className="category mr-3" onClick={() => setCategory(id_categories)}>{category_name}</button>
-              )
-            })}
- 
+            {listCategory &&
+              listCategory.map(({ id_categories, category_name }) => {
+                return (
+                  <button
+                    className="category mr-3"
+                    onClick={() => setCategory(id_categories)}
+                  >
+                    {category_name}
+                  </button>
+                );
+              })}
           </div>
-          
         </Modal.Body>
 
         <Modal.Footer>

@@ -29,7 +29,10 @@ const Category = () => {
         <div className="title-category">
           <h3>Category</h3>
           <p className="lead text-muted">What are you currently looking for</p>
-          <div className="row d-flex justify-content-lg-start" style={{marginLeft: "15px"}} >
+          <div
+            className="row d-flex justify-content-lg-around justify-content-md-start"
+            style={{ borderRadius: "10px" }}
+          >
             {category.map(
               ({
                 id_categories,
@@ -50,7 +53,7 @@ const Category = () => {
                           // search: "keyword=created_at DESC",
                           category,
                         }}
-                        style={{ textDecoration: 'none' }}
+                        style={{ textDecoration: "none" }}
                       >
                         <img
                           src={category_photo}

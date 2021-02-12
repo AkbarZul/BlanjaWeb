@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import ImgNotFound from "../assets/image/no-product-found.png";
 import axios from "axios";
-// const getUrl = "http://19/search";
 
 const Filter = (props) => {
   const [getFilter, setGetFilter] = useState([]);
