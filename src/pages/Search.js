@@ -14,7 +14,7 @@ const Search = (props) => {
   const [isNotFound, setIsNotFound] = useState(false);
   //   let { searchKey } = useHistory();
   const { searchKey } = props.location;
-  console.log("searchhhh", props.location);
+  console.log("searchhhh", getSearch);
 
   const searching = () => {
     axios
@@ -64,12 +64,12 @@ const Search = (props) => {
                   category_name,
                   product_price,
                   rating,
-                }) => {
+                }, index) => {
                   return (
                     <Card
                       className="card-style"
                       style={{ width: "18rem" }}
-                      key={id}
+                      key={index}
                     >
                       <Link
                         to={{
