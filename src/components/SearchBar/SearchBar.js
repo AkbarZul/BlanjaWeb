@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import styles from "./styles.module.css"; // Import css modules stylesheet as styles
 import Img from "../ImgWithContainer/Img";
 import { Link, useHistory } from "react-router-dom";
 import search from "../../assets/img/img/search.png";
-import { axios } from "axios";
 
 const SearchBar = (props) => {
   const [searchKey, setSearchKey] = useState("");
@@ -31,7 +29,6 @@ const SearchBar = (props) => {
   // 	return searchKey;
   //     }
   //   }
-  console.log("tesprop", props);
 
   const history = useHistory();
 

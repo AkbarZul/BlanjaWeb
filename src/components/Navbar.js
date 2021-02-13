@@ -37,7 +37,7 @@ const Navbar = ({ changeToLogin, changeToRegister, props }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const inputRef = React.useRef();
+  // const inputRef = React.useRef();
   const getCategories = () => {
     axios
       .get(`${process.env.REACT_APP_URL}/categories`)

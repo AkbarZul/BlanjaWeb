@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Jumbotron, Button, Form, Row, Col } from "react-bootstrap";
+import { Jumbotron, Form } from "react-bootstrap";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import Sidebar from "../SidebarProfile/Sidebar";
 import Navbar from "../Navbar";
+import formattext from "../../assets/image/formattext.png";
+import main from "../../assets/image/mainphoto.png";
+import secondary from "../../assets/image/secondaryphoto.png";
+import styles from "./styling.module.css";
 import "./add.css";
+import "react-toastify/dist/ReactToastify.css";
+import { Bounce, toast } from "react-toastify";
 import { API } from "../../utility/Auth";
-import Select from "react-select";
 
+toast.configure();
 const AddProduct = () => {
   useEffect(() => {
     getCategory();
@@ -17,66 +23,49 @@ const AddProduct = () => {
     getStatus();
   }, []);
 
-  //   const api = `http://localhost:8007/products`;
-  const shouldCheckedOnStyle = (id) => {
-    const result = size.find((s) => s.id == id && s.is_selected);
-    return result;
-  };
-
-  const shouldColorCheckedOnStyle = (id) => {
-    const result = color.find((c) => c.id == id && c.is_selected);
-    return result;
-  };
-
   const addOrRemoveSelected = (id) => {
-    const result = size.find((s) => s.id == id);
+    const result = size.find((s) => s.id === id);
     if (result.is_selected) {
       const temp = size;
-      const index = temp.findIndex((e) => e.id == id);
+      const index = temp.findIndex((e) => e.id === id);
       temp[index]["is_selected"] = false;
       setSize([...temp]);
     } else {
       const temp = size;
-      const index = temp.findIndex((e) => e.id == id);
+      const index = temp.findIndex((e) => e.id === id);
       temp[index]["is_selected"] = true;
       setSize([...temp]);
     }
   };
 
   const addOrRemoveColorSelected = (id) => {
-    const result = color.find((c) => c.id == id);
+    const result = color.find((c) => c.id === id);
     if (result.is_selected) {
       const temp = color;
-      const index = temp.findIndex((e) => e.id == id);
+      const index = temp.findIndex((e) => e.id === id);
       temp[index]["is_selected"] = false;
-      SetColor([...temp]);
+      setColor([...temp]);
     } else {
       const temp = color;
-      const index = temp.findIndex((e) => e.id == id);
+      const index = temp.findIndex((e) => e.id === id);
       temp[index]["is_selected"] = true;
-      SetColor([...temp]);
+      setColor([...temp]);
     }
   };
 
-  console.log("ini warna", addOrRemoveColorSelected);
-  console.log("ini size", addOrRemoveSelected);
-
-  const restructureIsSelected = async (data) => {
-    const temp = await data.map((data) => {
+  const restructureIsSelected = (data) => {
+    const temp = data.map((data) => {
       data["is_selected"] = false;
       return data;
     });
     return temp;
   };
 
-  const [product, setProduct] = useState({
-    product_name: "",
-  });
   const [filePath, setFilePath] = useState([]);
   const [prodName, setProdName] = useState("");
   const [categories, setCategories] = useState([]);
   const [size, setSize] = useState([]);
-  const [color, SetColor] = useState([]);
+  const [color, setColor] = useState([]);
   const [condition, setCondition] = useState([]);
   const [prodPrice, setProdPrice] = useState("");
   const [prodQty, setProdQty] = useState("");
@@ -85,6 +74,9 @@ const AddProduct = () => {
   const [ctg, setCtg] = useState(0);
   const [cnd, setCnd] = useState(0);
   const [sts, setSts] = useState(0);
+
+  console.log("Size Luar", size);
+  console.log("color Luar", color);
 
   const token = useSelector((state) => state.auth.data.token);
 
@@ -100,6 +92,7 @@ const AddProduct = () => {
 
   const formatDataColorToSend = (dataColor) => {
     const selectedColors = [];
+    console.log("SELECT", selectedColors);
     dataColor.forEach((c) => {
       if (c.is_selected) {
         selectedColors.push(c.id);
@@ -138,8 +131,8 @@ const AddProduct = () => {
       .get(API + "/colors")
       .then((res) => {
         const color = res.data.data;
-        SetColor(restructureIsSelected(color));
-        console.log("color", color);
+        setColor(restructureIsSelected(color));
+        console.log("color", restructureIsSelected(color));
       })
       .catch((err) => {
         console.log(err);
@@ -172,13 +165,17 @@ const AddProduct = () => {
       });
   };
 
-  // const colorOpe = [...color];
+  const inputRef = React.useRef();
+  const handleFile = (e) => {
+    e.preventDefault();
+    inputRef.current.click();
+  };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const data = new FormData();
     data.append("product_name", prodName);
     data.append("category_id", ctg);
-    console.log("CATEGORY ", ctg);
     formatDataSizeToSend(size).map((element) => {
       data.append("sizes[]", JSON.stringify(element));
     });
@@ -192,20 +189,29 @@ const AddProduct = () => {
     for (let i = 0; i < filePath.length; i++) {
       data.append("image", filePath[i]);
     }
+
     data.append("status_product_id", sts);
-    console.log(data);
+
     await axios
       .post(API + "/products", data, {
-        header: {
+        headers: {
           "x-access-token": "Bearer " + token,
           "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => {
-        console.log("bisa post", res);
+        toast.success("Yeah! Berhasil tambah product", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          transition: Bounce,
+        });
       })
       .catch((err) => {
-        console.log("bisa error", err);
+        console.log("bisa error", err.response);
       });
   };
 
@@ -215,6 +221,14 @@ const AddProduct = () => {
       <div style={{ display: "flex" }}>
         <Sidebar />
         <div className="container-selling">
+          <input
+            multiple
+            type="file"
+            onChange={(e) => setFilePath(e.target.files)}
+            ref={inputRef}
+            name="image"
+            className={styles.hiddeninput}
+          />
           <Form>
             <Jumbotron className="container-content">
               <h3>Inventory</h3>
@@ -222,16 +236,16 @@ const AddProduct = () => {
 
               <div className="row">
                 <div className="col-md-8">
-                  <Form.Group controlId="formGridAddress1">
+                  <Form.Group controlId="product_name">
                     <Form.Label className="font-p-title">
                       Name of goods
                     </Form.Label>
                     <Form.Control
                       placeholder="Product Name"
-                      // value={form.product_name}
-                      // onChange={(e) => {
-                      //   setForm({ ...form, product_name: e.target.value });
-                      // }}
+                      value={prodName}
+                      onChange={(e) => {
+                        setProdName(e.target.value);
+                      }}
                     />
                   </Form.Group>
                 </div>
@@ -243,37 +257,35 @@ const AddProduct = () => {
 
               <div className="row">
                 <div className="col-md-8">
-                  <Form.Group controlId="formGridAddress1">
+                  <Form.Group controlId="product_price">
                     <Form.Label className="font-p-title">Unit Price</Form.Label>
                     <Form.Control
                       placeholder="Price"
-                      // value={form.product_price}
-                      // onChange={(e) => {
-                      //   setForm({ ...form, product_price: e.target.value });
-                      // }}
+                      value={prodPrice}
+                      onChange={(e) => {
+                        setProdPrice(e.target.value);
+                      }}
                     />
                   </Form.Group>
-                  <Form.Group controlId="formGridAddress1">
+                  <Form.Group controlId="product_stock">
                     <Form.Label className="font-p-title">Stock</Form.Label>
                     <Form.Control
                       placeholder="Stock Product"
-                      // value={form.product_qty}
-                      // onChange={(e) => {
-                      //   setForm({ ...form, product_qty: e.target.value });
-                      // }}
+                      value={prodQty}
+                      onChange={(e) => {
+                        setProdQty(e.target.value);
+                      }}
                     />
                   </Form.Group>
                   <div className="form-group">
                     <label>Category </label>
                     <br></br>
                     <select
-                      id="cat_updt"
                       className="form-control col-6"
-                      // onChange={this.optCatcher}
-                      // value={form.category_id}
-                      // onChange={(e) => {
-                      //   setForm({ ...form, category_id: e.target.value });
-                      // }}
+                      value={ctg}
+                      onChange={(e) => {
+                        setCtg(e.target.value);
+                      }}
                     >
                       {categories &&
                         categories.map(({ id_categories, category_name }) => {
@@ -288,59 +300,86 @@ const AddProduct = () => {
                     </select>
                   </div>
 
-                  <div className="form-group">
-                    <label>Colors </label>
+                  <Form.Group className="form-group">
+                    <Form.Label>Colors </Form.Label>
                     <br></br>
-                    <select
-                      // id="cat_updt"
+                    <Form.Control
                       className="form-control col-6"
-                      // onChange={this.optCatcher}
-                      onClick={addOrRemoveColorSelected(color.id)}
                       multiple
+                      as="select"
+                      value={color}
                     >
                       {color &&
-                        color.map(({ id, color_name }) => {
-                          return (
-                            <>
-                              <options value={id}>{color_name}</options>
-                            </>
-                          );
-                        })}
-                    </select>
-                  </div>
+                        color.map(
+                          ({ id, color_name, is_selected, color_hexa }) => {
+                            return (
+                              <>
+                                <option
+                                  style={
+                                    is_selected === true
+                                      ? {
+                                          backgroundColor: color_hexa,
+                                          color: "white",
+                                        }
+                                      : { backgroundColor: "white" }
+                                  }
+                                  className="mb-1"
+                                  key={id.toString()}
+                                  value={id}
+                                  onClick={() => {
+                                    addOrRemoveColorSelected(id);
+                                  }}
+                                >
+                                  {color_name}
+                                </option>
+                              </>
+                            );
+                          }
+                        )}
+                    </Form.Control>
+                  </Form.Group>
 
-                  <div className="form-group">
-                    <label>Size </label>
+                  <Form.Group className="form-group">
+                    <Form.Label>Size </Form.Label>
                     <br></br>
-                    <select
-                      // id="cat_updt"
+                    <Form.Control
                       className="form-control col-6"
                       multiple
-                      // onChange={this.optCatcher}
-                      onClick={addOrRemoveSelected(size.id)}
+                      as="select"
+                      value={size}
                     >
                       {size &&
-                        size.map(({ id, size }) => {
+                        size.map(({ id, size, is_selected }) => {
                           return (
-                            <>
-                              <option value={id}>{size}</option>
-                            </>
+                            <option
+                              style={
+                                is_selected === true
+                                  ? { backgroundColor: "red", color: "white" }
+                                  : { backgroundColor: "white" }
+                              }
+                              className="mb-1"
+                              key={id.toString()}
+                              value={id}
+                              onClick={() => {
+                                addOrRemoveSelected(id);
+                              }}
+                            >
+                              {size}
+                            </option>
                           );
                         })}
-                    </select>
-                  </div>
+                    </Form.Control>
+                  </Form.Group>
 
                   <div className="form-group">
                     <label>Conditions Product </label>
                     <br></br>
                     <select
-                      // id="cat_updt"
                       className="form-control col-6"
-                      // onChange={this.optCatcher}
-                      // value={form.condition_id}
-                      // onChange={(e) => {
-                      //   setForm({ ...form, condition_id: e.target.value });
-                      // }}
+                      value={cnd}
+                      onChange={(e) => {
+                        setCnd(e.target.value);
+                      }}
                     >
                       {condition &&
                         condition.map(({ id, conditions }) => {
@@ -357,13 +396,11 @@ const AddProduct = () => {
                     <label>Status Product </label>
                     <br></br>
                     <select
-                      id="cat_updt"
                       className="form-control col-6"
-                      // onChange={this.optCatcher}
-                      // value={form.status_product_id}
-                      // onChange={(e) => {
-                      //   setForm({ ...form, status_product_id: e.target.value });
-                      // }}
+                      value={sts}
+                      onChange={(e) => {
+                        setSts(e.target.value);
+                      }}
                     >
                       {status &&
                         status.map(({ id, name }) => {
@@ -380,28 +417,104 @@ const AddProduct = () => {
             </Jumbotron>
             <Jumbotron className="container-gap">
               <h3>Photo of goods</h3>
-              <Form>
-                <Form.Group>
-                  <Form.File id="exampleFormControlFile1" label="Your Photo" />
-                </Form.Group>
-              </Form>
-              <hr></hr>
-
-              <div className="row">
-                <div className="col-md-8"></div>
+              <div className={styles.formcontainer}>
+                <div className={(styles.form, styles.formcontainer_img)}>
+                  <div className={styles.content_img}>
+                    <div className={styles.main_img}>
+                      <div className={styles.containerMainImg}>
+                        <img
+                          className={styles.mainImg}
+                          src={
+                            filePath[0]
+                              ? URL.createObjectURL(filePath[0])
+                              : main
+                          }
+                          alt=""
+                        />
+                      </div>
+                      <p className={styles.mainPhoto}>Foto utama</p>
+                    </div>
+                    <div className={styles.secondary_img}>
+                      <img
+                        className={styles.secondaryImg}
+                        src={
+                          filePath[1]
+                            ? URL.createObjectURL(filePath[1])
+                            : secondary
+                        }
+                        alt=""
+                      />
+                    </div>
+                    <div className={styles.secondary_img}>
+                      <img
+                        className={styles.secondaryImg}
+                        src={
+                          filePath[2]
+                            ? URL.createObjectURL(filePath[2])
+                            : secondary
+                        }
+                        alt=""
+                      />
+                    </div>
+                    <div className={styles.secondary_img}>
+                      <img
+                        className={styles.secondaryImg}
+                        src={
+                          filePath[3]
+                            ? URL.createObjectURL(filePath[3])
+                            : secondary
+                        }
+                        alt=""
+                      />
+                    </div>
+                    <div className={styles.secondary_img}>
+                      <img
+                        className={styles.secondaryImg}
+                        src={
+                          filePath[4]
+                            ? URL.createObjectURL(filePath[4])
+                            : secondary
+                        }
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                  <div className={styles.edit_img}>
+                    <button onClick={handleFile} className={styles.btnupload}>
+                      Upload image
+                    </button>
+                  </div>
+                </div>
               </div>
             </Jumbotron>
 
             <Jumbotron className="container-gap">
               <h3>Description</h3>
               <hr></hr>
-
-              <div className="row">
-                <div className="col-md-8"></div>
+              <div className={styles.formcontainer}>
+                <div
+                  className={(styles.form, styles.formcontainer_description)}
+                >
+                  <img
+                    src={formattext}
+                    alt=""
+                    style={{ backgroundColor: "white" }}
+                  />
+                  <textarea
+                    value={prodDesc}
+                    className={styles.content_description}
+                    onChange={(e) => {
+                      setProdDesc(e.target.value);
+                    }}
+                  />
+                </div>
               </div>
             </Jumbotron>
             <div className="container-btn d-flex justify-content-end mb-5">
-              <button className="btn-login-nav" onClick={handleSubmit}>
+              <button
+                className="btn-login-nav"
+                onClick={(e) => handleSubmit(e)}
+              >
                 Jual
               </button>
             </div>
