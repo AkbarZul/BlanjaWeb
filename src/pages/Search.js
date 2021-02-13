@@ -63,12 +63,12 @@ const Search = (props) => {
                   category_name,
                   product_price,
                   rating,
-                }) => {
+                }, index) => {
                   return (
                     <Card
                       className="card-style"
                       style={{ width: "18rem" }}
-                      key={id}
+                      key={index}
                     >
                       <Link
                         to={{
