@@ -14,7 +14,17 @@ import { Bounce, toast } from "react-toastify";
 import { API } from "../../utility/Auth";
 
 toast.configure();
-const AddProduct = () => {
+const EditProduct = (props) => {
+    const {    id,
+        product_name,
+        product_desc,
+        product_price,
+        category_name,
+        product_qty,
+        product_photo,
+        sizes,
+        colors, } = props.location;
+    console.log("edit", props)
   useEffect(() => {
     getCategory();
     getSize();
@@ -193,14 +203,14 @@ const AddProduct = () => {
     data.append("status_product_id", sts);
 
     await axios
-      .post(API + "/products", data, {
+      .put(API + "/products/" + id, data, {
         headers: {
           "x-access-token": "Bearer " + token,
           "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => {
-        toast.success("Yeah! Berhasil tambah product", {
+        toast.success("Yeah! Berhasil update product", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -209,6 +219,7 @@ const AddProduct = () => {
           draggable: true,
           transition: Bounce,
         });
+        console.log("ini berhasil update", res)
       })
       .catch((err) => {
         console.log("bisa error", err.response);
@@ -241,7 +252,7 @@ const AddProduct = () => {
                       Name of goods
                     </Form.Label>
                     <Form.Control
-                      placeholder="Product Name"
+                      placeholder={product_name}
                       value={prodName}
                       onChange={(e) => {
                         setProdName(e.target.value);
@@ -260,7 +271,7 @@ const AddProduct = () => {
                   <Form.Group controlId="product_price">
                     <Form.Label className="font-p-title">Unit Price</Form.Label>
                     <Form.Control
-                      placeholder="Price"
+                      placeholder={product_price}
                       value={prodPrice}
                       onChange={(e) => {
                         setProdPrice(e.target.value);
@@ -270,7 +281,7 @@ const AddProduct = () => {
                   <Form.Group controlId="product_stock">
                     <Form.Label className="font-p-title">Stock</Form.Label>
                     <Form.Control
-                      placeholder="Stock Product"
+                      placeholder={product_qty}
                       value={prodQty}
                       onChange={(e) => {
                         setProdQty(e.target.value);
@@ -503,6 +514,7 @@ const AddProduct = () => {
                   <textarea
                     value={prodDesc}
                     className={styles.content_description}
+                    placeholder={product_desc}
                     onChange={(e) => {
                       setProdDesc(e.target.value);
                     }}
@@ -515,7 +527,7 @@ const AddProduct = () => {
                 className="btn-login-nav save"
                 onClick={(e) => handleSubmit(e)}
               >
-                Jual
+                Save
               </button>
             </div>
           </Form>
@@ -525,4 +537,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;
