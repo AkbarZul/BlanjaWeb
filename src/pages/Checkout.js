@@ -78,11 +78,15 @@ const Checkout = () => {
     <div>
       <Navbar />
       <div className="container">
-        <h1 style={{ fontSize: "34px", fontWeight: "700" }}>Checkout</h1>
-        <p className="mt-3 ttl-addrs">Shipping Address</p>
+        <h1
+          style={{ fontSize: "34px", fontWeight: "700", marginBottom: "15px" }}
+        >
+          Checkout
+        </h1>
         {stateCarts.filter((item) => item.selected === true).length ? (
-          <div className="d-flex ">
-            <div className="left">
+          <div className="row">
+            <div className="col-12 col-lg-8">
+              <p className="ttl-addrs">Shipping Address</p>
               <div className="col address">
                 {address.length ? (
                   <>
@@ -104,32 +108,35 @@ const Checkout = () => {
                 .map((item) => {
                   return (
                     <div
-                      className="col prodct justify-content-between"
+                      className="col prodct d-flex justify-content-between"
                       key={item.id}
+                      style={{padding: "10px", marginBottom: "20px"}}
                     >
-                      <div className="selectAll">
-                        <div className="img-chart">
+                      {/* <div className="selectAll" > */}
+                        <div className="col-2 img-chart">
                           <img
                             style={{ height: "70px" }}
                             src={item.photo}
                             alt=""
                           />
                         </div>
-                        <div className="ml-3">
+                        <div className="col-7">
                           <p className="name-prodct">{item.name}</p>
                           <p className="brand-product text-muted">
                             {item.brand}
                           </p>
                         </div>
-                      </div>
-                      <p className="prc">{`Rp. ${(
-                        item.price * item.qty
-                      ).toLocaleString("id-ID")}`}</p>
+                        <div className="col-3">
+                          <p className="prc">{`Rp. ${(
+                            item.price * item.qty
+                          ).toLocaleString("id-ID")}`}</p>
+                        </div>
+                      {/* </div> */}
                     </div>
                   );
                 })}
             </div>
-            <div className="right">
+            <div className="col-12 col-lg-4" >
               <div className="shop-sumry">
                 <p className="smry-title">Shopping summary</p>
                 <div className="ttl-price">
@@ -141,6 +148,7 @@ const Checkout = () => {
                     }, 0)
                     .toLocaleString("id-ID")}`}</p>
                 </div>
+                <div style={{width: "100%", borderStyle: "solid", border: "2px", marginBottom: "2px", marginTop: "2px"}}></div>
                 <div className="text-decoration-none">
                   <button
                     className="btn-buy"

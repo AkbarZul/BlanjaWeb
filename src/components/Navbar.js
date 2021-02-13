@@ -30,14 +30,9 @@ const Navbar = ({ changeToLogin, changeToRegister, props }) => {
   const [size, setSize] = useState("");
   const [color, setColor] = useState("");
 
-  console.log("color", color);
-  console.log("category", category);
-  console.log("size", size);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  // const inputRef = React.useRef();
   const getCategories = () => {
     axios
       .get(`${process.env.REACT_APP_URL}/categories`)
@@ -294,7 +289,9 @@ const Navbar = ({ changeToLogin, changeToRegister, props }) => {
                 size,
               }}
             >
-              <button className="discard mr-4">Apply</button>
+              <button className="discard mr-4" onClick={handleClose}>
+                Apply
+              </button>
             </Link>
           </div>
         </Modal.Footer>

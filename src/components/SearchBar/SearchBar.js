@@ -1,34 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.css"; // Import css modules stylesheet as styles
 import Img from "../ImgWithContainer/Img";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import search from "../../assets/img/img/search.png";
 
 const SearchBar = (props) => {
   const [searchKey, setSearchKey] = useState("");
-  //   const [getSearch, setGetSearch] = useState([]);
-
-  console.log("get search", searchKey);
-  //   const searching = () => {
-  //     axios
-  //       .get(`${process.env.REACT_APP_URL}/search?keyword=${searchKey}`)
-  //       .then((res) => {
-  //         const result = res.data.data;
-  //         setGetSearch(result);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   };
-  //   const key = () => {
-  //     setSearchKey(searchKey);
-  //   };
-  // const handleKeyDown = (event) => {
-  //     if (event.key === 'Enter') {
-  //       console.log('do validate')
-  // 	return searchKey;
-  //     }
-  //   }
 
   const history = useHistory();
 

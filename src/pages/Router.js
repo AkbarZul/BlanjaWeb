@@ -11,6 +11,8 @@ import MyProfile from "./MyProfile";
 import Filter from "./Filter";
 import Search from "./Search";
 import GetProduct from "../components/MyProfile/GetProduct";
+import PrivateRouter from "../components/Privaterouter";
+import RoutePrivate from "../components/RoutePrivate";
 
 // Login Page
 // import Login from "../components/";
@@ -25,8 +27,9 @@ export default function Router() {
   return (
     <BrowserRouter>
       <Route path="/" exact component={Home} />
-      <Route path="/products/:id" component={Product} />
-      <Route path="/mybag" component={Mybag} />
+      <RoutePrivate path="/products/:id" component={Product} />
+      {/* <Route path="/mybag" component={Mybag} /> */}
+      <PrivateRouter path="/mybag" component={Mybag} />
       <Route path="/checkout" component={Checkout} />
       <Route path="/category/:id_categories" component={SortCategory} />
       <Route path="/search" component={Search} />

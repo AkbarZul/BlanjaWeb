@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { Jas } from "../../assets/style";
 import Rating from "../Rating/Rating";
 import axios from "axios";
 const getUrl = process.env.REACT_APP_URL;
@@ -10,7 +9,7 @@ const NewData = () => {
   const [products, setProducts] = useState([]);
   const getProducts = () => {
     axios
-      .get(`${getUrl}/products?limit=80&keyword=created_at`)
+      .get(`${getUrl}/products?limit=15&keyword=created_at DESC`)
       .then((res) => {
         const newProduct = res.data.data.products;
         console.log("products", newProduct);
