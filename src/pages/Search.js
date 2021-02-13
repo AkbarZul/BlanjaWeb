@@ -14,7 +14,6 @@ const Search = (props) => {
   const [isNotFound, setIsNotFound] = useState(false);
   //   let { searchKey } = useHistory();
   const { searchKey } = props.location;
-  console.log("searchhhh", getSearch);
 
   const searching = () => {
     axios
@@ -53,7 +52,7 @@ const Search = (props) => {
           </div>
         </div>
         ) : (
-          <div className="row d-flex flex-row justify-content-center">
+          <div className="row d-flex flex-row justify-content-start">
             {getSearch &&
               getSearch.map(
                 ({

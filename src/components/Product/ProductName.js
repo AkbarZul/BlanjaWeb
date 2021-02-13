@@ -33,6 +33,8 @@ const ProductName = (props) => {
   console.log("sizes", sizes);
   console.log("ID", id);
   console.log("ID_SELLER", seller_id);
+  console.log("ini props", props)
+  console.log("ini addtocart", addToCart)
 
   useEffect(() => {
     setSizes();

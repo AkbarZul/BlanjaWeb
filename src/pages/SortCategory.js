@@ -34,7 +34,7 @@ const SortCategory = (props) => {
     <>
       <Navbar />
       <div className="container">
-        <div className="row d-flex flex-row justify-content-center">
+        <div className="row d-flex flex-row justify-content-start">
           {categories && categories.map(
             ({
               id,

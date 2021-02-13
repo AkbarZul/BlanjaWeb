@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { Jas } from "../../assets/style";
 import Rating from "../Rating/Rating";
 import axios from "axios";
 const getUrl = process.env.REACT_APP_URL;
