@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useHistory} from "react-router-dom";
 import {
   increaseQuantity,
   decreaseQuantity,
@@ -63,8 +63,9 @@ const Mybag2 = () => {
         },
       })
       .then((res) => {
-        const address = res.data.data;
-        setAddress(address);
+        const getAddress = res.data.data;
+        console.log("addresssss", getAddress)
+        setAddress(getAddress);
       })
       .catch((err) => {
         console.log(err);

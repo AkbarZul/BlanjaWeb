@@ -13,6 +13,7 @@ import Search from "./Search";
 import GetProduct from "../components/MyProfile/GetProduct";
 import PrivateRouter from "../components/Privaterouter";
 import RoutePrivate from "../components/RoutePrivate";
+import EditProduct from "../components/MyProfile/EditProduct";
 
 // Login Page
 // import Login from "../components/";
@@ -36,6 +37,7 @@ export default function Router() {
       <Route path="/filter" component={Filter} />
 
       <Route path="/inputProduct" component={AddProduct} />
+      <Route path="/edit/:id" component={EditProduct} />
       <Route path="/login" component={Auth} />
       <Route path="/otp" component={OtpConfrim} />
       <Route path="/confrim" component={KonfirmasiPassword} />

@@ -7,7 +7,7 @@ import ModalSelectPayment from "../components/Modal/ModalAddress/ModalSelectPaym
 import ModalAddAddress from "../components/Modal/ModalAddress/ModalAddAddress";
 import { Bounce, toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
-import { clearCart, clearCheckout } from "../redux/actions/product";
+import { clearCart, clearCheckout, addToCheckout } from "../redux/actions/product";
 import axios from "axios";
 import { API } from "../utility/Auth";
 import "react-toastify/dist/ReactToastify.css";
@@ -15,16 +15,24 @@ import "../assets/style/mybag.css";
 import "../assets/style/checkout.css";
 
 toast.configure();
-const Checkout = () => {
+const Checkout = (props) => {
   const [showChooseAddress, setShowChooseAddress] = useState(false);
   const [showAddAddress, setShowAddAddress] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
   const [address, setAddress] = useState([]);
+  const [getFirstAddress, setGetFirstAddress] = useState([]);
+
 
   const dispatch = useDispatch();
   const checkout = useSelector((state) => state.product.checkout);
+  const seller_id = useSelector((state) => state.product.checkout.seller_id);
+  const transaction_code = useSelector((state) => state.product.checkout.transaction_code);
+  const item = useSelector((state) => state.product.checkout.item);
+
   const stateCarts = useSelector((state) => state.product.carts);
   const token = useSelector((state) => state.auth.data.token);
+  const { getAddress } = props.location;
+  // const { changeAddres } = props.location;
   console.log("CHECKOUT", checkout);
 
   const transaction = () => {
@@ -62,8 +70,24 @@ const Checkout = () => {
         },
       })
       .then((res) => {
-        const address = res.data.data;
-        setAddress(address);
+        const addressNull = res.data.data;
+        const address = res.data.data[0];
+
+        if (address === null) {
+          setAddress(addressNull);
+          console.log("dalas28", addressNull);
+        } else {
+          setAddress(address);
+          const id_address = res.data.data[0].id_address
+          const sendData = {
+            transaction_code: transaction_code,
+            seller_id: seller_id,
+            id_address: id_address,
+            item: item,
+          };
+          dispatch(addToCheckout({sendData}))
+          console.log("dalemmm", address);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -71,8 +95,10 @@ const Checkout = () => {
   };
 
   useEffect(() => {
-    getAddressUser();
+    getAddressUser(address);
   }, []);
+
+  console.log("address", address);
 
   return (
     <div>
@@ -88,7 +114,7 @@ const Checkout = () => {
             <div className="col-12 col-lg-8">
               <p className="ttl-addrs">Shipping Address</p>
               <div className="col address">
-                {address.length ? (
+                {address ? (
                   <>
                     <p>{address.fullname}</p>
                     <p>
