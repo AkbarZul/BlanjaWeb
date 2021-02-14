@@ -3,10 +3,8 @@ import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import Navbar from "../Navbar";
 import Newdata from "../Home/NewData";
-import { StarRate } from "../../assets/style";
 import "../../assets/style/product.css";
 import Rating from "../Rating/Rating";
-import { API } from "../../utility/Auth";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "../../redux/actions/product";
 
@@ -121,10 +119,6 @@ const ProductName = (props) => {
                   />
                 );
               })}
-            {/* <button className="black mr-3"></button>
-            <button className="red mr-3"></button>
-            <button className="blue mr-3"></button>
-            <button className="green "></button> */}
             <div className="d-flex">
               <p className="tag-size mr-5 mt-5">Size</p>
               <p className="tag-total mt-5 ml-5">Jumlah</p>
@@ -250,11 +244,11 @@ const ProductName = (props) => {
           <i className="fas fa-star text-warning"></i>
           <i className="fas fa-star text-warning"></i>
         </div>
-        <section>
+        <div>
           <hr />
           <h2 className="part-section mt-5">You can also like this</h2>
           <p>You’ve never seen it before!</p>
-        </section>
+        </div>
 
         <article>
           <div className="row d-flex flex-row justify-content-center">

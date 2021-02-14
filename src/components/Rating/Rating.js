@@ -12,11 +12,11 @@ export default class rating extends Component {
         return (
             <div>
                 <div className="rating">
-                <div className="d-flex" style={{height: "15px"}}>
+                <div className="d-flex" style={{height: "15px", alignItems: 'center'}}>
                     {lop.map((data) => {
                         return <img src={Rate} alt="" /> 
                     })}
-                    <p className="lead text-muted" style={{height: "5px", margin: "0px"}}>({product_rating})</p>
+                    <p className="" style={{height: "8px", marginLeft: "5px"}}>({product_rating})</p>
                 </div>
                 </div>
             </div>
