@@ -49,6 +49,17 @@
   color: white;
 }
 
+.btn-no{
+  align-self: flex-start; 
+  margin-top: 20px;
+  background-color: white;
+  color: black;
+  border:1px solid black;
+  border-radius: 25px;
+  width: 100px;
+  height: 36px;
+}
+
 .signup > .btn-signup {
   background: white;
   border-radius: 25px;

@@ -67,65 +67,6 @@ const Category = () => {
                 );
               }
             )}
-            {/* <div className="col col-md-auto col-12 rounded box brand-category mb-5">
-              <Link
-                to={{
-                  pathname: "/category/13",
-                  search: "keyword=created_at DESC",
-                  state: { shoes: shoes },
-                }}
-              >
-                <img src={TShirt} alt="" className="fluid mx-auto d-block" />
-                <h3>T-Shirt</h3>
-              </Link>
-            </div>
-
-            <div className="col col-md-auto col-12 rounded box brand-category-1 mb-5">
-              <Link
-                to={{
-                  pathname: "/category",
-                  search: "name=celana pendek",
-                }}
-              >
-                <img src={Shorts} alt="" className="fluid mx-auto d-block" />
-                <h3>Shorts</h3>
-              </Link>
-            </div>
-            <div className="col col-md-auto col-12 rounded box brand-category-2 mb-5">
-              <Link
-                to={{
-                  pathname: "/category",
-                  search: "name=jacket",
-                }}
-              >
-                <img src={Jacket} alt="" className="fluid mx-auto d-block" />
-                <h3>Jacket</h3>
-              </Link>
-            </div>
-
-            <div className="col col-md-auto col-12 rounded box brand-category-3 mb-5">
-              <Link
-                to={{
-                  pathname: "/category",
-                  search: "name=celana panjang",
-                }}
-              >
-                <img src={Pants} alt="" className="fluid mx-auto d-block" />
-                <h3>Pants</h3>
-              </Link>
-            </div>
-
-            <div className="col col-md-auto col-12 rounded box brand-category-4 mb-5">
-              <Link
-                to={{
-                  pathname: "/category",
-                  search: "name=sepatu",
-                }}
-              >
-                <img src={Shoes} alt="" className="fluid mx-auto d-block" />
-                <h3>Shoes</h3>
-              </Link>
-            </div> */}
           </div>
         </div>
       </div>

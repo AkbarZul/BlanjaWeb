@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
-import { Link, useHistory} from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   increaseQuantity,
   decreaseQuantity,
@@ -11,13 +11,14 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import "../assets/style/mybag.css";
 import emptyCart from "../assets/image/empty-cart.png";
-import { Alert } from "react-bootstrap";
+import { Alert, Modal } from "react-bootstrap";
 import axios from "axios";
 import { API } from "../utility/Auth";
 
 const Mybag2 = () => {
   const [cart, setCart] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
   const [address, setAddress] = useState([]);
 
   useEffect(() => {
@@ -64,7 +65,7 @@ const Mybag2 = () => {
       })
       .then((res) => {
         const getAddress = res.data.data;
-        console.log("addresssss", getAddress)
+        console.log("addresssss", getAddress);
         setAddress(getAddress);
       })
       .catch((err) => {
@@ -94,12 +95,9 @@ const Mybag2 = () => {
 
   const handleDeleteCart = (e) => {
     e.preventDefault();
-    if (window.confirm("Are you sure to delete the bag?")) {
       dispatch(clearCart());
       dispatch(clearCheckout());
-    } else {
-      return;
-    }
+      setModalShow(false);
   };
 
   return (
@@ -125,13 +123,12 @@ const Mybag2 = () => {
                     } items selected)`}
                   </p>
                 </div>
-                <a
-                  href="/"
-                  style={{ color: "#DB3022", marginTop: "10px" }}
-                  onClick={handleDeleteCart}
+                <p
+                  style={{ color: "#DB3022", marginTop: "10px", cursor: 'pointer' }}
+                  onClick={() => setModalShow(true)}
                 >
                   Delete
-                </a>
+                </p>
               </div>
               {stateCarts.map((item) => {
                 return (
@@ -312,6 +309,47 @@ const Mybag2 = () => {
           </div>
         )}
       </div>
+
+      <Modal
+        size="sm"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      >
+        <Modal.Header closeButton style={{ border: "none" }}>
+          <Modal.Title id="contained-modal-title-vcenter"></Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <h6 style={{ fontSize: "15px", marginBottom: "15px", paddingRight: '15px', paddingLeft: '15px', textAlign: 'center'}}>
+              Are you sure want to delete your product?
+            </h6>
+            <div className="login d-flex" style={{ justifyContent: 'space-between', width: '100%' }}>
+            <button
+                onClick={() => setModalShow(false)}
+                className="btn-no"
+              >
+                No
+              </button>
+              <button
+                onClick={handleDeleteCart}
+                style={{ marginTop: "20px" }}
+                className="btn-login"
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };

@@ -302,8 +302,7 @@ const Navbar = ({ changeToLogin, changeToRegister, props }) => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
         show={modalShow}
-        onHide={() => setModalShow(false)}
-      >
+        onHide={() => setModalShow(false)}>
         <Modal.Header closeButton style={{ border: "none" }}>
           <Modal.Title id="contained-modal-title-vcenter"></Modal.Title>
         </Modal.Header>
