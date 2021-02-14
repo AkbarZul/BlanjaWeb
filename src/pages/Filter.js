@@ -27,7 +27,6 @@ const Filter = (props) => {
         //   setIsNotFound(true);
         // }
         const filter = res.data.data;
-        console.log("ashduasdh", filter.length);
         if (filter.length == 0) {
           setIsNotFound(true);
         } else {
@@ -66,7 +65,7 @@ const Filter = (props) => {
             </div>
           </div>
         ) : (
-          <div className="row d-flex flex-row justify-content-center">
+          <div className="row d-flex flex-row justify-content-start">
             {getFilter &&
               getFilter.map(
                 ({

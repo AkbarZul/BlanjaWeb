@@ -10,6 +10,7 @@ import {
 } from "../redux/actions/product";
 import { useSelector, useDispatch } from "react-redux";
 import "../assets/style/mybag.css";
+import emptyCart from "../assets/image/empty-cart.png";
 import { Alert } from "react-bootstrap";
 import axios from "axios";
 import { API } from "../utility/Auth";
@@ -71,8 +72,6 @@ const Mybag2 = () => {
   };
 
   const kirim = () => {
-    // console.log(cart.filter(item => item.selected === true));
-    // stateCarts.filter(item => item.selected === true)
     let invoice = Math.floor(Math.random() * 100001) + 1;
     let productId = stateCarts
       .filter((item) => item.selected === true)
@@ -135,7 +134,11 @@ const Mybag2 = () => {
               </div>
               {stateCarts.map((item) => {
                 return (
-                  <div className="row prodct" style={{marginRight: 0, marginLeft: 0}} key={item.id}>
+                  <div
+                    className="row prodct"
+                    style={{ marginRight: 0, marginLeft: 0 }}
+                    key={item.id}
+                  >
                     <div className="col-12 col-sm-5 align-items-center side">
                       <div className="d-flex flex-row align-items-center">
                         <input
@@ -166,7 +169,7 @@ const Mybag2 = () => {
                     <div className="col-6 col-sm-3 align-items-center side">
                       <div
                         className="d-flex justify-content-start align-items-center"
-                        style={{ }}
+                        style={{}}
                       >
                         {item.qty === 1 ? (
                           <button
@@ -194,7 +197,15 @@ const Mybag2 = () => {
                             -
                           </button>
                         )}
-                        <p style={{ marginLeft: "10px", marginBottom: 0, marginRight: "10px"}}>{item.qty}</p>
+                        <p
+                          style={{
+                            marginLeft: "10px",
+                            marginBottom: 0,
+                            marginRight: "10px",
+                          }}
+                        >
+                          {item.qty}
+                        </p>
                         <button
                           className="btn-c"
                           style={{
@@ -284,15 +295,20 @@ const Mybag2 = () => {
             </div>
           </div>
         ) : (
-          <h1
-          // className={classname(
-          //   text.headline,
-          //   colors.grayText,
-          //   "text-empty-cart"
-          // )}
+          <div
+            className="d-flex justify-content-center align-items-center mt-10"
+            style={{ width: "100%", height: "100%" }}
           >
-            (My bag is empty)
-          </h1>
+            <div>
+              <img src={emptyCart} style={{ height: "15rem" }} />
+            </div>
+            <div>
+              <h1 style={{ paddingLeft: "10px" }}>Oops, my bag is empty</h1>
+              <p style={{ paddingLeft: "10px" }}>
+                Please choose the product you like
+              </p>
+            </div>
+          </div>
         )}
       </div>
     </div>
