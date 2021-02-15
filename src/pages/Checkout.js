@@ -71,13 +71,13 @@ const Checkout = (props) => {
       })
       .then((res) => {
         const addressNull = res.data.data;
-        const address = res.data.data[0];
+        const addressData = res.data.data[0];
 
         if (address === null) {
           setAddress(addressNull);
           console.log("dalas28", addressNull);
         } else {
-          setAddress(address);
+          setAddress(addressData);
           const id_address = res.data.data[0].id_address
           const sendData = {
             transaction_code: transaction_code,

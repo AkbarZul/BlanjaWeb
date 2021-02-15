@@ -43,7 +43,7 @@ const GetProduct = (props) => {
   // const {id} = props.location.products
 
   const handleDelete = (id) => {
-    id.preventDefault();
+    // id.preventDefault();
     axios
       .delete(getUrl + `/products/${id}`, {
         headers: {
@@ -153,7 +153,7 @@ const GetProduct = (props) => {
                             <button
                               className="deleteProd"
                               onClick={() => {
-                                handleShow();
+                                handleDelete(id);
                               }}
                             >
                               <div className="btn-login-nav ">Delete</div>
