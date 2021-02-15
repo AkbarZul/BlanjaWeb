@@ -7,6 +7,7 @@ import {
   addToCheckout,
   clearCart,
   clearCheckout,
+  deleteCart,
 } from "../redux/actions/product";
 import { useSelector, useDispatch } from "react-redux";
 import "../assets/style/mybag.css";
@@ -95,9 +96,13 @@ const Mybag2 = () => {
 
   const handleDeleteCart = (e) => {
     e.preventDefault();
-      dispatch(clearCart());
-      dispatch(clearCheckout());
-      setModalShow(false);
+    stateCarts
+      .filter((item) => item.selected === true)
+      .map((item) => {
+        console.log("DELETE CART", deleteCart(item.id));
+        return dispatch(deleteCart(item.id));
+      });
+    setModalShow(false);
   };
 
   return (
@@ -124,7 +129,11 @@ const Mybag2 = () => {
                   </p>
                 </div>
                 <p
-                  style={{ color: "#DB3022", marginTop: "10px", cursor: 'pointer' }}
+                  style={{
+                    color: "#DB3022",
+                    marginTop: "10px",
+                    cursor: "pointer",
+                  }}
                   onClick={() => setModalShow(true)}
                 >
                   Delete
@@ -329,14 +338,22 @@ const Mybag2 = () => {
               alignItems: "center",
             }}
           >
-            <h6 style={{ fontSize: "15px", marginBottom: "15px", paddingRight: '15px', paddingLeft: '15px', textAlign: 'center'}}>
+            <h6
+              style={{
+                fontSize: "15px",
+                marginBottom: "15px",
+                paddingRight: "15px",
+                paddingLeft: "15px",
+                textAlign: "center",
+              }}
+            >
               Are you sure want to delete your product?
             </h6>
-            <div className="login d-flex" style={{ justifyContent: 'space-between', width: '100%' }}>
-            <button
-                onClick={() => setModalShow(false)}
-                className="btn-no"
-              >
+            <div
+              className="login d-flex"
+              style={{ justifyContent: "space-between", width: "100%" }}
+            >
+              <button onClick={() => setModalShow(false)} className="btn-no">
                 No
               </button>
               <button

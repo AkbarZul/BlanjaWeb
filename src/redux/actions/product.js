@@ -14,6 +14,15 @@ export const addToCheckout = (data) => {
   };
 };
 
+export const deleteCart = (id) => {
+  return {
+    type: actions.DELETE_FROM_CART,
+    payload: {
+      id: id,
+    },
+  };
+};
+
 export const increaseQuantity = (id) => {
   return {
     type: actions.QUANTITY_INCREASED,

@@ -7,7 +7,11 @@ import ModalSelectPayment from "../components/Modal/ModalAddress/ModalSelectPaym
 import ModalAddAddress from "../components/Modal/ModalAddress/ModalAddAddress";
 import { Bounce, toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
-import { clearCart, clearCheckout, addToCheckout } from "../redux/actions/product";
+import {
+  clearCart,
+  clearCheckout,
+  addToCheckout,
+} from "../redux/actions/product";
 import axios from "axios";
 import { API } from "../utility/Auth";
 import "react-toastify/dist/ReactToastify.css";
@@ -22,16 +26,17 @@ const Checkout = (props) => {
   const [address, setAddress] = useState([]);
   const [getFirstAddress, setGetFirstAddress] = useState([]);
 
-
   const dispatch = useDispatch();
   const checkout = useSelector((state) => state.product.checkout);
   const seller_id = useSelector((state) => state.product.checkout.seller_id);
-  const transaction_code = useSelector((state) => state.product.checkout.transaction_code);
+  const transaction_code = useSelector(
+    (state) => state.product.checkout.transaction_code
+  );
   const item = useSelector((state) => state.product.checkout.item);
 
   const stateCarts = useSelector((state) => state.product.carts);
   const token = useSelector((state) => state.auth.data.token);
-  const { getAddress } = props.location;
+  // const { getAddress } = props.location;
   // const { changeAddres } = props.location;
   console.log("CHECKOUT", checkout);
 
@@ -71,22 +76,20 @@ const Checkout = (props) => {
       })
       .then((res) => {
         const addressNull = res.data.data;
-        const address = res.data.data[0];
+        const alamat = res.data.data[0];
 
         if (address === null) {
           setAddress(addressNull);
-          console.log("dalas28", addressNull);
         } else {
-          setAddress(address);
-          const id_address = res.data.data[0].id_address
+          setAddress(alamat);
+          const id_address = res.data.data[0].id_address;
           const sendData = {
             transaction_code: transaction_code,
             seller_id: seller_id,
             id_address: id_address,
             item: item,
           };
-          dispatch(addToCheckout({sendData}))
-          console.log("dalemmm", address);
+          dispatch(addToCheckout({ sendData }));
         }
       })
       .catch((err) => {
@@ -95,8 +98,15 @@ const Checkout = (props) => {
   };
 
   useEffect(() => {
-    getAddressUser(address);
+    getAddressUser();
   }, []);
+
+  useEffect(() => {
+    const unsubscribe = window.addEventListener("focus", () => {
+      getAddressUser();
+    });
+    return unsubscribe;
+  }, [window]);
 
   console.log("address", address);
 
@@ -113,22 +123,46 @@ const Checkout = (props) => {
           <div className="row">
             <div className="col-12 col-lg-8">
               <p className="ttl-addrs">Shipping Address</p>
-              <div className="col address">
-                {address ? (
-                  <>
+              {address ? (
+                <>
+                  <div className="col address">
                     <p>{address.fullname}</p>
                     <p>
                       {`${address.address}, Kota ${address.city}, Provinsi ${address.region}, Kodepos: ${address.zip_code}, ${address.country}`}
                     </p>
-                  </>
-                ) : null}
-                <button
-                  className="btn-choose-address"
-                  onClick={() => setShowChooseAddress(true)}
-                >
-                  <p className="addres-btn">Choose another address</p>
-                </button>
-              </div>
+                    <button
+                      className="btn-choose-address"
+                      onClick={() => setShowChooseAddress(true)}
+                      style={{ display: "flex" }}
+                    >
+                      <p className="addres-btn">Choose another address</p>
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div
+                    className="col address"
+                    // style={{ justifyContent: "center" }}
+                  >
+                    <button
+                      className="btn-choose-address"
+                      onClick={() => setShowAddAddress(true)}
+                      style={{
+                        justifyContent: "center",
+                        width: "100%",
+                      }}
+                    >
+                      <p
+                        className="addres-btn"
+                        style={{ color: "black", height: "10px" }}
+                      >
+                        Add new Address
+                      </p>
+                    </button>
+                  </div>
+                </>
+              )}
               {stateCarts
                 .filter((item) => item.selected === true)
                 .map((item) => {
@@ -136,33 +170,31 @@ const Checkout = (props) => {
                     <div
                       className="col prodct d-flex justify-content-between"
                       key={item.id}
-                      style={{padding: "10px", marginBottom: "20px"}}
+                      style={{ padding: "10px", marginBottom: "20px" }}
                     >
                       {/* <div className="selectAll" > */}
-                        <div className="col-2 img-chart">
-                          <img
-                            style={{ height: "70px" }}
-                            src={item.photo}
-                            alt=""
-                          />
-                        </div>
-                        <div className="col-7">
-                          <p className="name-prodct">{item.name}</p>
-                          <p className="brand-product text-muted">
-                            {item.brand}
-                          </p>
-                        </div>
-                        <div className="col-3">
-                          <p className="prc">{`Rp. ${(
-                            item.price * item.qty
-                          ).toLocaleString("id-ID")}`}</p>
-                        </div>
+                      <div className="col-2 img-chart">
+                        <img
+                          style={{ height: "70px" }}
+                          src={item.photo}
+                          alt=""
+                        />
+                      </div>
+                      <div className="col-7">
+                        <p className="name-prodct">{item.name}</p>
+                        <p className="brand-product text-muted">{item.brand}</p>
+                      </div>
+                      <div className="col-3">
+                        <p className="prc">{`Rp. ${(
+                          item.price * item.qty
+                        ).toLocaleString("id-ID")}`}</p>
+                      </div>
                       {/* </div> */}
                     </div>
                   );
                 })}
             </div>
-            <div className="col-12 col-lg-4" >
+            <div className="col-12 col-lg-4">
               <div className="shop-sumry">
                 <p className="smry-title">Shopping summary</p>
                 <div className="ttl-price">
@@ -174,7 +206,15 @@ const Checkout = (props) => {
                     }, 0)
                     .toLocaleString("id-ID")}`}</p>
                 </div>
-                <div style={{width: "100%", borderStyle: "solid", border: "2px", marginBottom: "2px", marginTop: "2px"}}></div>
+                <div
+                  style={{
+                    width: "100%",
+                    borderStyle: "solid",
+                    border: "2px",
+                    marginBottom: "2px",
+                    marginTop: "2px",
+                  }}
+                ></div>
                 <div className="text-decoration-none">
                   <button
                     className="btn-buy"
