@@ -14,6 +14,8 @@ import GetProduct from "../components/MyProfile/GetProduct";
 import PrivateRouter from "../components/Privaterouter";
 import RoutePrivate from "../components/RoutePrivate";
 import EditProduct from "../components/MyProfile/EditProduct";
+import GetOrder from "../components/MyProfile/GetOrder";
+import ChangePassword from "../components/MyProfile/ChangePassword";
 
 // Login Page
 // import Login from "../components/";
@@ -43,6 +45,8 @@ export default function Router() {
       <Route path="/confrim" component={KonfirmasiPassword} />
       <Route path="/register" component={Register} />
       <Route path="/myproduct" component={GetProduct} />
+      <Route path="/myorder" component={GetOrder} />
+      <Route path="/change" component={ChangePassword} />
 
       {/* <Route path="/register" component={Auth} />
       <Route path="/konfirmasi" component={Auth} /> */}

@@ -251,7 +251,7 @@ const ProductName = (props) => {
         </div>
 
         <article>
-          <div className="row d-flex flex-row justify-content-center">
+          <div className="row d-flex flex-row justify-content-start">
             <Newdata />
           </div>
         </article>
