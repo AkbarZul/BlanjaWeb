@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Card, Jumbotron } from "react-bootstrap";
+import { Jumbotron } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import Sidebar from "../SidebarProfile/Sidebar";
 import Navbar from "../Navbar";
 import axios from "axios";
+import NotFound from "../../assets/image/ordernot.png";
 const getUrl = process.env.REACT_APP_URL;
 
 const GetOrder = () => {
@@ -36,53 +37,54 @@ const GetOrder = () => {
       <div style={{ display: "flex" }}>
         <Sidebar />
         <div className="container-selling" style={{ height: "100%" }}>
-          <Jumbotron className="container-content" style={{ height: "100%" }}>
-            <h3>Your Order</h3>
+          <Jumbotron className="container-content" style={{ height: "100%", backgroundColor: "#FFFFFF" }}>
+            <h3>My Order</h3>
             <hr></hr>
             {order.length === 0 ? (
-              <h1>empty order</h1>
+              <div className="d-flex justify-content-center align-items-center mt-10">
+              <img src={NotFound} style={{height: "15rem"}} />
+            </div>
             ) : (
-              <div className="container">
-                <div className="row d-flex flex-row justify-content-arround">
-                  {order.map(
-                    ({
-                      id,
-                      transaction_code,
-                      total,
-                      status_order,
-                      address,
-                      product_name,
-                    }) => {
-                      return (
-                        <Card className="card-style">
-                          <div className="card-body">
-                            <div
-                              style={{
-                                flexDirection: "row",
-                                justifyContent: "space-between",
-                              }}
-                            >
-                              <div
-                                style={{
-                                  flexDirection: "row",
-                                  alignItems: "center",
-                                }}
-                              >
-                                <p>Order No.</p>
-                                <p className="card-title">
-                                  {transaction_code}
-                                </p>
-                              </div>
-                            </div>
-                            <p className="card-text2">{address}</p>
-                            <p className="card-text2">{status_order}</p>
-                            <p className="card-text">Rp. {total}</p>
+                <div className='container'>
+              <div className="row">
+                <p className="subTitle" style={{marginRight: '40px', marginLeft: '15px'}}>Order</p>
+                <p style={{marginRight: '70px'}}>Sent</p>
+                <p style={{marginRight: '90px'}}>Address</p>
+                <p className="subTitle" style={{marginRight: '100px'}}>Total</p>
+                <p className="subTitle" style={{marginRight: '20px'}}>All Item</p>
+              </div>
+              {order.map(
+                  ({
+                    id,
+                    transaction_code,
+                    total,
+                    status_order,
+                    address,
+                    order_detail,
+                  }) => {
+                      return(
+                          <>
+                          <div className='row'>
+                              <div className='col-md-1' >{transaction_code}</div>
+                              <div className='col-md-2 '>{status_order}</div>
+                              <div className='col-md-2 '>{address}</div>
+                              <div className='col-md-2 '>Rp. {total}</div>
+                          
+                          {order_detail.map(
+                              ({
+                                  category_name,
+                                  product_name,
+                              }) => {
+                                  return(
+                                    <div className='col-md-1' >{product_name}</div>
+                                  )
+                              }
+                          )}
                           </div>
-                        </Card>
-                      );
-                    }
-                  )}
-                </div>
+                          </>
+                      )
+                  }
+              )}
               </div>
             )}
           </Jumbotron>
