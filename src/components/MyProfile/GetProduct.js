@@ -43,7 +43,7 @@ const GetProduct = (props) => {
   // const {id} = props.location.products
 
   const handleDelete = (id) => {
-    // id.preventDefault();
+    id.preventDefault();
     axios
       .delete(getUrl + `/products/${id}`, {
         headers: {
@@ -60,6 +60,7 @@ const GetProduct = (props) => {
           draggable: true,
           transition: Bounce,
         });
+        handleClose();
         console.log("berhasil delete", res);
       })
       .catch((err) => {
@@ -152,7 +153,7 @@ const GetProduct = (props) => {
                             <button
                               className="deleteProd"
                               onClick={() => {
-                                handleDelete(id);
+                                handleShow();
                               }}
                             >
                               <div className="btn-login-nav ">Delete</div>
@@ -168,6 +169,7 @@ const GetProduct = (props) => {
           </Jumbotron>
         </div>
       </div>
+
       <Modal
         size="sm"
         aria-labelledby="contained-modal-title-vcenter"
@@ -187,19 +189,36 @@ const GetProduct = (props) => {
               alignItems: "center",
             }}
           >
-            <h6 style={{ fontSize: "15px", marginBottom: "15px" }}>
-              want to delete this producy?
+            <h6
+              style={{
+                fontSize: "15px",
+                marginBottom: "15px",
+                paddingRight: "15px",
+                paddingLeft: "15px",
+                textAlign: "center",
+              }}
+            >
+              {`Are you sure want to delete ?`}
             </h6>
-            <div className="login" style={{ alignSelf: "flex-end" }}>
-              <button
-                onClick={() => {
-                  handleDelete();
+            <div
+              className="login d-flex"
+              style={{
+                justifyContent: "space-between",
+                width: "100%",
+              }}
+            >
+              <button onClick={handleClose} className="btn-no">
+                No
+              </button>
+              {/* <button
+                onClick={(id) => {
+                  handleDelete(id);
                 }}
-                style={{ alignSelf: "flex-end", marginTop: "20px" }}
+                style={{ marginTop: "20px" }}
                 className="btn-login"
               >
-                Delete
-              </button>
+                Yes
+              </button> */}
             </div>
           </div>
         </Modal.Body>
