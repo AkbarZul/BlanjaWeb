@@ -20,10 +20,12 @@ const Sidebar = () => {
   const [showChooseAddress, setShowChooseAddress] = useState(false);
   const [address, setAddress] = useState([]);
   const full_name = useSelector((state) => state.auth.data.full_name);
-//   console.log("ini fullname", full_name);
+  //   console.log("ini fullname", full_name);
   const level = useSelector((state) => state.auth.data.level);
-//   console.log("ini level", level);
+  //   console.log("ini level", level);
   const token = useSelector((state) => state.auth.data.token);
+  const email = useSelector((state) => state.auth.data.email);
+  console.log("ini email", email);
   const getAddressUser = async () => {
     await axios
       .get(`${API}/address`, {
@@ -139,31 +141,33 @@ const Sidebar = () => {
                 </Accordion>
               ) : (
                 <Accordion defaultActiveKey="0">
-                  <Card style={{ border: "none" }}>
-                    <Card.Header style={{ backgroundColor: "white" }}>
-                      <Accordion.Toggle
-                        as={Button}
-                        variant="link"
-                        eventKey="0"
-                        className="d-flex justify-content-between"
-                      >
-                        <div
-                          className="icon mr-4"
-                          style={{
-                            backgroundColor: "#456BF3",
-                            marginLeft: "5px",
-                          }}
+                  <Link to="/profile">
+                    <Card style={{ border: "none" }}>
+                      <Card.Header style={{ backgroundColor: "white" }}>
+                        <Accordion.Toggle
+                          as={Button}
+                          variant="link"
+                          eventKey="0"
+                          className="d-flex justify-content-between"
                         >
-                          <FontAwesomeIcon
-                            icon={faHome}
-                            style={{ color: "white" }}
-                          />
-                        </div>
-                        <p className="mr-4 mt-1 text-black">My Account</p>
-                        {/* <FontAwesomeIcon className="mt-2" icon={faAngleDown} /> */}
-                      </Accordion.Toggle>
-                    </Card.Header>
-                  </Card>
+                          <div
+                            className="icon mr-4"
+                            style={{
+                              backgroundColor: "#456BF3",
+                              marginLeft: "5px",
+                            }}
+                          >
+                            <FontAwesomeIcon
+                              icon={faHome}
+                              style={{ color: "white" }}
+                            />
+                          </div>
+                          <p className="mr-4 mt-1 text-black">My Account</p>
+                          {/* <FontAwesomeIcon className="mt-2" icon={faAngleDown} /> */}
+                        </Accordion.Toggle>
+                      </Card.Header>
+                    </Card>
+                  </Link>
                   <Card style={{ border: "none" }}>
                     <Card.Header style={{ backgroundColor: "white" }}>
                       <Accordion.Toggle
@@ -215,7 +219,7 @@ const Sidebar = () => {
                       </Accordion.Toggle>
                     </Card.Header>
                     <Accordion.Collapse eventKey="2">
-                      <Link to="/my-order">
+                      <Link to="/myorder">
                         <Card.Body className="list-side">My Order</Card.Body>
                       </Link>
                     </Accordion.Collapse>
@@ -224,6 +228,17 @@ const Sidebar = () => {
               )}
             </div>
           </div>
+        </div>
+        <div className="container-btn d-flex justify-content-center mb-5">
+          <Link to="/change">
+            <button
+              className="btn-login-nav save"
+              style={{ width: "170px" }}
+              // onClick={(e) => handleSubmit(e)}
+            >
+              Change Password
+            </button>
+          </Link>
         </div>
       </div>
       <ModalChooseAddress

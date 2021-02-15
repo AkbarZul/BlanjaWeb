@@ -15,16 +15,18 @@ import { API } from "../../utility/Auth";
 
 toast.configure();
 const EditProduct = (props) => {
-    const {    id,
-        product_name,
-        product_desc,
-        product_price,
-        category_name,
-        product_qty,
-        product_photo,
-        sizes,
-        colors, } = props.location;
-    console.log("edit", props)
+  const {
+    id,
+    product_name,
+    product_desc,
+    product_price,
+    category_name,
+    product_qty,
+    product_photo,
+    sizes,
+    colors,
+  } = props.location;
+
   useEffect(() => {
     getCategory();
     getSize();
@@ -71,19 +73,22 @@ const EditProduct = (props) => {
     return temp;
   };
 
-  const [filePath, setFilePath] = useState([]);
-  const [prodName, setProdName] = useState("");
+  const photo = JSON.parse(product_photo);
+  console.log("edit", photo);
+  const [filePath, setFilePath] = useState(photo);
+  console.log("FILEPATH", filePath);
+  const [prodName, setProdName] = useState(product_name);
   const [categories, setCategories] = useState([]);
   const [size, setSize] = useState([]);
   const [color, setColor] = useState([]);
   const [condition, setCondition] = useState([]);
-  const [prodPrice, setProdPrice] = useState("");
-  const [prodQty, setProdQty] = useState("");
-  const [prodDesc, setProdDesc] = useState("");
+  const [prodPrice, setProdPrice] = useState(product_price);
+  const [prodQty, setProdQty] = useState(product_qty);
+  const [prodDesc, setProdDesc] = useState(product_desc);
   const [status, setStatus] = useState([]);
   const [ctg, setCtg] = useState(0);
-  const [cnd, setCnd] = useState(0);
-  const [sts, setSts] = useState(0);
+  const [cnd, setCnd] = useState(1);
+  const [sts, setSts] = useState(3);
 
   console.log("Size Luar", size);
   console.log("color Luar", color);
@@ -181,6 +186,28 @@ const EditProduct = (props) => {
     inputRef.current.click();
   };
 
+  const handleSubmitPhoto = async (e) => {
+    e.preventDefault();
+    const data = new FormData();
+    for (let i = 0; i < filePath.length; i++) {
+      data.append("image", filePath[i]);
+    }
+
+    await axios
+      .put(`${API}/products/photo/${id}`, data, {
+        headers: {
+          "x-access-token": "Bearer " + token,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log("image", res);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData();
@@ -196,9 +223,6 @@ const EditProduct = (props) => {
     data.append("product_price", prodPrice);
     data.append("product_qty", prodQty);
     data.append("product_desc", prodDesc);
-    for (let i = 0; i < filePath.length; i++) {
-      data.append("image", filePath[i]);
-    }
 
     data.append("status_product_id", sts);
 
@@ -219,7 +243,7 @@ const EditProduct = (props) => {
           draggable: true,
           transition: Bounce,
         });
-        console.log("ini berhasil update", res)
+        console.log("ini berhasil update", res);
       })
       .catch((err) => {
         console.log("bisa error", err.response);
@@ -436,9 +460,9 @@ const EditProduct = (props) => {
                         <img
                           className={styles.mainImg}
                           src={
-                            filePath[0]
+                            filePath[0] !== photo[0]
                               ? URL.createObjectURL(filePath[0])
-                              : main
+                              : photo[0]
                           }
                           alt=""
                         />
@@ -449,9 +473,9 @@ const EditProduct = (props) => {
                       <img
                         className={styles.secondaryImg}
                         src={
-                          filePath[1]
+                          filePath[1] !== photo[1]
                             ? URL.createObjectURL(filePath[1])
-                            : secondary
+                            : photo[1]
                         }
                         alt=""
                       />
@@ -460,9 +484,9 @@ const EditProduct = (props) => {
                       <img
                         className={styles.secondaryImg}
                         src={
-                          filePath[2]
+                          filePath[2] !== photo[2]
                             ? URL.createObjectURL(filePath[2])
-                            : secondary
+                            : photo[2]
                         }
                         alt=""
                       />
@@ -471,9 +495,9 @@ const EditProduct = (props) => {
                       <img
                         className={styles.secondaryImg}
                         src={
-                          filePath[3]
+                          filePath[3] !== photo[3]
                             ? URL.createObjectURL(filePath[3])
-                            : secondary
+                            : photo[3]
                         }
                         alt=""
                       />
@@ -482,9 +506,9 @@ const EditProduct = (props) => {
                       <img
                         className={styles.secondaryImg}
                         src={
-                          filePath[4]
+                          filePath[4] !== photo[4]
                             ? URL.createObjectURL(filePath[4])
-                            : secondary
+                            : photo[4]
                         }
                         alt=""
                       />
@@ -525,7 +549,10 @@ const EditProduct = (props) => {
             <div className="container-btn d-flex justify-content-end mb-5">
               <button
                 className="btn-login-nav save"
-                onClick={(e) => handleSubmit(e)}
+                onClick={(e) => {
+                  handleSubmit(e);
+                  handleSubmitPhoto(e);
+                }}
               >
                 Save
               </button>

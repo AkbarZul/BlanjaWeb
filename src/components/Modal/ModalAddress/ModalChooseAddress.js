@@ -25,8 +25,6 @@ const ModalChooseAddress = (props) => {
       .then((res) => {
         const address = res.data.data;
         setChangeAddress(address);
-        const id = res.data.data.id_address;
-        setIdAddress(id);
       })
       .catch((err) => {
         console.log(err);
@@ -34,14 +32,13 @@ const ModalChooseAddress = (props) => {
   };
 
   useEffect(() => {
-    getAddressUser(idAddress);
-  }, [idAddress]);
+    getAddressUser();
+  }, []);
 
   return (
     <Modal
       {...props}
       size="lg"
-
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
@@ -51,7 +48,11 @@ const ModalChooseAddress = (props) => {
           <div>
             <h4 className="text-top">Choose another address</h4>
           </div>
-          <div className="add-address" onClick={props.showAddAddress} closeButton>
+          <div
+            className="add-address"
+            onClick={props.showAddAddress}
+            closeButton
+          >
             <h4 className={classname(colors.grayText, "text-add-addres")}>
               Add new address
             </h4>
@@ -73,20 +74,20 @@ const ModalChooseAddress = (props) => {
                       {fullname}
                     </p>
                     <p className="text-addres mb-4">{`${address}, ${city}, ${region}, ${zip_code}, ${country}`}</p>
-                    <Link to={{
+                    {/* <Link to={{
                       pathname: `/checkout/${id_address}`,
                       changeAddress
-                    }}>
-                      <button
-                        className={classname(
-                          colors.primaryText,
-                          text.text,
-                          "text-title"
-                        )}
-                      >
-                        Change address
-                      </button>
-                    </Link>
+                    }}> */}
+                    <button
+                      className={classname(
+                        colors.primaryText,
+                        text.text,
+                        "text-title"
+                      )}
+                    >
+                      Change address
+                    </button>
+                    {/* </Link> */}
                   </div>
                 );
               }

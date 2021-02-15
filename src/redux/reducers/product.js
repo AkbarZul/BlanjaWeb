@@ -23,6 +23,11 @@ const cartReducer = (state = initialState, { type, payload }) => {
         ...state,
         carts: [],
       };
+    case actions.DELETE_FROM_CART:
+      return {
+        ...state,
+        carts: state.carts.filter((item) => item.id !== payload.id),
+      };
     case actions.ADD_TO_CHECKOUT:
       return {
         ...state,

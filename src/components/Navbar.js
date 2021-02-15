@@ -318,10 +318,10 @@ const Navbar = ({ changeToLogin, changeToRegister, props }) => {
             <h6 style={{ fontSize: "15px", marginBottom: "15px" }}>
               Are you sure to log out?
             </h6>
-            <div className="login" style={{ alignSelf: "flex-end" }}>
+            <div className="login" style={{ display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center'}}>
               <button
                 onClick={handleLogout}
-                style={{ alignSelf: "flex-end", marginTop: "20px" }}
+                style={{ marginTop: "20px" }}
                 className="btn-login"
               >
                 Logout

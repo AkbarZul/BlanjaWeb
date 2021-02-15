@@ -52,7 +52,7 @@ const GetProduct = (props) => {
       })
       .then((res) => {
         toast.success("Berhasil delete product", {
-          position: "bottom-left",
+          position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
