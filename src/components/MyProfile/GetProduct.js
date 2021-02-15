@@ -12,10 +12,10 @@ const getUrl = process.env.REACT_APP_URL;
 
 toast.configure();
 const GetProduct = (props) => {
-  console.log("anjim props", props)
+  console.log("anjim props", props);
   const [products, setProducts] = useState([]);
   const [show, setShow] = useState(false);
-  const history = useHistory()
+  const history = useHistory();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -31,7 +31,7 @@ const GetProduct = (props) => {
         const products = data.data;
         history.push({
           products,
-        })
+        });
         console.log("products", products);
         setProducts(products);
         // setImg(images);
@@ -43,26 +43,29 @@ const GetProduct = (props) => {
   // const {id} = props.location.products
 
   const handleDelete = (id) => {
-      // id.preventDefault();
-    axios.delete(getUrl + `/products/${id}`, {
-      headers: {
-        "x-access-token": "Bearer " + token,
-      },
-    }).then((res) => {
-      toast.success("Berhasil delete product", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        transition: Bounce,
+    // id.preventDefault();
+    axios
+      .delete(getUrl + `/products/${id}`, {
+        headers: {
+          "x-access-token": "Bearer " + token,
+        },
+      })
+      .then((res) => {
+        toast.success("Berhasil delete product", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          transition: Bounce,
+        });
+        console.log("berhasil delete", res);
+      })
+      .catch((err) => {
+        console.log("error disokin", err.response);
       });
-      console.log('berhasil delete', res)
-    }).catch((err) => {
-      console.log("error disokin", err.response)
-    })
-  }
+  };
 
   useEffect(() => {
     getProducts();
@@ -146,7 +149,12 @@ const GetProduct = (props) => {
                                 <div className="btn-login-nav ">Edit</div>
                               </button>
                             </Link>
-                            <button className="deleteProd" onClick={() => {handleDelete(id)}}>
+                            <button
+                              className="deleteProd"
+                              onClick={() => {
+                                handleDelete(id);
+                              }}
+                            >
                               <div className="btn-login-nav ">Delete</div>
                             </button>
                           </div>
@@ -184,7 +192,9 @@ const GetProduct = (props) => {
             </h6>
             <div className="login" style={{ alignSelf: "flex-end" }}>
               <button
-                onClick={() => {handleDelete()}}
+                onClick={() => {
+                  handleDelete();
+                }}
                 style={{ alignSelf: "flex-end", marginTop: "20px" }}
                 className="btn-login"
               >

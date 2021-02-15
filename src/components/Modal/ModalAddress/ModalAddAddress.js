@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 import styles from "./modal.module.css";
 import { API } from "../../../utility/Auth";
@@ -14,6 +15,8 @@ export default function ModalAddAddress(props) {
     zip_code: "",
     country: "",
   });
+
+  const history = useHistory();
   const token = useSelector((state) => state.auth.data.token);
 
   const handleSubmit = async (e) => {
@@ -44,6 +47,7 @@ export default function ModalAddAddress(props) {
       .then((res) => {
         if (res.data.status === 200) {
           props.onHide();
+          history.push("/checkout");
         } else if (res.data.status === 500) {
           props.onHide();
         }
