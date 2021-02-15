@@ -194,7 +194,8 @@ const ProductName = (props) => {
                   </button>
                 ) : (
                   <button
-                    className="mybag rounded-pill"
+                    className="rounded-pill"
+                    style={{ backgroundColor: 'white', color: "Black", fontSize: "15px", width: "100%", height: "48px", paddingLeft: "5px", paddingRight: "5px" }}
                     onClick={() => {
                       dispatch(
                         addToCart({

@@ -76,13 +76,13 @@ const Checkout = (props) => {
       })
       .then((res) => {
         const addressNull = res.data.data;
-        const alamat = res.data.data[0];
+        const addressData = res.data.data[0];
 
         if (address === null) {
           setAddress(addressNull);
         } else {
-          setAddress(alamat);
-          const id_address = res.data.data[0].id_address;
+          setAddress(addressData);
+          const id_address = res.data.data[0].id_address
           const sendData = {
             transaction_code: transaction_code,
             seller_id: seller_id,
