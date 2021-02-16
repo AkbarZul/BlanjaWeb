@@ -97,7 +97,7 @@ const Filter = (props) => {
                       </Link>
                       <div className="card-body">
                         <h5 className="card-title">{product_name}</h5>
-                        <p className="card-text">{product_price}</p>
+                        <p className="card-text">Rp.{product_price}</p>
                         <p className="card-text2">{category_name}</p>
                         {/* <Rating product_rating={rating} /> */}
                       </div>
