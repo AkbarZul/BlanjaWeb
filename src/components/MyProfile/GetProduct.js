@@ -8,22 +8,24 @@ import axios from "axios";
 import Sidebar from "../SidebarProfile/Sidebar";
 import Navbar from "../Navbar";
 import { Bounce, toast } from "react-toastify";
+import Loader from "../Loader/Loader";
 import { Redirect } from 'react-router-dom';
 const getUrl = process.env.REACT_APP_URL;
 
 toast.configure();
 const GetProduct = (props) => {
   const [addP, setAddP] = useState(false)
-  console.log("anjim props", props);
   const [products, setProducts] = useState([]);
+  const [spinner, setSpinner] = useState(true);
   const [show, setShow] = useState(false);
   const history = useHistory();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   const token = useSelector((state) => state.auth.data.token);
-  const getProducts = () => {
-    axios
+  const getProducts = async () => {
+    await axios
       .get(`${getUrl}/products/user?keyword=created_at DESC`, {
         headers: {
           "x-access-token": "Bearer " + token,
@@ -45,7 +47,6 @@ const GetProduct = (props) => {
   // const {id} = props.location.products
 
   const handleDelete = (id) => {
-    // id.preventDefault();
     axios
       .delete(getUrl + `/products/${id}`, {
         headers: {
@@ -71,8 +72,20 @@ const GetProduct = (props) => {
   };
 
   useEffect(() => {
+    setTimeout(() => setSpinner(false), 3000);
     getProducts();
   }, []);
+
+  useEffect(() => {
+    const unsubscribe = window.addEventListener("focus", () => {
+      getProducts();
+    });
+    return unsubscribe;
+  }, [window]);
+
+  if (spinner === true) {
+    return <Loader />;
+  }
 
   if (addP === true) {
     return <Redirect to="/profile" />

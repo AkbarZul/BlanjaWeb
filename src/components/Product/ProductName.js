@@ -7,7 +7,7 @@ import "../../assets/style/product.css";
 import Rating from "../Rating/Rating";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "../../redux/actions/product";
-const getUrl = process.env.REACT_APP_URL;
+import { API } from "../../utility/Auth";
 
 const ProductName = (props) => {
   const {
@@ -32,8 +32,8 @@ const ProductName = (props) => {
   console.log("sizes", sizes);
   console.log("ID", id);
   console.log("ID_SELLER", seller_id);
-  console.log("ini props", props)
-  console.log("ini addtocart", addToCart)
+  console.log("ini props", props);
+  console.log("ini addtocart", addToCart);
 
   useEffect(() => {
     setSizes();
@@ -72,23 +72,28 @@ const ProductName = (props) => {
       <div className="container">
         <div className="row">
           <div className="col-12 col-md-5 col-lg-5">
-            <img className="img-fluid rounded" src={getUrl + photo[0]} style={{height: '25rem'}} alt="" />
+            <img
+              className="img-fluid rounded"
+              src={API + photo[0]}
+              style={{ height: "25rem" }}
+              alt=""
+            />
             <div className="d-flex">
               <img
                 className="img-fluid rounded mt-2"
-                src={getUrl + photo[0]}
+                src={API + photo[0]}
                 alt="img"
                 style={{ width: "20%", margin: "1px" }}
               />
               <img
                 className="img-fluid rounded mt-2"
-                src={getUrl + photo[1]}
+                src={API + photo[1]}
                 alt="img"
                 style={{ width: "20%", margin: "1px" }}
               />
               <img
                 className="img-fluid rounded mt-2"
-                src={getUrl + photo[2]}
+                src={API + photo[2]}
                 alt="img"
                 style={{ width: "20%", margin: "1px" }}
               />
@@ -189,20 +194,36 @@ const ProductName = (props) => {
                 {index >= 0 ? (
                   <button
                     className="rounded-pill"
-                    style={{ backgroundColor: "#222222", color: "white", fontSize: "10px", width: "100%", height: "48px", paddingLeft: "5px", paddingRight: "5px" }}
+                    style={{
+                      backgroundColor: "#222222",
+                      color: "white",
+                      fontSize: "10px",
+                      width: "100%",
+                      height: "48px",
+                      paddingLeft: "5px",
+                      paddingRight: "5px",
+                    }}
                   >
                     Item already in bag
                   </button>
                 ) : (
                   <button
                     className="rounded-pill"
-                    style={{ backgroundColor: 'white', color: "Black", fontSize: "15px", width: "100%", height: "48px", paddingLeft: "5px", paddingRight: "5px" }}
+                    style={{
+                      backgroundColor: "white",
+                      color: "Black",
+                      fontSize: "15px",
+                      width: "100%",
+                      height: "48px",
+                      paddingLeft: "5px",
+                      paddingRight: "5px",
+                    }}
                     onClick={() => {
                       dispatch(
                         addToCart({
                           brand: brand,
                           id: id,
-                          photo: getUrl + photo[0],
+                          photo: photo[0],
                           name: name,
                           price: Number(price),
                           qty: jumlah,

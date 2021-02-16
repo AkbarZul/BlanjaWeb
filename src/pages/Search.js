@@ -7,6 +7,7 @@ import Navbar from "../components/Navbar";
 import ImgNotFound from "../assets/image/no-product-found.png";
 import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
+import { API } from "../utility/Auth";
 // const getUrl = "http://19/search";
 const getUrl = process.env.REACT_APP_URL;
 
@@ -41,30 +42,33 @@ const Search = (props) => {
       <div className="container">
         {isNotFound === true ? (
           <div
-          className="d-flex justify-content-center align-items-center mt-10"
-          style={{ width: "100%", height: "100%" }}
-        >
-          <div>
-            <img src={ImgNotFound} style={{height: "15rem"}} />
+            className="d-flex justify-content-center align-items-center mt-10"
+            style={{ width: "100%", height: "100%" }}
+          >
+            <div>
+              <img src={ImgNotFound} style={{ height: "15rem" }} />
+            </div>
+            <div>
+              <h1>Oops, your product not found!</h1>
+              <p>Try another keyword or check product recommendation.</p>
+            </div>
           </div>
-          <div>
-            <h1>Oops, your product not found!</h1>
-            <p>Try another keyword or check product recommendation.</p>
-          </div>
-        </div>
         ) : (
           <div className="row d-flex flex-row justify-content-start">
             {getSearch &&
               getSearch.map(
-                ({
-                  id,
-                  id_categories,
-                  product_name,
-                  product_photo,
-                  category_name,
-                  product_price,
-                  rating,
-                }, index) => {
+                (
+                  {
+                    id,
+                    id_categories,
+                    product_name,
+                    product_photo,
+                    category_name,
+                    product_price,
+                    rating,
+                  },
+                  index
+                ) => {
                   return (
                     <Card
                       className="card-style"
@@ -77,7 +81,7 @@ const Search = (props) => {
                         }}
                       >
                         <img
-                          src={getUrl + JSON.parse(product_photo).shift()}
+                          src={API + JSON.parse(product_photo).shift()}
                           className="card-img-top"
                           alt="..."
                           style={{ height: "15rem" }}
