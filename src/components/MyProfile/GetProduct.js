@@ -8,10 +8,12 @@ import axios from "axios";
 import Sidebar from "../SidebarProfile/Sidebar";
 import Navbar from "../Navbar";
 import { Bounce, toast } from "react-toastify";
+import { Redirect } from 'react-router-dom';
 const getUrl = process.env.REACT_APP_URL;
 
 toast.configure();
 const GetProduct = (props) => {
+  const [addP, setAddP] = useState(false)
   console.log("anjim props", props);
   const [products, setProducts] = useState([]);
   const [show, setShow] = useState(false);
@@ -60,7 +62,7 @@ const GetProduct = (props) => {
           draggable: true,
           transition: Bounce,
         });
-        handleClose();
+        setAddP(true)
         console.log("berhasil delete", res);
       })
       .catch((err) => {
@@ -71,6 +73,10 @@ const GetProduct = (props) => {
   useEffect(() => {
     getProducts();
   }, []);
+
+  if (addP === true) {
+    return <Redirect to="/profile" />
+  }
   return (
     <>
       <Navbar />
@@ -111,7 +117,7 @@ const GetProduct = (props) => {
                             }}
                           >
                             <img
-                              src={JSON.parse(product_photo).shift()}
+                              src={getUrl + JSON.parse(product_photo).shift()}
                               className="card-img-top"
                               alt="..."
                               style={{ height: "15rem" }}

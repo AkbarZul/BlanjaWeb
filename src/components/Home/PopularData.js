@@ -46,7 +46,7 @@ const PopularData = () => {
                 }}
               >
                 <img
-                  src={JSON.parse(product_photo).shift()}
+                  src={getUrl + JSON.parse(product_photo).shift()}
                   className="card-img-top"
                   alt="..."
                   style={{height: '15rem'}}
