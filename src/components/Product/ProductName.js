@@ -7,6 +7,7 @@ import "../../assets/style/product.css";
 import Rating from "../Rating/Rating";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "../../redux/actions/product";
+const getUrl = process.env.REACT_APP_URL;
 
 const ProductName = (props) => {
   const {
@@ -71,23 +72,23 @@ const ProductName = (props) => {
       <div className="container">
         <div className="row">
           <div className="col-12 col-md-5 col-lg-5">
-            <img className="img-fluid rounded" src={photo[0]} style={{height: '25rem'}} alt="" />
+            <img className="img-fluid rounded" src={getUrl + photo[0]} style={{height: '25rem'}} alt="" />
             <div className="d-flex">
               <img
                 className="img-fluid rounded mt-2"
-                src={photo[0]}
+                src={getUrl + photo[0]}
                 alt="img"
                 style={{ width: "20%", margin: "1px" }}
               />
               <img
                 className="img-fluid rounded mt-2"
-                src={photo[1]}
+                src={getUrl + photo[1]}
                 alt="img"
                 style={{ width: "20%", margin: "1px" }}
               />
               <img
                 className="img-fluid rounded mt-2"
-                src={photo[2]}
+                src={getUrl + photo[2]}
                 alt="img"
                 style={{ width: "20%", margin: "1px" }}
               />
@@ -201,7 +202,7 @@ const ProductName = (props) => {
                         addToCart({
                           brand: brand,
                           id: id,
-                          photo: photo[0],
+                          photo: getUrl + photo[0],
                           name: name,
                           price: Number(price),
                           qty: jumlah,

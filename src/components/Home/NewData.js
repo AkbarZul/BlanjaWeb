@@ -7,11 +7,15 @@ const getUrl = process.env.REACT_APP_URL;
 
 const NewData = () => {
   const [products, setProducts] = useState([]);
+  const [img, setImg] = useState([])
   const getProducts = () => {
     axios
       .get(`${getUrl}/products?limit=15&keyword=created_at DESC`)
       .then((res) => {
-        const newProduct = res.data.data.products;
+        const newProduct = res.data.data.products
+        // const image = data.data[0].product_photo
+        // const images = JSON.parse(image)
+        // setImg(images);
         console.log("products", newProduct);
         setProducts(newProduct);
       })
@@ -46,7 +50,7 @@ const NewData = () => {
               >
 
                 <img
-                  src={JSON.parse(product_photo).shift()}
+                  src={getUrl + JSON.parse(product_photo).shift()}
                   className="card-img-top img-fluid"
                   alt="..."
                   style={{height: '15rem'}}

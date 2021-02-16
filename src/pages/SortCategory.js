@@ -7,6 +7,7 @@ import Navbar from "../components/Navbar";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 // const getUrl = "http://19/search";
+const getUrl = process.env.REACT_APP_URL;
 
 const SortCategory = (props) => {
   const [categories, setCategories] = useState([]);
@@ -14,7 +15,7 @@ const SortCategory = (props) => {
   const getAllProducts = async () => {
     await axios
       .get(
-        `${process.env.REACT_APP_URL}/categories/${id_categories}?keyword=created_at DESC`
+        `${getUrl}/categories/${id_categories}?keyword=created_at DESC`
       )
       .then((res) => {
         const category = res.data.data.product;
@@ -58,7 +59,7 @@ const SortCategory = (props) => {
                     }}
                   >
                     <img
-                      src={JSON.parse(product_photo).shift()}
+                      src={getUrl + JSON.parse(product_photo).shift()}
                       className="card-img-top"
                       alt="..."
                       style={{height: '15rem'}}

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import ImgNotFound from "../assets/image/no-product-found.png";
 import axios from "axios";
+const getUrl = process.env.REACT_APP_URL;
 
 const Filter = (props) => {
   const [getFilter, setGetFilter] = useState([]);
@@ -19,7 +20,7 @@ const Filter = (props) => {
   const handleFilter = () => {
     axios
       .get(
-        `${process.env.REACT_APP_URL}/products/filter?category=${category}&size=${size}&color=${color}`
+        `${getUrl}/products/filter?category=${category}&size=${size}&color=${color}`
       )
       .then((res) => {
         // const failed = res.data.status;
@@ -89,7 +90,7 @@ const Filter = (props) => {
                         }}
                       >
                         <img
-                          src={JSON.parse(product_photo).shift()}
+                          src={getUrl + JSON.parse(product_photo).shift()}
                           className="card-img-top"
                           alt="..."
                           style={{ height: "15rem" }}
