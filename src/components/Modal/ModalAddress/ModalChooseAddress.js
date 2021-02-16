@@ -78,15 +78,7 @@ const ModalChooseAddress = (props) => {
                       pathname: `/checkout/${id_address}`,
                       changeAddress
                     }}> */}
-                    <button
-                      className={classname(
-                        colors.primaryText,
-                        text.text,
-                        "text-title"
-                      )}
-                    >
-                      Change address
-                    </button>
+                    <h5 style={{ color: "#db3022", cursor: 'pointer' }}>Change address</h5>
                     {/* </Link> */}
                   </div>
                 );
