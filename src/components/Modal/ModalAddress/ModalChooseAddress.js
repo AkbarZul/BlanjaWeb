@@ -73,7 +73,7 @@ const ModalChooseAddress = (props) => {
                     <p className={classname(text.text, "text-title")}>
                       {fullname}
                     </p>
-                    <p className="text-addres mb-4">{`${address}, ${city}, ${region}, ${zip_code}, ${country}`}</p>
+                    <p className="text-addres mb-4">{`${address}, ${city}, Kota. ${city}, Prov. ${region}, ${zip_code}, [${country}]`}</p>
                     {/* <Link to={{
                       pathname: `/checkout/${id_address}`,
                       changeAddress

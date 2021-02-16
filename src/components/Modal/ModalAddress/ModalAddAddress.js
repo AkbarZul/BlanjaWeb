@@ -47,7 +47,6 @@ export default function ModalAddAddress(props) {
       .then((res) => {
         if (res.data.status === 200) {
           props.onHide();
-          history.push("/checkout");
         } else if (res.data.status === 500) {
           props.onHide();
         }
