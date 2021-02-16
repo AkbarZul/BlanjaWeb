@@ -12,9 +12,11 @@ import "./add.css";
 import "react-toastify/dist/ReactToastify.css";
 import { Bounce, toast } from "react-toastify";
 import { API } from "../../utility/Auth";
+import { Redirect } from 'react-router-dom';
 
 toast.configure();
 const AddProduct = () => {
+  const [addP, setAddP] = useState(false)
   useEffect(() => {
     getCategory();
     getSize();
@@ -209,11 +211,16 @@ const AddProduct = () => {
           draggable: true,
           transition: Bounce,
         });
+        setAddP(true)
       })
       .catch((err) => {
         console.log("bisa error", err.response);
       });
   };
+
+  if(addP === true) {
+    return <Redirect to="/myproduct" />
+  }
 
   return (
     <>

@@ -8,11 +8,14 @@ const getUrl = process.env.REACT_APP_URL;
 
 const NewData = () => {
   const [products, setProducts] = useState([]);
-  const getProducts = async () => {
-    await axios
+  const getProducts = () => {
+    axios
       .get(`${getUrl}/products?limit=15&keyword=created_at DESC`)
       .then((res) => {
         const newProduct = res.data.data.products;
+        // const image = data.data[0].product_photo
+        // const images = JSON.parse(image)
+        // setImg(images);
         console.log("products", newProduct);
         setProducts(newProduct);
       })

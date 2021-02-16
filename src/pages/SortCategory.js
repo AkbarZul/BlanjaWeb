@@ -8,15 +8,14 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { API } from "../utility/Auth";
 // const getUrl = "http://19/search";
+const getUrl = process.env.REACT_APP_URL;
 
 const SortCategory = (props) => {
   const [categories, setCategories] = useState([]);
   let { id_categories } = useParams();
   const getAllProducts = async () => {
     await axios
-      .get(
-        `${process.env.REACT_APP_URL}/categories/${id_categories}?keyword=created_at DESC`
-      )
+      .get(`${getUrl}/categories/${id_categories}?keyword=created_at DESC`)
       .then((res) => {
         const category = res.data.data.product;
         console.log(res.data.data.product);

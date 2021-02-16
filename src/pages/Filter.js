@@ -20,7 +20,7 @@ const Filter = (props) => {
   const handleFilter = () => {
     axios
       .get(
-        `${process.env.REACT_APP_URL}/products/filter?category=${category}&size=${size}&color=${color}`
+        `${API}/products/filter?category=${category}&size=${size}&color=${color}`
       )
       .then((res) => {
         // const failed = res.data.status;

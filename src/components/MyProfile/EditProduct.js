@@ -11,10 +11,12 @@ import styles from "./styling.module.css";
 import "./add.css";
 import "react-toastify/dist/ReactToastify.css";
 import { Bounce, toast } from "react-toastify";
+import { Redirect } from 'react-router-dom';
 import { API } from "../../utility/Auth";
 
 toast.configure();
 const EditProduct = (props) => {
+  const [addP, setAddP] = useState(false)
   const {
     id,
     product_name,
@@ -243,12 +245,17 @@ const EditProduct = (props) => {
           draggable: true,
           transition: Bounce,
         });
+        setAddP(true)
         console.log("ini berhasil update", res);
       })
       .catch((err) => {
         console.log("bisa error", err.response);
       });
   };
+
+  if(addP === true) {
+    return <Redirect to="/myproduct" />
+  }
 
   return (
     <>

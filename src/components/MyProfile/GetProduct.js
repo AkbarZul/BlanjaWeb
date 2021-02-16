@@ -9,10 +9,12 @@ import Sidebar from "../SidebarProfile/Sidebar";
 import Navbar from "../Navbar";
 import { Bounce, toast } from "react-toastify";
 import Loader from "../Loader/Loader";
+import { Redirect } from 'react-router-dom';
 const getUrl = process.env.REACT_APP_URL;
 
 toast.configure();
 const GetProduct = (props) => {
+  const [addP, setAddP] = useState(false)
   const [products, setProducts] = useState([]);
   const [spinner, setSpinner] = useState(true);
   const [show, setShow] = useState(false);
@@ -61,7 +63,7 @@ const GetProduct = (props) => {
           draggable: true,
           transition: Bounce,
         });
-        handleClose();
+        setAddP(true)
         console.log("berhasil delete", res);
       })
       .catch((err) => {
@@ -85,6 +87,9 @@ const GetProduct = (props) => {
     return <Loader />;
   }
 
+  if (addP === true) {
+    return <Redirect to="/profile" />
+  }
   return (
     <>
       <Navbar />

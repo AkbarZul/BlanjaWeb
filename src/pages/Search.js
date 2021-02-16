@@ -9,6 +9,7 @@ import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import { API } from "../utility/Auth";
 // const getUrl = "http://19/search";
+const getUrl = process.env.REACT_APP_URL;
 
 const Search = (props) => {
   const [getSearch, setGetSearch] = useState([]);
@@ -18,7 +19,7 @@ const Search = (props) => {
 
   const searching = () => {
     axios
-      .get(`${process.env.REACT_APP_URL}/search?keyword=${searchKey}`)
+      .get(`${getUrl}/search?keyword=${searchKey}`)
       .then((res) => {
         const result = res.data.data;
         console.log("tes res", res.data.status);
