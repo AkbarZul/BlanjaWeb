@@ -16,6 +16,7 @@ import RoutePrivate from "../components/RoutePrivate";
 import EditProduct from "../components/MyProfile/EditProduct";
 import GetOrder from "../components/MyProfile/GetOrder";
 import ChangePassword from "../components/MyProfile/ChangePassword";
+import ShippingAddress from "../components/MyProfile/ShippingAddress";
 
 // Login Page
 // import Login from "../components/";
@@ -47,6 +48,7 @@ export default function Router() {
       <Route path="/myproduct" component={GetProduct} />
       <Route path="/myorder" component={GetOrder} />
       <Route path="/change" component={ChangePassword} />
+      <Route path="/shippingAddress" component={ShippingAddress} />
 
       {/* <Route path="/register" component={Auth} />
       <Route path="/konfirmasi" component={Auth} /> */}

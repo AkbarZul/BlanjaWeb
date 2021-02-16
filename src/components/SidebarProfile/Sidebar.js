@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Card, Accordion, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ModalChooseAddress from "../Modal/ModalAddress/ModalChooseAddress";
 import axios from "axios";
 import { API } from "../../utility/Auth";
 import {
@@ -17,7 +16,6 @@ import "./style.css";
 // useselector = state.auth.data
 
 const Sidebar = () => {
-  const [showChooseAddress, setShowChooseAddress] = useState(false);
   const [address, setAddress] = useState([]);
   const full_name = useSelector((state) => state.auth.data.full_name);
   //   console.log("ini fullname", full_name);
@@ -168,32 +166,34 @@ const Sidebar = () => {
                       </Card.Header>
                     </Card>
                   </Link>
-                  <Card style={{ border: "none" }}>
-                    <Card.Header style={{ backgroundColor: "white" }}>
-                      <Accordion.Toggle
-                        as={Button}
-                        variant="link"
-                        eventKey="1"
-                        className="d-flex justify-content-between"
-                        onClick={() => setShowChooseAddress(true)}
-                      >
-                        <div
-                          className="icon mr-4"
-                          style={{
-                            backgroundColor: "#F36F45",
-                            marginLeft: "5px",
-                          }}
+                  <Link to="/shippingAddress">
+                    <Card style={{ border: "none" }}>
+                      <Card.Header style={{ backgroundColor: "white" }}>
+                        <Accordion.Toggle
+                          as={Button}
+                          variant="link"
+                          eventKey="1"
+                          className="d-flex justify-content-between"
+                          // onClick={() => setShowChooseAddress(true)}
                         >
-                          <FontAwesomeIcon
-                            icon={faCube}
-                            style={{ color: "white" }}
-                          />
-                        </div>
-                        <p className="mr-4 mt-1">Shipping Address</p>
-                        {/* <FontAwesomeIcon className="mt-2" icon={faAngleDown} /> */}
-                      </Accordion.Toggle>
-                    </Card.Header>
-                  </Card>
+                          <div
+                            className="icon mr-4"
+                            style={{
+                              backgroundColor: "#F36F45",
+                              marginLeft: "5px",
+                            }}
+                          >
+                            <FontAwesomeIcon
+                              icon={faCube}
+                              style={{ color: "white" }}
+                            />
+                          </div>
+                          <p className="mr-4 mt-1">Shipping Address</p>
+                          {/* <FontAwesomeIcon className="mt-2" icon={faAngleDown} /> */}
+                        </Accordion.Toggle>
+                      </Card.Header>
+                    </Card>
+                  </Link>
                   <Card style={{ border: "none" }}>
                     <Card.Header style={{ backgroundColor: "white" }}>
                       <Accordion.Toggle
@@ -241,11 +241,11 @@ const Sidebar = () => {
           </Link>
         </div>
       </div>
-      <ModalChooseAddress
+      {/* <ModalChooseAddress
         show={showChooseAddress}
         onHide={() => setShowChooseAddress(false)}
         // showAddAddress={() => setShowAddAddress(true)}
-      />
+      /> */}
     </>
   );
 };
