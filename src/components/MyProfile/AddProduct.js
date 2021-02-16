@@ -72,7 +72,7 @@ const AddProduct = () => {
   const [prodDesc, setProdDesc] = useState("");
   const [status, setStatus] = useState([]);
   const [ctg, setCtg] = useState(0);
-  const [cnd, setCnd] = useState(0);
+  const [cnd, setCnd] = useState(1);
   const [sts, setSts] = useState(0);
 
   console.log("Size Luar", size);
