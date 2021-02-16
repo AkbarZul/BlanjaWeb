@@ -462,7 +462,7 @@ const EditProduct = (props) => {
                           src={
                             filePath[0] !== photo[0]
                               ? URL.createObjectURL(filePath[0])
-                              : photo[0]
+                              : API + photo[0]
                           }
                           alt=""
                         />
@@ -475,7 +475,7 @@ const EditProduct = (props) => {
                         src={
                           filePath[1] !== photo[1]
                             ? URL.createObjectURL(filePath[1])
-                            : photo[1]
+                            : API + photo[1]
                         }
                         alt=""
                       />
@@ -486,7 +486,7 @@ const EditProduct = (props) => {
                         src={
                           filePath[2] !== photo[2]
                             ? URL.createObjectURL(filePath[2])
-                            : photo[2]
+                            : API + photo[2]
                         }
                         alt=""
                       />
@@ -497,7 +497,7 @@ const EditProduct = (props) => {
                         src={
                           filePath[3] !== photo[3]
                             ? URL.createObjectURL(filePath[3])
-                            : photo[3]
+                            : API + photo[3]
                         }
                         alt=""
                       />
@@ -508,7 +508,7 @@ const EditProduct = (props) => {
                         src={
                           filePath[4] !== photo[4]
                             ? URL.createObjectURL(filePath[4])
-                            : photo[4]
+                            : API + photo[4]
                         }
                         alt=""
                       />

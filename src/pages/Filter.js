@@ -4,17 +4,18 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import ImgNotFound from "../assets/image/no-product-found.png";
 import axios from "axios";
+import { API } from "../utility/Auth";
 
 const Filter = (props) => {
   const [getFilter, setGetFilter] = useState([]);
   const [isNotFound, setIsNotFound] = useState(false);
   // let { color, size, category }= useParams();
   const { color, size, category } = props.location;
-  console.log("getFilter", getFilter);
+  // console.log("getFilter", getFilter);
 
-  console.log("colorfil", color);
-  console.log("categoryfil", category);
-  console.log("sizefil", size);
+  // console.log("colorfil", color);
+  // console.log("categoryfil", category);
+  // console.log("sizefil", size);
 
   const handleFilter = () => {
     axios
@@ -57,7 +58,7 @@ const Filter = (props) => {
             style={{ width: "100%", height: "100%" }}
           >
             <div>
-              <img src={ImgNotFound} style={{height: "15rem"}} />
+              <img src={ImgNotFound} style={{ height: "15rem" }} />
             </div>
             <div>
               <h1>Oops, your product not found!</h1>
@@ -89,7 +90,7 @@ const Filter = (props) => {
                         }}
                       >
                         <img
-                          src={JSON.parse(product_photo).shift()}
+                          src={API + JSON.parse(product_photo).shift()}
                           className="card-img-top"
                           alt="..."
                           style={{ height: "15rem" }}

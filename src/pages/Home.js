@@ -1,10 +1,9 @@
-import React, { Component } from 'react'
-import Navbar from '../components/Navbar';
-import Carousell from '../components/Home/Carousell';
-import Category from '../components/Home/Category';
-import NewData from '../components/Home/New';
-import Popular from '../components/Home/Popular';
-
+import React, { Component } from "react";
+import Navbar from "../components/Navbar";
+import Carousell from "../components/Home/Carousell";
+import Category from "../components/Home/Category";
+import NewData from "../components/Home/New";
+import Popular from "../components/Home/Popular";
 
 export default class Home extends Component {
   render() {
@@ -16,6 +15,6 @@ export default class Home extends Component {
         <NewData />
         <Popular />
       </>
-    )
+    );
   }
 }

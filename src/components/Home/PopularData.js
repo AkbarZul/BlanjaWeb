@@ -3,6 +3,7 @@ import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Jas } from "../../assets/style";
 import Rating from "../Rating/Rating";
+import Loader from "../Loader/Loader";
 import axios from "axios";
 const getUrl = process.env.REACT_APP_URL;
 
@@ -24,6 +25,10 @@ const PopularData = () => {
   useEffect(() => {
     getProducts();
   }, []);
+
+  if (!products.length) {
+    return <Loader />;
+  }
   return (
     <>
       {products.map(
@@ -38,7 +43,11 @@ const PopularData = () => {
           rating,
         }) => {
           return (
-            <Card className="card-style" style={{ width: "18rem", marginRight: '12px' }} key={id}>
+            <Card
+              className="card-style"
+              style={{ width: "18rem", marginRight: "12px" }}
+              key={id}
+            >
               <Link
                 to={{
                   pathname: `/products/${id}`,
@@ -46,10 +55,10 @@ const PopularData = () => {
                 }}
               >
                 <img
-                  src={JSON.parse(product_photo).shift()}
+                  src={getUrl + JSON.parse(product_photo).shift()}
                   className="card-img-top"
                   alt="..."
-                  style={{height: '15rem'}}
+                  style={{ height: "15rem" }}
                 />
               </Link>
               <div className="card-body">
