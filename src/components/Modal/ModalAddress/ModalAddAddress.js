@@ -72,7 +72,7 @@ export default function ModalAddAddress(props) {
           <div className={styles.iteminput}>
             <div className={styles.contentinput}>
               <label className={styles.label} for="address">
-                Save address as (ex : home address, office address)
+                Country
               </label>
               <input
                 id="address"

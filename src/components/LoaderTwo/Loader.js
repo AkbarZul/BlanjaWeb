@@ -6,7 +6,7 @@ import Navbar from "../Navbar";
 const Loader = () => {
   return (
     <>
-    {/* <Navbar /> */}
+    <Navbar />
     <div className={styles.loaderContainer}>
       <img className={styles.loader} src={loading} alt="loader" />
       <h2 className={styles.loaderText}>Please wait</h2>

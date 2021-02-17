@@ -115,11 +115,10 @@ const ProductName = (props) => {
                     style={{
                       width: "36px",
                       height: "36px",
-                      backgroundColor:
-                        color_name === warna ? color_hexa : "white",
-                      borderColor: color_hexa,
-                      borderRadius: "75%",
-                      borderWidth: "15px",
+                      backgroundColor: color_hexa,
+                      borderColor: color_name === warna ? color_hexa : "white",
+                      borderRadius: "100%",
+                      borderWidth: "3px",
                     }}
                     className="mr-3"
                   />
