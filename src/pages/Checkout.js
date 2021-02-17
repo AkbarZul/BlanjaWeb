@@ -176,7 +176,7 @@ const Checkout = (props) => {
                       <div className="col-2 img-chart">
                         <img
                           style={{ height: "70px" }}
-                          src={item.photo}
+                          src={API + item.photo}
                           alt=""
                         />
                       </div>

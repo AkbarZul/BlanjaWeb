@@ -5,10 +5,14 @@ import Navbar from "../components/Navbar";
 import ImgNotFound from "../assets/image/no-product-found.png";
 import axios from "axios";
 import { API } from "../utility/Auth";
+import Loader from "../components/LoaderTwo/Loader";
+
 
 const Filter = (props) => {
   const [getFilter, setGetFilter] = useState([]);
   const [isNotFound, setIsNotFound] = useState(false);
+  const [spinner, setSpinner] = useState(true);
+  
   // let { color, size, category }= useParams();
   const { color, size, category } = props.location;
   // console.log("getFilter", getFilter);
@@ -40,13 +44,25 @@ const Filter = (props) => {
       });
   };
 
-  // if (getFilter.length === 0) {
-  //   setIsNotFound(true)
-  // }
-
   useEffect(() => {
     handleFilter(color, category, size);
   }, [color, category, size]);
+
+  useEffect(() => {
+    setTimeout(() => setSpinner(false), 2000);
+    handleFilter(color, category, size);
+  }, [color, category, size]);
+
+  useEffect(() => {
+    const unsubscribe = window.addEventListener("focus", () => {
+      handleFilter(color, category, size);
+    });
+    return unsubscribe;
+  }, [window]);
+
+  if (spinner === true) {
+    return <Loader />;
+  }
 
   return (
     <>
