@@ -8,7 +8,7 @@ import axios from "axios";
 import Sidebar from "../SidebarProfile/Sidebar";
 import Navbar from "../Navbar";
 import { Bounce, toast } from "react-toastify";
-import Loader from "../Loader/Loader";
+import Loader from "../LoaderTwo/Loader";
 import { Redirect } from 'react-router-dom';
 const getUrl = process.env.REACT_APP_URL;
 
@@ -54,17 +54,18 @@ const GetProduct = (props) => {
         },
       })
       .then((res) => {
-        toast.success("Berhasil delete product", {
+        toast.success("Product deleted successfull!", {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           transition: Bounce,
         });
-        setAddP(true)
+        // setAddP(true)
         console.log("berhasil delete", res);
+        getProducts();
       })
       .catch((err) => {
         console.log("error disokin", err.response);
@@ -72,18 +73,23 @@ const GetProduct = (props) => {
   };
 
   useEffect(() => {
-    setTimeout(() => setSpinner(false), 3000);
+    getProducts(products);
+  }, [])
+
+  useEffect(() => {
+    setTimeout(() => setSpinner(false),2000);
     getProducts();
   }, []);
 
-  useEffect(() => {
-    const unsubscribe = window.addEventListener("focus", () => {
-      getProducts();
-    });
-    return unsubscribe;
-  }, [window]);
+  // useEffect(() => {
+  //   const unsubscribe = window.addEventListener("focus", () => {
+  //     getProducts();
+  //   });
+  //   return unsubscribe;
+  // }, [window]);
 
   if (spinner === true) {
+    getProducts(products);
     return <Loader />;
   }
 
@@ -165,7 +171,7 @@ const GetProduct = (props) => {
                                 colors,
                               }}
                             >
-                              <button className="editProd">
+                              <button className="editProd" style={{}}>
                                 <div className="btn-login-nav ">Edit</div>
                               </button>
                             </Link>

@@ -123,28 +123,14 @@
   margin-top: 40px;
 }
 
-.category {
-  width: 100px;
-  height: 40px;
-  border-radius: 8px;
-  background-color: white !important;
-  color: black;
-  border: 1px solid black;
+.color:hover {
+  background-color: red !important;
+  color: white !important;
 }
 
 .category:hover {
   background-color: red !important;
   color: white !important;
-}
-
-.size {
-  width: 60px;
-  /* height: 40px; */
-  margin: 5px 0;
-  padding: 5px;
-  border-radius: 8px;
-  background-color: white;
-  border: 1px solid;
 }
 
 .size:hover {

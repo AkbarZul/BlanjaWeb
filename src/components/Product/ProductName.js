@@ -24,8 +24,9 @@ const ProductName = (props) => {
     id,
     seller_id,
   } = props;
+
   const [jumlah, setJumlah] = useState(1);
-  const [sizes, setSizes] = useState(size[0]);
+  const [sizes, setSizes] = useState(0);
   const [warna, setWarna] = useState("");
   console.log("color", warna);
   console.log("jumlah", jumlah);
@@ -34,11 +35,6 @@ const ProductName = (props) => {
   console.log("ID_SELLER", seller_id);
   console.log("ini props", props);
   console.log("ini addtocart", addToCart);
-
-  useEffect(() => {
-    setSizes();
-    setWarna();
-  }, []);
 
   const history = useHistory();
 
@@ -64,7 +60,7 @@ const ProductName = (props) => {
     return item.id === id;
   });
 
-  console.log("INDEX", index);
+  console.log("INDEX", size[sizes]);
 
   return (
     <div>
@@ -105,7 +101,7 @@ const ProductName = (props) => {
             <Rating product_rating={rating} />
             <h3 className="tag-price mt-5">Price</h3>
             <p className="price">Rp. {price}</p>
-            <h3 className="color">Color</h3>
+            <h4>Color</h4>
             {color &&
               color.map(({ id, color_hexa, color_name }) => {
                 return (
@@ -115,11 +111,10 @@ const ProductName = (props) => {
                     style={{
                       width: "36px",
                       height: "36px",
-                      backgroundColor:
-                        color_name === warna ? color_hexa : "white",
-                      borderColor: color_hexa,
-                      borderRadius: "75%",
-                      borderWidth: "15px",
+                      backgroundColor: color_hexa,
+                      borderColor: color_name === warna ? color_hexa : "white",
+                      borderRadius: "100%",
+                      borderWidth: "3px",
                     }}
                     className="mr-3"
                   />
@@ -134,27 +129,20 @@ const ProductName = (props) => {
               <button
                 className="minus mr-2"
                 onClick={() => {
-                  if (sizes === size[0]) {
-                    setSizes(size[1]);
-                  } else if (sizes === size[1]) {
-                    setSizes(size[2]);
-                  } else {
-                    setSizes(size[0]);
-                  }
+                  if (sizes === 0) return;
+                  setSizes((sizes) => sizes - 1);
                 }}
               >
                 <p>-</p>
               </button>
-              <p className="number mt-2">{sizes}</p>
+              <p className="number mt-2">{size[sizes]}</p>
               <button
                 className="plus ml-2"
                 onClick={() => {
-                  if (sizes === size[0]) {
-                    setSizes(size[1]);
-                  } else if (sizes === size[1]) {
-                    setSizes(size[2]);
-                  } else {
-                    setSizes(size[0]);
+                  if (sizes === size.length - 1) {
+                    return;
+                  } else if (sizes < size.length) {
+                    setSizes((sizes) => sizes + 1);
                   }
                 }}
               >

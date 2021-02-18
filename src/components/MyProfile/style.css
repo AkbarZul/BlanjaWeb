@@ -35,15 +35,27 @@ h3 {
 .editProd{
   width: 70px;
   height: 36px;
-  background-color: #00ff00 !important;
-  color: #ffffff !important;
-  border-radius: 10px;
+  background-color: white !important;
+  color: green !important;
+  border-radius: 50px;
+  border: 1px green solid;
+}
+
+.editProd:hover {
+  background-color: green !important;
+  color: white !important;
 }
 
 .deleteProd{
   width: 70px;
   height: 36px;
-  background-color: #ff0000 !important;
-  color: #ffffff !important;
-  border-radius: 10px;
+  background-color: white !important;
+  color: red !important;
+  border-radius: 50px;
+  border: 1px red solid;
+}
+
+.deleteProd:hover {
+  background-color: red !important;
+  color: white !important;
 }

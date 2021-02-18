@@ -29,6 +29,12 @@ const Navbar = ({ changeToLogin, changeToRegister, props }) => {
   const [category, setCategory] = useState("");
   const [size, setSize] = useState("");
   const [color, setColor] = useState("");
+  const [categoryName, setCategoryName] = useState("");
+  const [sizeName, setSizeName] = useState("");
+  const [colorName, setColorName] = useState("");
+  const [colorPick, setColorPick] = useState("");
+  const [categoryPick, setCategoryPick] = useState("");
+  const [sizePick, setSizePick] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -38,6 +44,8 @@ const Navbar = ({ changeToLogin, changeToRegister, props }) => {
       .get(`${process.env.REACT_APP_URL}/categories`)
       .then((res) => {
         const getCategory = res.data.data;
+        const categoryName = res.data.data.category_name;
+        setCategoryName(categoryName);
         setListCategory(getCategory);
       })
       .catch((err) => {
@@ -50,7 +58,9 @@ const Navbar = ({ changeToLogin, changeToRegister, props }) => {
       .get(`${process.env.REACT_APP_URL}/sizes`)
       .then((res) => {
         const getSize = res.data.data;
+        const sizeName = res.data.data.size;
         console.log("kolor size", getSize);
+        setSizeName(sizeName);
         setListSize(getSize);
       })
       .catch((err) => {
@@ -63,7 +73,10 @@ const Navbar = ({ changeToLogin, changeToRegister, props }) => {
       .get(`${process.env.REACT_APP_URL}/colors`)
       .then((res) => {
         const getColor = res.data.data;
+        const colorName = res.data.data.color_name;
+        console.log("nama warna", colorName);
         console.log("kolor", getColor);
+        setColorName(colorName);
         setListColor(getColor);
       })
       .catch((err) => {
@@ -219,15 +232,22 @@ const Navbar = ({ changeToLogin, changeToRegister, props }) => {
                 return (
                   <button
                     type="submit"
-                    className="mr-3"
+                    className="color mr-3"
                     style={{
                       width: "36px",
                       height: "36px",
                       borderRadius: "50%",
-                      border: "none",
+                      borderWidth: "2px",
+                      borderColor:
+                        color_name === colorPick ? color_hexa : "white",
                       backgroundColor: color_hexa,
                     }}
-                    onClick={() => setColor(id)}
+                    // onClick={() => setWarna(color_name)}
+                    onClick={() => {
+                      setColor(id);
+                      setColorPick(color_name);
+                      setColorName(color_name);
+                    }}
                   ></button>
                 );
               })}
@@ -246,7 +266,22 @@ const Navbar = ({ changeToLogin, changeToRegister, props }) => {
                   <button
                     type="submit"
                     className="size mr-3"
-                    onClick={() => setSize(id)}
+                    style={{
+                      width: "60px",
+                      marginLeft: "5px",
+                      marginRight: "5px",
+                      marginTop: '10px',
+                      padding: "5px",
+                      borderRadius: "8px",
+                      color: size === sizePick ? "white" : "black",
+                      backgroundColor: size === sizePick ? "red" : "white",
+                      borderWidth: "1px",
+                    }}
+                    onClick={() => {
+                      setSize(id);
+                      setSizePick(size);
+                      setSizeName(size)
+                    }}
                   >
                     {size}
                   </button>
@@ -261,13 +296,25 @@ const Navbar = ({ changeToLogin, changeToRegister, props }) => {
 
         <Modal.Body>
           <div className="d-flex">
-            <button className="category mr-3">All</button>
             {listCategory &&
               listCategory.map(({ id_categories, category_name }) => {
                 return (
                   <button
                     className="category mr-3"
-                    onClick={() => setCategory(id_categories)}
+                    style={{
+                      width: "100px",
+                      height: "40px",
+                      borderRadius: "8px",
+                      color: category_name === categoryPick ? "white" : "black",
+                      backgroundColor:
+                        category_name === categoryPick ? "red" : "white",
+                      borderWidth: "1px",
+                    }}
+                    onClick={() => {
+                      setCategory(id_categories);
+                      setCategoryPick(category_name);
+                      setCategoryName(category_name);
+                    }}
                   >
                     {category_name}
                   </button>
@@ -284,6 +331,10 @@ const Navbar = ({ changeToLogin, changeToRegister, props }) => {
             <Link
               to={{
                 pathname: "/filter",
+                search: `?category=${categoryName}&size=${sizeName}&color=${colorName}`,
+                categoryName,
+                colorName,
+                sizeName,
                 category,
                 color,
                 size,
@@ -302,7 +353,8 @@ const Navbar = ({ changeToLogin, changeToRegister, props }) => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
         show={modalShow}
-        onHide={() => setModalShow(false)}>
+        onHide={() => setModalShow(false)}
+      >
         <Modal.Header closeButton style={{ border: "none" }}>
           <Modal.Title id="contained-modal-title-vcenter"></Modal.Title>
         </Modal.Header>
@@ -318,7 +370,15 @@ const Navbar = ({ changeToLogin, changeToRegister, props }) => {
             <h6 style={{ fontSize: "15px", marginBottom: "15px" }}>
               Are you sure to log out?
             </h6>
-            <div className="login" style={{ display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+            <div
+              className="login"
+              style={{
+                display: "flex",
+                width: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               <button
                 onClick={handleLogout}
                 style={{ marginTop: "20px" }}

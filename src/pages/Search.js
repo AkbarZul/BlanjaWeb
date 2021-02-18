@@ -8,12 +8,15 @@ import ImgNotFound from "../assets/image/no-product-found.png";
 import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import { API } from "../utility/Auth";
+import Loader from "../components/LoaderTwo/Loader";
 // const getUrl = "http://19/search";
 const getUrl = process.env.REACT_APP_URL;
 
 const Search = (props) => {
   const [getSearch, setGetSearch] = useState([]);
   const [isNotFound, setIsNotFound] = useState(false);
+  const [spinner, setSpinner] = useState(true);
+
   //   let { searchKey } = useHistory();
   const { searchKey } = props.location;
 
@@ -32,9 +35,25 @@ const Search = (props) => {
       });
   };
 
+  // useEffect(() => {
+  //   searching(searchKey);
+  // }, [searchKey]);
+
   useEffect(() => {
+    setTimeout(() => setSpinner(false), 2000);
     searching(searchKey);
   }, [searchKey]);
+
+  useEffect(() => {
+    const unsubscribe = window.addEventListener("focus", () => {
+      searching(searchKey);
+    });
+    return unsubscribe;
+  }, [window]);
+
+  if (spinner === true) {
+    return <Loader />;
+  }
 
   return (
     <>
