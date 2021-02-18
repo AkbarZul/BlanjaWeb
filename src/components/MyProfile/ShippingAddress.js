@@ -25,7 +25,7 @@ export default function ShippingAddress() {
 
   useEffect(() => {
     getAddressUser(changeAddress);
-  }, [])
+  }, []);
 
   const getAddressUser = async () => {
     await axios
@@ -65,30 +65,47 @@ export default function ShippingAddress() {
 
             {/* FormContainer */}
             <div className={styles.addresscontainer}>
-              <div className={styles.addnewaddress}>
-                <h5
-                  className={styles.addtext}
-                  onClick={() => setShowChooseAddress(true)}
-                >
-                  Add new address
-                </h5>
-              </div>
-              {changeAddress &&
-                changeAddress.map((address) => {
-                  return (
-                    <div
-                      className={styles.listaddress}
-                      key={address.id_address}
+              {changeAddress.length === 0 ? (
+                <div className={styles.addnewaddress}>
+                  <h5
+                    className={styles.addtext}
+                    onClick={() => setShowChooseAddress(true)}
+                  >
+                    Add new address
+                  </h5>
+                </div>
+              ) : (
+                <>
+                  <div className={styles.addnewaddress}>
+                    <h5
+                      className={styles.addtext}
+                      onClick={() => setShowChooseAddress(true)}
                     >
-                      {/* <h5 className={styles.delete}>DELETE</h5> */}
-                      <h5 className={styles.listtitle}>{address.fullname}</h5>
-                      <p className={styles.detailaddres}>
-                        {`${address.address}, ${address.city}, Kota. ${address.city}, Prov. ${address.region}, ${address.zip_code}, ${address.country}`}
-                      </p>
-                      <h5 className={styles.changeaddress}>Change address</h5>
-                    </div>
-                  );
-                })}
+                      Add new address
+                    </h5>
+                  </div>
+                  {changeAddress &&
+                    changeAddress.map((address) => {
+                      return (
+                        <div
+                          className={styles.listaddress}
+                          key={address.id_address}
+                        >
+                          {/* <h5 className={styles.delete}>DELETE</h5> */}
+                          <h5 className={styles.listtitle}>
+                            {address.fullname}
+                          </h5>
+                          <p className={styles.detailaddres}>
+                            {`${address.address}, ${address.city}, Kota. ${address.city}, Prov. ${address.region}, ${address.zip_code}, ${address.country}`}
+                          </p>
+                          <h5 className={styles.changeaddress}>
+                            Change address
+                          </h5>
+                        </div>
+                      );
+                    })}
+                </>
+              )}
             </div>
             {/* </div> */}
           </Jumbotron>

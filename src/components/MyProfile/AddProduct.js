@@ -522,7 +522,7 @@ const AddProduct = () => {
                 className="btn-login-nav save"
                 onClick={(e) => handleSubmit(e)}
               >
-                Jual
+                Sell
               </button>
             </div>
           </Form>
