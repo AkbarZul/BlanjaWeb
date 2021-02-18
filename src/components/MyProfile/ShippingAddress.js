@@ -7,6 +7,7 @@ import { API } from "../../utility/Auth";
 import Sidebar from "../SidebarProfile/Sidebar";
 import { Jumbotron } from "react-bootstrap";
 import ModalChooseAddress from "../Modal/ModalAddress/ModalAddAddress";
+import Loader from "../Loader/Loader";
 import classname from "../../helpers/classJoiner";
 
 export default function ShippingAddress() {
@@ -16,14 +17,18 @@ export default function ShippingAddress() {
   const token = useSelector((state) => state.auth.data.token);
 
   useEffect(() => {
-    window.addEventListener("mousemove", () => {
-      getAddressUser(changeAddress);
-    });
-    const unsubscribe = window.removeEventListener("mousemove", () => {
+    // window.addEventListener("focus", () => {
+    //   getAddressUser(changeAddress);
+    // });
+    const unsubscribe = window.addEventListener("focus", () => {
       getAddressUser(changeAddress);
     });
     return unsubscribe;
   }, []);
+
+  useEffect(() => {
+    getAddressUser(changeAddress);
+  }, [])
 
   const getAddressUser = async () => {
     await axios
@@ -40,6 +45,10 @@ export default function ShippingAddress() {
         console.log(err);
       });
   };
+
+  if (!changeAddress.length) {
+    return <Loader />;
+  }
 
   return (
     <>
