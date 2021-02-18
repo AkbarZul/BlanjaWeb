@@ -16,14 +16,15 @@ export default function ShippingAddress() {
   const token = useSelector((state) => state.auth.data.token);
 
   useEffect(() => {
-    window.addEventListener("focus", () => {
-      getAddressUser(changeAddress);
-    });
-    const unsubscribe = window.removeEventListener("focus", () => {
+    const unsubscribe = window.addEventListener("pageshow", () => {
       getAddressUser(changeAddress);
     });
     return unsubscribe;
   }, []);
+
+  useEffect(() => {
+    getAddressUser(changeAddress);
+  }, [])
 
   const getAddressUser = async () => {
     await axios
@@ -77,7 +78,7 @@ export default function ShippingAddress() {
                       {/* <h5 className={styles.delete}>DELETE</h5> */}
                       <h5 className={styles.listtitle}>{address.fullname}</h5>
                       <p className={styles.detailaddres}>
-                        {`${address.address}, ${address.city}, Kota. ${address.city}, Prov. ${address.region}, ${address.zip_code}, [${address.country}]`}
+                        {`${address.address}, ${address.city}, Kota. ${address.city}, Prov. ${address.region}, ${address.zip_code}, ${address.country}`}
                       </p>
                       <h5 className={styles.changeaddress}>Change address</h5>
                     </div>

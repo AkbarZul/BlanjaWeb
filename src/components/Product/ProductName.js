@@ -27,9 +27,6 @@ const ProductName = (props) => {
 
   const [jumlah, setJumlah] = useState(1);
   const [sizes, setSizes] = useState(0);
-  console.log("SIZES", sizes);
-  console.log("ARRAY LENGTH", size.length);
-  console.log("ARRAY SIZE", size[sizes]);
   const [warna, setWarna] = useState("");
   console.log("color", warna);
   console.log("jumlah", jumlah);
@@ -104,7 +101,7 @@ const ProductName = (props) => {
             <Rating product_rating={rating} />
             <h3 className="tag-price mt-5">Price</h3>
             <p className="price">Rp. {price}</p>
-            <h3 className="color">Color</h3>
+            <h4>Color</h4>
             {color &&
               color.map(({ id, color_hexa, color_name }) => {
                 return (
@@ -114,11 +111,10 @@ const ProductName = (props) => {
                     style={{
                       width: "36px",
                       height: "36px",
-                      backgroundColor:
-                        color_name === warna ? color_hexa : "white",
-                      borderColor: color_hexa,
-                      borderRadius: "75%",
-                      borderWidth: "15px",
+                      backgroundColor: color_hexa,
+                      borderColor: color_name === warna ? color_hexa : "white",
+                      borderRadius: "100%",
+                      borderWidth: "3px",
                     }}
                     className="mr-3"
                   />

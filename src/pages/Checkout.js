@@ -21,10 +21,11 @@ import "../assets/style/checkout.css";
 toast.configure();
 const Checkout = (props) => {
   const [showChooseAddress, setShowChooseAddress] = useState(false);
+  const [showChooseAddres2, setShowChooseAddress2] = useState(false);
   const [showAddAddress, setShowAddAddress] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
   const [address, setAddress] = useState([]);
-  const [getFirstAddress, setGetFirstAddress] = useState([]);
+  const [isRender, setIsRender] = useState();
 
   const dispatch = useDispatch();
   const checkout = useSelector((state) => state.product.checkout);
@@ -39,6 +40,27 @@ const Checkout = (props) => {
   // const { getAddress } = props.location;
   // const { changeAddres } = props.location;
   console.log("CHECKOUT", checkout);
+
+  const {
+    Id_address,
+    Fullname,
+    Address,
+    City,
+    Region,
+    Zip_code,
+    Country,
+  } = props.location;
+
+  console.log(
+    "tes ilmu",
+    Id_address,
+    Fullname,
+    Address,
+    City,
+    Region,
+    Zip_code,
+    Country
+  );
 
   const transaction = () => {
     axios
@@ -55,7 +77,7 @@ const Checkout = (props) => {
       });
     dispatch(clearCart());
     dispatch(clearCheckout());
-    toast.success("Yeah! kamu berhasil belanja", {
+    toast.success("Success! Your order will be delivered soon. ", {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -67,48 +89,48 @@ const Checkout = (props) => {
     setShowPayment(false);
   };
 
+  console.log("tea dd", address);
+  
+
   const getAddressUser = async () => {
     await axios
-      .get(`${API}/address`, {
-        headers: {
-          "x-access-token": "Bearer " + token,
-        },
-      })
-      .then((res) => {
-        const addressNull = res.data.data;
-        const addressData = res.data.data[0];
+    .get(`${API}/address`, {
+      headers: {
+        "x-access-token": "Bearer " + token,
+      },
+    })
+    .then((res) => {
+      const addressNull = res.data.data;
+      const addressData = res.data.data[0];
 
-        if (address === null) {
-          setAddress(addressNull);
-        } else {
-          setAddress(addressData);
-          const id_address = res.data.data[0].id_address
-          const sendData = {
-            transaction_code: transaction_code,
-            seller_id: seller_id,
-            id_address: id_address,
-            item: item,
-          };
-          dispatch(addToCheckout({ sendData }));
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      if (address === null) {
+        setAddress(addressNull);
+      } else {
+        setAddress(addressData);
+        const id_address = res.data.data[0].id_address;
+        const sendData = {
+          transaction_code: transaction_code,
+          seller_id: seller_id,
+          id_address: id_address,
+          item: item,
+        };
+        dispatch(addToCheckout({ sendData }));
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   };
+
+  // if (showAddAddress === true) {
+  //   getAddressUser();
+  // }
 
   useEffect(() => {
     getAddressUser();
   }, []);
 
-  useEffect(() => {
-    const unsubscribe = window.addEventListener("focus", () => {
-      getAddressUser();
-    });
-    return unsubscribe;
-  }, [window]);
-
-  console.log("address", address);
+  // console.log("address", address);
 
   return (
     <div>
@@ -132,7 +154,10 @@ const Checkout = (props) => {
                     </p>
                     <button
                       className="btn-choose-address"
-                      onClick={() => setShowChooseAddress(true)}
+                      onClick={() => {
+                        setShowChooseAddress(true);
+                        getAddressUser(address);
+                      }}
                       style={{ display: "flex" }}
                     >
                       <p className="addres-btn">Choose another address</p>
@@ -145,6 +170,8 @@ const Checkout = (props) => {
                     className="col address"
                     // style={{ justifyContent: "center" }}
                   >
+                    <h3>Oopss, your address your address does not exist!</h3>
+                    <p>Please, add your address first!</p>
                     <button
                       className="btn-choose-address"
                       onClick={() => setShowAddAddress(true)}
@@ -176,7 +203,7 @@ const Checkout = (props) => {
                       <div className="col-2 img-chart">
                         <img
                           style={{ height: "70px" }}
-                          src={item.photo}
+                          src={API + item.photo}
                           alt=""
                         />
                       </div>
@@ -241,7 +268,11 @@ const Checkout = (props) => {
       <ModalChooseAddress
         show={showChooseAddress}
         onHide={() => setShowChooseAddress(false)}
-        showAddAddress={() => setShowAddAddress(true)}
+        showAddAddress={() => {
+          getAddressUser(address);
+          setShowAddAddress(true);
+        }}
+        // changeAddress={() => setShow(true)}
       />
       <ModalSelectPayment
         show={showPayment}
@@ -253,7 +284,11 @@ const Checkout = (props) => {
       />
       <ModalAddAddress
         show={showAddAddress}
-        onHide={() => setShowAddAddress(false)}
+        onHide={() => {
+          setShowAddAddress(false);
+          getAddressUser(address);
+          // setShowChooseAddress(false);
+        }}
       />
     </div>
   );

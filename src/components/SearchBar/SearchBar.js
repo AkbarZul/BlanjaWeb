@@ -16,6 +16,7 @@ const SearchBar = (props) => {
     } else {
       history.push({
         pathname: "/search",
+        search: `keyword=${searchKey}`,
         searchKey,
       });
     }
@@ -29,9 +30,6 @@ const SearchBar = (props) => {
         onKeyPress={(event) => {
           if (event.key === "Enter") {
             handleSearch(event);
-
-            //   search: "/search?keyword=",
-            //   searchkey,
           }
         }}
         onChange={(e) => setSearchKey(e.target.value)}
