@@ -24,6 +24,7 @@ const ProductName = (props) => {
     id,
     seller_id,
   } = props;
+
   const [jumlah, setJumlah] = useState(1);
   const [sizes, setSizes] = useState(0);
   const [warna, setWarna] = useState("");
