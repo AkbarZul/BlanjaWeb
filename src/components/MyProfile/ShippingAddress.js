@@ -16,10 +16,10 @@ export default function ShippingAddress() {
   const token = useSelector((state) => state.auth.data.token);
 
   useEffect(() => {
-    window.addEventListener("mousemove", () => {
+    window.addEventListener("focus", () => {
       getAddressUser(changeAddress);
     });
-    const unsubscribe = window.removeEventListener("mousemove", () => {
+    const unsubscribe = window.removeEventListener("focus", () => {
       getAddressUser(changeAddress);
     });
     return unsubscribe;

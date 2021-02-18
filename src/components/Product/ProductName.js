@@ -24,8 +24,12 @@ const ProductName = (props) => {
     id,
     seller_id,
   } = props;
+
   const [jumlah, setJumlah] = useState(1);
-  const [sizes, setSizes] = useState(size[0]);
+  const [sizes, setSizes] = useState(0);
+  console.log("SIZES", sizes);
+  console.log("ARRAY LENGTH", size.length);
+  console.log("ARRAY SIZE", size[sizes]);
   const [warna, setWarna] = useState("");
   console.log("color", warna);
   console.log("jumlah", jumlah);
@@ -34,11 +38,6 @@ const ProductName = (props) => {
   console.log("ID_SELLER", seller_id);
   console.log("ini props", props);
   console.log("ini addtocart", addToCart);
-
-  useEffect(() => {
-    setSizes();
-    setWarna();
-  }, []);
 
   const history = useHistory();
 
@@ -134,27 +133,20 @@ const ProductName = (props) => {
               <button
                 className="minus mr-2"
                 onClick={() => {
-                  if (sizes === size[0]) {
-                    setSizes(size[1]);
-                  } else if (sizes === size[1]) {
-                    setSizes(size[2]);
-                  } else {
-                    setSizes(size[0]);
-                  }
+                  if (sizes === 0) return;
+                  setSizes((sizes) => sizes - 1);
                 }}
               >
                 <p>-</p>
               </button>
-              <p className="number mt-2">{sizes}</p>
+              <p className="number mt-2">{size[sizes]}</p>
               <button
                 className="plus ml-2"
                 onClick={() => {
-                  if (sizes === size[0]) {
-                    setSizes(size[1]);
-                  } else if (sizes === size[1]) {
-                    setSizes(size[2]);
-                  } else {
-                    setSizes(size[0]);
+                  if (sizes === size.length - 1) {
+                    return;
+                  } else if (sizes < size.length) {
+                    setSizes((sizes) => sizes + 1);
                   }
                 }}
               >

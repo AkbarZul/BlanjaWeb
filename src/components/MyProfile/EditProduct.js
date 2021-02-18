@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Jumbotron, Form } from "react-bootstrap";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import Sidebar from "../SidebarProfile/Sidebar";
 import Navbar from "../Navbar";
 import formattext from "../../assets/image/formattext.png";
@@ -11,12 +12,11 @@ import styles from "./styling.module.css";
 import "./add.css";
 import "react-toastify/dist/ReactToastify.css";
 import { Bounce, toast } from "react-toastify";
-import { Redirect } from 'react-router-dom';
+import { Redirect } from "react-router-dom";
 import { API } from "../../utility/Auth";
 
 toast.configure();
 const EditProduct = (props) => {
-  const [addP, setAddP] = useState(false)
   const {
     id,
     product_name,
@@ -29,6 +29,8 @@ const EditProduct = (props) => {
     colors,
   } = props.location;
 
+  console.log("ID", id);
+
   useEffect(() => {
     getCategory();
     getSize();
@@ -36,6 +38,8 @@ const EditProduct = (props) => {
     getCondition();
     getStatus();
   }, []);
+
+  const history = useHistory();
 
   const addOrRemoveSelected = (id) => {
     const result = size.find((s) => s.id === id);
@@ -75,10 +79,10 @@ const EditProduct = (props) => {
     return temp;
   };
 
-  const photo = JSON.parse(product_photo);
-  console.log("edit", photo);
-  const [filePath, setFilePath] = useState(photo);
-  console.log("FILEPATH", filePath);
+  // const photo = product_photo.split(",");
+  // console.log("edit", photo);
+  const [filePath, setFilePath] = useState([]);
+  // console.log("FILEPATH", filePath);
   const [prodName, setProdName] = useState(product_name);
   const [categories, setCategories] = useState([]);
   const [size, setSize] = useState([]);
@@ -225,7 +229,9 @@ const EditProduct = (props) => {
     data.append("product_price", prodPrice);
     data.append("product_qty", prodQty);
     data.append("product_desc", prodDesc);
-
+    for (let i = 0; i < filePath.length; i++) {
+      data.append("image", filePath[i]);
+    }
     data.append("status_product_id", sts);
 
     await axios
@@ -245,17 +251,13 @@ const EditProduct = (props) => {
           draggable: true,
           transition: Bounce,
         });
-        setAddP(true)
+        history.push("/profile");
         console.log("ini berhasil update", res);
       })
       .catch((err) => {
         console.log("bisa error", err.response);
       });
   };
-
-  if(addP === true) {
-    return <Redirect to="/myproduct" />
-  }
 
   return (
     <>
@@ -467,9 +469,9 @@ const EditProduct = (props) => {
                         <img
                           className={styles.mainImg}
                           src={
-                            filePath[0] !== photo[0]
+                            filePath[0]
                               ? URL.createObjectURL(filePath[0])
-                              : API + photo[0]
+                              : main
                           }
                           alt=""
                         />
@@ -480,9 +482,9 @@ const EditProduct = (props) => {
                       <img
                         className={styles.secondaryImg}
                         src={
-                          filePath[1] !== photo[1]
+                          filePath[1]
                             ? URL.createObjectURL(filePath[1])
-                            : API + photo[1]
+                            : secondary
                         }
                         alt=""
                       />
@@ -491,9 +493,9 @@ const EditProduct = (props) => {
                       <img
                         className={styles.secondaryImg}
                         src={
-                          filePath[2] !== photo[2]
+                          filePath[2]
                             ? URL.createObjectURL(filePath[2])
-                            : API + photo[2]
+                            : secondary
                         }
                         alt=""
                       />
@@ -502,9 +504,9 @@ const EditProduct = (props) => {
                       <img
                         className={styles.secondaryImg}
                         src={
-                          filePath[3] !== photo[3]
+                          filePath[3]
                             ? URL.createObjectURL(filePath[3])
-                            : API + photo[3]
+                            : secondary
                         }
                         alt=""
                       />
@@ -513,9 +515,9 @@ const EditProduct = (props) => {
                       <img
                         className={styles.secondaryImg}
                         src={
-                          filePath[4] !== photo[4]
+                          filePath[4]
                             ? URL.createObjectURL(filePath[4])
-                            : API + photo[4]
+                            : secondary
                         }
                         alt=""
                       />
@@ -556,10 +558,7 @@ const EditProduct = (props) => {
             <div className="container-btn d-flex justify-content-end mb-5">
               <button
                 className="btn-login-nav save"
-                onClick={(e) => {
-                  handleSubmit(e);
-                  handleSubmitPhoto(e);
-                }}
+                onClick={(e) => handleSubmit(e)}
               >
                 Save
               </button>
