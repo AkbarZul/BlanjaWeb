@@ -38,7 +38,8 @@
 }
 
 .container-address-list {
+  margin-top: 10px;
   border: 1px solid #db3022;
   border-radius: 8px;
-  padding: 3rem;
+  padding: 2rem;
 }

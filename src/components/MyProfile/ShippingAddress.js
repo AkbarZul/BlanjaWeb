@@ -16,7 +16,7 @@ export default function ShippingAddress() {
   const token = useSelector((state) => state.auth.data.token);
 
   useEffect(() => {
-    const unsubscribe = window.addEventListener("focus", () => {
+    const unsubscribe = window.addEventListener("pageshow", () => {
       getAddressUser(changeAddress);
     });
     return unsubscribe;

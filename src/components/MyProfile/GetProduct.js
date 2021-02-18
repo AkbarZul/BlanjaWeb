@@ -54,7 +54,7 @@ const GetProduct = (props) => {
         },
       })
       .then((res) => {
-        toast.success("Berhasil delete product", {
+        toast.success("Product deleted successfull!", {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -166,7 +166,7 @@ const GetProduct = (props) => {
                                 colors,
                               }}
                             >
-                              <button className="editProd">
+                              <button className="editProd" style={{}}>
                                 <div className="btn-login-nav ">Edit</div>
                               </button>
                             </Link>
