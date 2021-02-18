@@ -50,7 +50,7 @@ const Category = () => {
                       <Link
                         to={{
                           pathname: `/category/${id_categories}`,
-                          // search: "keyword=created_at DESC",
+                          search: `keyword=${category_name}`,
                           category,
                         }}
                         style={{ textDecoration: "none" }}

@@ -59,7 +59,7 @@ const ProductName = (props) => {
     return item.id === id;
   });
 
-  console.log("INDEX", index);
+  console.log("INDEX", size[sizes]);
 
   return (
     <div>
@@ -138,10 +138,10 @@ const ProductName = (props) => {
               <button
                 className="plus ml-2"
                 onClick={() => {
-                  if (sizes < size.length) {
+                  if (sizes === size.length - 1) {
+                    return;
+                  } else if (sizes < size.length) {
                     setSizes((sizes) => sizes + 1);
-                  } else if (sizes > size.length) {
-                    setSizes(size);
                   }
                 }}
               >

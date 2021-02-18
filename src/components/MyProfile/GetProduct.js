@@ -73,6 +73,10 @@ const GetProduct = (props) => {
   };
 
   useEffect(() => {
+    getProducts(products);
+  }, [])
+
+  useEffect(() => {
     setTimeout(() => setSpinner(false),2000);
     getProducts();
   }, []);
@@ -85,6 +89,7 @@ const GetProduct = (props) => {
   // }, [window]);
 
   if (spinner === true) {
+    getProducts(products);
     return <Loader />;
   }
 
