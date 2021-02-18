@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import { useHistory } from "react-router-dom";
 import Loader from "../assets/image/loader.gif";
 import ModalChooseAddress from "../components/Modal/ModalAddress/ModalChooseAddress";
 import ModalSelectPayment from "../components/Modal/ModalAddress/ModalSelectPayment";
@@ -62,6 +63,8 @@ const Checkout = (props) => {
     Country
   );
 
+  const history = useHistory();
+
   const transaction = () => {
     axios
       .post(`${API}/orders`, checkout, {
@@ -71,13 +74,14 @@ const Checkout = (props) => {
       })
       .then((res) => {
         console.log("success", res);
+        history.push("/");
       })
       .catch((err) => {
         console.log("ERROR", err.response);
       });
     dispatch(clearCart());
     dispatch(clearCheckout());
-    toast.success("Success! Your order will be delivered soon. ", {
+    toast.success("Success! your order will be processed. ", {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -170,8 +174,8 @@ const Checkout = (props) => {
                     className="col address"
                     // style={{ justifyContent: "center" }}
                   >
-                    <h3>Oopss, your address your address does not exist!</h3>
-                    <p>Please, add your address first!</p>
+                    <h3>you haven't entered the address yet</h3>
+                    <p>add your address first!</p>
                     <button
                       className="btn-choose-address"
                       onClick={() => setShowAddAddress(true)}

@@ -79,9 +79,9 @@ const EditProduct = (props) => {
     return temp;
   };
 
-  // const photo = product_photo.split(",");
+  const photo = JSON.parse(product_photo);
   // console.log("edit", photo);
-  const [filePath, setFilePath] = useState([]);
+  const [filePath, setFilePath] = useState(photo);
   // console.log("FILEPATH", filePath);
   const [prodName, setProdName] = useState(product_name);
   const [categories, setCategories] = useState([]);
@@ -251,7 +251,7 @@ const EditProduct = (props) => {
           draggable: true,
           transition: Bounce,
         });
-        history.push("/profile");
+        history.push("/myproduct");
         console.log("ini berhasil update", res);
       })
       .catch((err) => {
@@ -469,9 +469,9 @@ const EditProduct = (props) => {
                         <img
                           className={styles.mainImg}
                           src={
-                            filePath[0]
+                            filePath[0] !== photo[0]
                               ? URL.createObjectURL(filePath[0])
-                              : main
+                              : API + photo[0]
                           }
                           alt=""
                         />
@@ -482,9 +482,9 @@ const EditProduct = (props) => {
                       <img
                         className={styles.secondaryImg}
                         src={
-                          filePath[1]
+                          filePath[1] !== photo[1]
                             ? URL.createObjectURL(filePath[1])
-                            : secondary
+                            : API + photo[1]
                         }
                         alt=""
                       />
@@ -493,9 +493,9 @@ const EditProduct = (props) => {
                       <img
                         className={styles.secondaryImg}
                         src={
-                          filePath[2]
+                          filePath[2] !== photo[2]
                             ? URL.createObjectURL(filePath[2])
-                            : secondary
+                            : API + photo[2]
                         }
                         alt=""
                       />
@@ -504,9 +504,9 @@ const EditProduct = (props) => {
                       <img
                         className={styles.secondaryImg}
                         src={
-                          filePath[3]
+                          filePath[3] !== photo[3]
                             ? URL.createObjectURL(filePath[3])
-                            : secondary
+                            : API + photo[3]
                         }
                         alt=""
                       />
@@ -515,9 +515,9 @@ const EditProduct = (props) => {
                       <img
                         className={styles.secondaryImg}
                         src={
-                          filePath[4]
+                          filePath[4] !== photo[4]
                             ? URL.createObjectURL(filePath[4])
-                            : secondary
+                            : API + photo[4]
                         }
                         alt=""
                       />
@@ -558,7 +558,10 @@ const EditProduct = (props) => {
             <div className="container-btn d-flex justify-content-end mb-5">
               <button
                 className="btn-login-nav save"
-                onClick={(e) => handleSubmit(e)}
+                onClick={(e) => {
+                  handleSubmit(e);
+                  handleSubmitPhoto(e);
+                }}
               >
                 Save
               </button>
