@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 import styles from "./modal.module.css";
 import { API } from "../../../utility/Auth";
@@ -15,6 +15,8 @@ export default function ModalAddAddress(props) {
     zip_code: "",
     country: "",
   });
+  const [address, setAddresss] = useState(false);
+
 
   const history = useHistory();
   const token = useSelector((state) => state.auth.data.token);
@@ -47,6 +49,7 @@ export default function ModalAddAddress(props) {
       .then((res) => {
         if (res.data.status === 200) {
           props.onHide();
+          // setAddresss(true);
         } else if (res.data.status === 500) {
           props.onHide();
         }
@@ -56,6 +59,10 @@ export default function ModalAddAddress(props) {
         console.log(err);
       });
   };
+
+  // if (address === true) {
+  //   return <Redirect to="/checkout"/>
+  // }
   return (
     <Modal
       {...props}

@@ -10,10 +10,21 @@ import { API } from "../../../utility/Auth";
 import axios from "axios";
 
 const ModalChooseAddress = (props) => {
-  const [changeAddress, setChangeAddress] = useState([]);
-  const [idAddress, setIdAddress] = useState([]);
+  const [address, setAddress] = useState([]);
+  const [showChooseAddress, setShowChooseAddress] = useState(false);
 
   const token = useSelector((state) => state.auth.data.token);
+
+  useEffect(() => {
+    const unsubscribe = window.addEventListener("focusin", () => {
+      getAddressUser(address);
+    });
+    return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    getAddressUser(address);
+  }, [])
 
   const getAddressUser = async () => {
     await axios
@@ -24,21 +35,28 @@ const ModalChooseAddress = (props) => {
       })
       .then((res) => {
         const address = res.data.data;
-        setChangeAddress(address);
+        setAddress(address);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  useEffect(() => {
-    getAddressUser();
-  }, []);
+  // if (showChooseAddress === false) {
+  //   getAddressUser();
+  // }
+
+  // useEffect(() => {
+  //   getAddressUser();
+  // }, []);
 
   return (
     <Modal
       {...props}
       size="lg"
+      // show={props.show}
+      // changeAddress={props.changeAddress}
+      // onHide={props.onHide}
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
@@ -57,8 +75,8 @@ const ModalChooseAddress = (props) => {
               Add new address
             </h4>
           </div>
-          {changeAddress &&
-            changeAddress.map(
+          {address &&
+            address.map(
               ({
                 id_address,
                 fullname,
@@ -73,12 +91,14 @@ const ModalChooseAddress = (props) => {
                     <p className={classname(text.text, "text-title")}>
                       {fullname}
                     </p>
-                    <p className="text-addres mb-4">{`${address}, ${city}, Kota. ${city}, Prov. ${region}, ${zip_code}, [${country}]`}</p>
+                    <p className="text-addres mb-4">{`${address}, ${city}, Kota. ${city}, Prov. ${region}, ${zip_code}, ${country}`}</p>
                     {/* <Link to={{
                       pathname: `/checkout/${id_address}`,
                       changeAddress
                     }}> */}
-                    <h5 style={{ color: "#db3022", cursor: 'pointer' }}>Change address</h5>
+                    <h5 style={{ color: "#db3022", cursor: "pointer" }}>
+                      Change address
+                    </h5>
                     {/* </Link> */}
                   </div>
                 );

@@ -236,7 +236,7 @@ const EditProduct = (props) => {
         },
       })
       .then((res) => {
-        toast.success("Yeah! Berhasil update product", {
+        toast.success("Product updated successfull!", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
