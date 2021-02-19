@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Jumbotron, Form } from "react-bootstrap";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import Sidebar from "../SidebarProfile/Sidebar";
 import Navbar from "../Navbar";
 import formattext from "../../assets/image/formattext.png";
@@ -11,12 +12,11 @@ import styles from "./styling.module.css";
 import "./add.css";
 import "react-toastify/dist/ReactToastify.css";
 import { Bounce, toast } from "react-toastify";
-import { Redirect } from 'react-router-dom';
+import { Redirect } from "react-router-dom";
 import { API } from "../../utility/Auth";
 
 toast.configure();
 const EditProduct = (props) => {
-  const [addP, setAddP] = useState(false)
   const {
     id,
     product_name,
@@ -29,6 +29,8 @@ const EditProduct = (props) => {
     colors,
   } = props.location;
 
+  console.log("ID", id);
+
   useEffect(() => {
     getCategory();
     getSize();
@@ -36,6 +38,8 @@ const EditProduct = (props) => {
     getCondition();
     getStatus();
   }, []);
+
+  const history = useHistory();
 
   const addOrRemoveSelected = (id) => {
     const result = size.find((s) => s.id === id);
@@ -76,9 +80,9 @@ const EditProduct = (props) => {
   };
 
   const photo = JSON.parse(product_photo);
-  console.log("edit", photo);
+  // console.log("edit", photo);
   const [filePath, setFilePath] = useState(photo);
-  console.log("FILEPATH", filePath);
+  // console.log("FILEPATH", filePath);
   const [prodName, setProdName] = useState(product_name);
   const [categories, setCategories] = useState([]);
   const [size, setSize] = useState([]);
@@ -225,7 +229,9 @@ const EditProduct = (props) => {
     data.append("product_price", prodPrice);
     data.append("product_qty", prodQty);
     data.append("product_desc", prodDesc);
-
+    for (let i = 0; i < filePath.length; i++) {
+      data.append("image", filePath[i]);
+    }
     data.append("status_product_id", sts);
 
     await axios
@@ -236,7 +242,7 @@ const EditProduct = (props) => {
         },
       })
       .then((res) => {
-        toast.success("Yeah! Berhasil update product", {
+        toast.success("Product updated successfull!", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -245,17 +251,13 @@ const EditProduct = (props) => {
           draggable: true,
           transition: Bounce,
         });
-        setAddP(true)
+        history.push("/myproduct");
         console.log("ini berhasil update", res);
       })
       .catch((err) => {
         console.log("bisa error", err.response);
       });
   };
-
-  if(addP === true) {
-    return <Redirect to="/myproduct" />
-  }
 
   return (
     <>
@@ -504,7 +506,7 @@ const EditProduct = (props) => {
                         src={
                           filePath[3] !== photo[3]
                             ? URL.createObjectURL(filePath[3])
-                            : photo[3]
+                            : API + photo[3]
                         }
                         alt=""
                       />
@@ -515,7 +517,7 @@ const EditProduct = (props) => {
                         src={
                           filePath[4] !== photo[4]
                             ? URL.createObjectURL(filePath[4])
-                            : photo[4]
+                            : API + photo[4]
                         }
                         alt=""
                       />

@@ -8,22 +8,24 @@ import axios from "axios";
 import Sidebar from "../SidebarProfile/Sidebar";
 import Navbar from "../Navbar";
 import { Bounce, toast } from "react-toastify";
+import Loader from "../LoaderTwo/Loader";
 import { Redirect } from 'react-router-dom';
 const getUrl = process.env.REACT_APP_URL;
 
 toast.configure();
 const GetProduct = (props) => {
   const [addP, setAddP] = useState(false)
-  console.log("anjim props", props);
   const [products, setProducts] = useState([]);
+  const [spinner, setSpinner] = useState(true);
   const [show, setShow] = useState(false);
   const history = useHistory();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   const token = useSelector((state) => state.auth.data.token);
-  const getProducts = () => {
-    axios
+  const getProducts = async () => {
+    await axios
       .get(`${getUrl}/products/user?keyword=created_at DESC`, {
         headers: {
           "x-access-token": "Bearer " + token,
@@ -45,7 +47,6 @@ const GetProduct = (props) => {
   // const {id} = props.location.products
 
   const handleDelete = (id) => {
-    // id.preventDefault();
     axios
       .delete(getUrl + `/products/${id}`, {
         headers: {
@@ -53,9 +54,9 @@ const GetProduct = (props) => {
         },
       })
       .then((res) => {
-        toast.success("Berhasil delete product", {
+        toast.success("Product deleted successfull!", {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -63,8 +64,8 @@ const GetProduct = (props) => {
           transition: Bounce,
         });
         // setAddP(true)
-        getProducts();
         console.log("berhasil delete", res);
+        getProducts();
       })
       .catch((err) => {
         console.log("error disokin", err.response);
@@ -73,13 +74,17 @@ const GetProduct = (props) => {
 
   useEffect(() => {
     getProducts(products);
+  }, [])
+
+  useEffect(() => {
+    setTimeout(() => setSpinner(false),2000);
+    getProducts();
   }, []);
-  // useEffect(() => {
-  //   const unsubscribe = window.addEventListener("focus", () => {
-  //     getProducts();
-  //   });
-  //   return unsubscribe;
-  // }, [window]);
+
+  if (spinner === true) {
+    getProducts(products);
+    return <Loader />;
+  }
 
   if (addP === true) {
     return <Redirect to="/profile" />
@@ -159,7 +164,7 @@ const GetProduct = (props) => {
                                 colors,
                               }}
                             >
-                              <button className="editProd">
+                              <button className="editProd" style={{}}>
                                 <div className="btn-login-nav ">Edit</div>
                               </button>
                             </Link>

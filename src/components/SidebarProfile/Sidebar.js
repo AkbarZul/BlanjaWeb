@@ -232,7 +232,7 @@ const Sidebar = () => {
         <div className="container-btn d-flex justify-content-center mb-5">
           <Link to="/change">
             <button
-              className="btn-login-nav save"
+              className="btn-primary"
               style={{ width: "170px" }}
               // onClick={(e) => handleSubmit(e)}
             >

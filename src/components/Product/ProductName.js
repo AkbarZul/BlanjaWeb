@@ -7,7 +7,7 @@ import "../../assets/style/product.css";
 import Rating from "../Rating/Rating";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "../../redux/actions/product";
-const getUrl = process.env.REACT_APP_URL;
+import { API } from "../../utility/Auth";
 
 const ProductName = (props) => {
   const {
@@ -24,21 +24,17 @@ const ProductName = (props) => {
     id,
     seller_id,
   } = props;
+
   const [jumlah, setJumlah] = useState(1);
-  const [sizes, setSizes] = useState(size[0]);
+  const [sizes, setSizes] = useState(0);
   const [warna, setWarna] = useState("");
   console.log("color", warna);
   console.log("jumlah", jumlah);
   console.log("sizes", sizes);
   console.log("ID", id);
   console.log("ID_SELLER", seller_id);
-  console.log("ini props", props)
-  console.log("ini addtocart", addToCart)
-
-  useEffect(() => {
-    setSizes();
-    setWarna();
-  }, []);
+  console.log("ini props", props);
+  console.log("ini addtocart", addToCart);
 
   const history = useHistory();
 
@@ -64,7 +60,7 @@ const ProductName = (props) => {
     return item.id === id;
   });
 
-  console.log("INDEX", index);
+  console.log("INDEX", size[sizes]);
 
   return (
     <div>
@@ -72,23 +68,28 @@ const ProductName = (props) => {
       <div className="container">
         <div className="row">
           <div className="col-12 col-md-5 col-lg-5">
-            <img className="img-fluid rounded" src={getUrl + photo[0]} style={{height: '25rem'}} alt="" />
+            <img
+              className="img-fluid rounded"
+              src={API + photo[0]}
+              style={{ height: "25rem" }}
+              alt=""
+            />
             <div className="d-flex">
               <img
                 className="img-fluid rounded mt-2"
-                src={getUrl + photo[0]}
+                src={API + photo[0]}
                 alt="img"
                 style={{ width: "20%", margin: "1px" }}
               />
               <img
                 className="img-fluid rounded mt-2"
-                src={getUrl + photo[1]}
+                src={API + photo[1]}
                 alt="img"
                 style={{ width: "20%", margin: "1px" }}
               />
               <img
                 className="img-fluid rounded mt-2"
-                src={getUrl + photo[2]}
+                src={API + photo[2]}
                 alt="img"
                 style={{ width: "20%", margin: "1px" }}
               />
@@ -100,7 +101,7 @@ const ProductName = (props) => {
             <Rating product_rating={rating} />
             <h3 className="tag-price mt-5">Price</h3>
             <p className="price">Rp. {price}</p>
-            <h3 className="color">Color</h3>
+            <h4>Color</h4>
             {color &&
               color.map(({ id, color_hexa, color_name }) => {
                 return (
@@ -110,11 +111,10 @@ const ProductName = (props) => {
                     style={{
                       width: "36px",
                       height: "36px",
-                      backgroundColor:
-                        color_name === warna ? color_hexa : "white",
-                      borderColor: color_hexa,
-                      borderRadius: "75%",
-                      borderWidth: "15px",
+                      backgroundColor: color_hexa,
+                      // borderColor: color_name === warna ? color_hexa : "white",
+                      borderRadius: "100%",
+                      // borderWidth: "5px",
                     }}
                     className="mr-3"
                   />
@@ -129,27 +129,20 @@ const ProductName = (props) => {
               <button
                 className="minus mr-2"
                 onClick={() => {
-                  if (sizes === size[0]) {
-                    setSizes(size[1]);
-                  } else if (sizes === size[1]) {
-                    setSizes(size[2]);
-                  } else {
-                    setSizes(size[0]);
-                  }
+                  if (sizes === 0) return;
+                  setSizes((sizes) => sizes - 1);
                 }}
               >
                 <p>-</p>
               </button>
-              <p className="number mt-2">{sizes}</p>
+              <p className="number mt-2">{size[sizes]}</p>
               <button
                 className="plus ml-2"
                 onClick={() => {
-                  if (sizes === size[0]) {
-                    setSizes(size[1]);
-                  } else if (sizes === size[1]) {
-                    setSizes(size[2]);
-                  } else {
-                    setSizes(size[0]);
+                  if (sizes === size.length - 1) {
+                    return;
+                  } else if (sizes < size.length) {
+                    setSizes((sizes) => sizes + 1);
                   }
                 }}
               >
@@ -189,20 +182,36 @@ const ProductName = (props) => {
                 {index >= 0 ? (
                   <button
                     className="rounded-pill"
-                    style={{ backgroundColor: "#222222", color: "white", fontSize: "10px", width: "100%", height: "48px", paddingLeft: "5px", paddingRight: "5px" }}
+                    style={{
+                      backgroundColor: "#222222",
+                      color: "white",
+                      fontSize: "10px",
+                      width: "100%",
+                      height: "48px",
+                      paddingLeft: "5px",
+                      paddingRight: "5px",
+                    }}
                   >
                     Item already in bag
                   </button>
                 ) : (
                   <button
                     className="rounded-pill"
-                    style={{ backgroundColor: 'white', color: "Black", fontSize: "15px", width: "100%", height: "48px", paddingLeft: "5px", paddingRight: "5px" }}
+                    style={{
+                      backgroundColor: "white",
+                      color: "Black",
+                      fontSize: "15px",
+                      width: "100%",
+                      height: "48px",
+                      paddingLeft: "5px",
+                      paddingRight: "5px",
+                    }}
                     onClick={() => {
                       dispatch(
                         addToCart({
                           brand: brand,
                           id: id,
-                          photo: getUrl + photo[0],
+                          photo: photo[0],
                           name: name,
                           price: Number(price),
                           qty: jumlah,

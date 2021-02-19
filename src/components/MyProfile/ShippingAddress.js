@@ -7,6 +7,7 @@ import { API } from "../../utility/Auth";
 import Sidebar from "../SidebarProfile/Sidebar";
 import { Jumbotron } from "react-bootstrap";
 import ModalChooseAddress from "../Modal/ModalAddress/ModalAddAddress";
+import Loader from "../Loader/Loader";
 import classname from "../../helpers/classJoiner";
 
 export default function ShippingAddress() {
@@ -16,13 +17,14 @@ export default function ShippingAddress() {
   const token = useSelector((state) => state.auth.data.token);
 
   useEffect(() => {
-    window.addEventListener("mousemove", () => {
-      getAddressUser(changeAddress);
-    });
-    const unsubscribe = window.removeEventListener("mousemove", () => {
+    const unsubscribe = window.addEventListener("pageshow", () => {
       getAddressUser(changeAddress);
     });
     return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    getAddressUser(changeAddress);
   }, []);
 
   const getAddressUser = async () => {
@@ -40,6 +42,10 @@ export default function ShippingAddress() {
         console.log(err);
       });
   };
+
+  if (!changeAddress.length) {
+    return <Loader />;
+  }
 
   return (
     <>
@@ -59,30 +65,47 @@ export default function ShippingAddress() {
 
             {/* FormContainer */}
             <div className={styles.addresscontainer}>
-              <div className={styles.addnewaddress}>
-                <h5
-                  className={styles.addtext}
-                  onClick={() => setShowChooseAddress(true)}
-                >
-                  Add new address
-                </h5>
-              </div>
-              {changeAddress &&
-                changeAddress.map((address) => {
-                  return (
-                    <div
-                      className={styles.listaddress}
-                      key={address.id_address}
+              {changeAddress.length === 0 ? (
+                <div className={styles.addnewaddress}>
+                  <h5
+                    className={styles.addtext}
+                    onClick={() => setShowChooseAddress(true)}
+                  >
+                    Add new address
+                  </h5>
+                </div>
+              ) : (
+                <>
+                  <div className={styles.addnewaddress}>
+                    <h5
+                      className={styles.addtext}
+                      onClick={() => setShowChooseAddress(true)}
                     >
-                      {/* <h5 className={styles.delete}>DELETE</h5> */}
-                      <h5 className={styles.listtitle}>{address.fullname}</h5>
-                      <p className={styles.detailaddres}>
-                        {`${address.address}, ${address.city}, Kota. ${address.city}, Prov. ${address.region}, ${address.zip_code}, [${address.country}]`}
-                      </p>
-                      <h5 className={styles.changeaddress}>Change address</h5>
-                    </div>
-                  );
-                })}
+                      Add new address
+                    </h5>
+                  </div>
+                  {changeAddress &&
+                    changeAddress.map((address) => {
+                      return (
+                        <div
+                          className={styles.listaddress}
+                          key={address.id_address}
+                        >
+                          {/* <h5 className={styles.delete}>DELETE</h5> */}
+                          <h5 className={styles.listtitle}>
+                            {address.fullname}
+                          </h5>
+                          <p className={styles.detailaddres}>
+                            {`${address.address}, ${address.city}, Kota. ${address.city}, Prov. ${address.region}, ${address.zip_code}, ${address.country}`}
+                          </p>
+                          <h5 className={styles.changeaddress}>
+                            Change address
+                          </h5>
+                        </div>
+                      );
+                    })}
+                </>
+              )}
             </div>
             {/* </div> */}
           </Jumbotron>

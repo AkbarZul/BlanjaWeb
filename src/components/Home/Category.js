@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { TShirt, Shorts, Jacket, Pants, Shoes } from "../../assets/style";
+// import { TShirt, Shorts, Jacket, Pants, Shoes } from "../../assets/style";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Loader from "../Loader/Loader";
 // import '../../assets/style/category.css'
 
 const Category = () => {
@@ -23,6 +24,10 @@ const Category = () => {
   useEffect(() => {
     getAllCategory();
   }, []);
+
+  if (!category.length) {
+    return <Loader />;
+  }
   return (
     <div>
       <div className="container">
@@ -50,7 +55,7 @@ const Category = () => {
                       <Link
                         to={{
                           pathname: `/category/${id_categories}`,
-                          // search: "keyword=created_at DESC",
+                          search: `keyword=${category_name}`,
                           category,
                         }}
                         style={{ textDecoration: "none" }}

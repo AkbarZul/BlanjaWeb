@@ -160,7 +160,7 @@ const Mybag2 = () => {
                           <div className="img-chart">
                             <img
                               style={{ height: "70px" }}
-                              src={item.photo}
+                              src={API + item.photo}
                               alt=""
                             />
                           </div>
