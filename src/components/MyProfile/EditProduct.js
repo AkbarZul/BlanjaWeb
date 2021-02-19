@@ -469,7 +469,7 @@ const EditProduct = (props) => {
                           src={
                             filePath[0] !== photo[0]
                               ? URL.createObjectURL(filePath[0])
-                              : photo[0]
+                              : API + photo[0]
                           }
                           alt=""
                         />
@@ -482,7 +482,7 @@ const EditProduct = (props) => {
                         src={
                           filePath[1] !== photo[1]
                             ? URL.createObjectURL(filePath[1])
-                            : photo[1]
+                            : API + photo[1]
                         }
                         alt=""
                       />
@@ -493,12 +493,12 @@ const EditProduct = (props) => {
                         src={
                           filePath[2] !== photo[2]
                             ? URL.createObjectURL(filePath[2])
-                            : photo[2]
+                            : API + photo[2]
                         }
                         alt=""
                       />
                     </div>
-                    <div className={styles.secondary_img}>
+                    {/* <div className={styles.secondary_img}>
                       <img
                         className={styles.secondaryImg}
                         src={
@@ -519,7 +519,7 @@ const EditProduct = (props) => {
                         }
                         alt=""
                       />
-                    </div>
+                    </div> */}
                   </div>
                   <div className={styles.edit_img}>
                     <button onClick={handleFile} className={styles.btnupload}>

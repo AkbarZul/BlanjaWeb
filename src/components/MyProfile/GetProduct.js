@@ -62,7 +62,8 @@ const GetProduct = (props) => {
           draggable: true,
           transition: Bounce,
         });
-        setAddP(true)
+        // setAddP(true)
+        getProducts();
         console.log("berhasil delete", res);
       })
       .catch((err) => {
@@ -71,8 +72,14 @@ const GetProduct = (props) => {
   };
 
   useEffect(() => {
-    getProducts();
+    getProducts(products);
   }, []);
+  // useEffect(() => {
+  //   const unsubscribe = window.addEventListener("focus", () => {
+  //     getProducts();
+  //   });
+  //   return unsubscribe;
+  // }, [window]);
 
   if (addP === true) {
     return <Redirect to="/profile" />
